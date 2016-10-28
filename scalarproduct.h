@@ -7,7 +7,7 @@ class ScalarProduct
 {
 public:
     ScalarProduct();
-    virtual vector<float> scalarproduct(vector<float> const &V0, vector<float> const &V1);
+    float scalarproduct(float V0[3], float V1[3]);
 
 };
 

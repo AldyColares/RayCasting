@@ -5,9 +5,9 @@ ScalarProduct::ScalarProduct()
 
 }
 
-vector<float> ScalarProduct::scalarproduct(const vector<float> &V0, const vector<float> &V1)
+float ScalarProduct::scalarproduct(float V0[3], float V1[3])
 {
-    vector<float> result (V0.size());
-        result = V0(0) * V1(0) + V0(1) * V1(1) + V0(1) * V1(1);
+        float result;
+        result = V0[0] * V1[0] + V0[1] * V1[1] + V0[2] * V1[2];
         return result;
 }

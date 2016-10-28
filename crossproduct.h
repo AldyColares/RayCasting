@@ -8,12 +8,13 @@ class CrossProduct
 {
 public:
     CrossProduct();
-    virtual vector<float> crossProduct(vector<float> const &V0, vector<float> const &V1);
-    virtual ~CrossProduct()
+    float* crossProduct(float V0[3], float V1[3]);
+    float* unitVector(float V0[3]);
+    ~CrossProduct()
     {
-    }
 
     }
+
 };
 
 #endif // CROSSPRODUCT_H
