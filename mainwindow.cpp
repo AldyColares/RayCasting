@@ -5,6 +5,9 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    LoadMaterial loca;
+    ScenarioObject scenarioObject = loca.loadObject();
+
 
     ui->setupUi(this);
     int sizeX = 500;

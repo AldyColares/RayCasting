@@ -5,12 +5,13 @@
 #include <string>
 #include <stdlib.h>
 #include <fstream>
-#include "scenarioobject.h"
+#include <sstream>
+#include "scenarioObject.h"
 #include "crossproduct.h"
 #include "dot.h"
 #include "generatevetor.h"
 #include "face3d.h"
-#include "scenarioobject.h"
+#include "scenarioObject.h"
 
 
 class LoadMaterial
@@ -21,8 +22,8 @@ public:
      void testOnjectt(ScenarioObject scenarioObject);
 
 private:
-     ScenarioObject insertVectorFaces(std::ifstream infile);
-     point3D calculatingNormal(point3D vectorsFace[]);
+     ScenarioObject insertVectorFaces(std::ifstream& infile);
+     point3D calculatingNormal(face3D vectorsFace);
      const int v1 = 0;
      const int v2 = 1;
      const int v3 = 2;

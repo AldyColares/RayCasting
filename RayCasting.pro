@@ -25,10 +25,10 @@ HEADERS  += mainwindow.h \
     crossproduct.h \
     scalarproduct.h \
     coordinatetransformation.h \
-    scenarioobject.h \
     dot.h \
     face3d.h \
     point3d.h \
-    generatevetor.h
+    generatevetor.h \
+    scenarioObject.h
 
 FORMS    += mainwindow.ui

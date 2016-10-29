@@ -11,7 +11,7 @@ class ScenarioObject
 public:
     ScenarioObject();
 
-   void setFaceObjIn3D(point3D point3D, int position);
+   void setFaceObjIn3D(face3D face, int position);
    void setVectorObjIn3D(float point[3], int position);
 
     face3D getFaceObjIn3D(int position);
