@@ -18,7 +18,7 @@ SOURCES += main.cpp\
     coordinatetransformation.cpp \
     scenarioobject.cpp \
     dot.cpp \
-    generatenormal.cpp
+    generatevetor.cpp
 
 HEADERS  += mainwindow.h \
     loadmaterial.h \
@@ -27,6 +27,8 @@ HEADERS  += mainwindow.h \
     coordinatetransformation.h \
     scenarioobject.h \
     dot.h \
-    generatenormal.h
+    face3d.h \
+    point3d.h \
+    generatevetor.h
 
 FORMS    += mainwindow.ui

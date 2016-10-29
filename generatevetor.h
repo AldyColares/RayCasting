@@ -1,15 +1,12 @@
 #ifndef GENERATENORMAL_H
 #define GENERATENORMAL_H
+#include "crossproduct.h"
+#include "point3d.h"
 
-struct point3D
-    {
-        float x, y, z;
-    };
-
-class GenerateNormal
+class GenerateVetor
 {
 public:
-    GenerateNormal();
+    GenerateVetor();
     point3D generateVector(point3D v1, point3D v2);
 
 };

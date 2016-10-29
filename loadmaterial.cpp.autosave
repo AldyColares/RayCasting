@@ -7,11 +7,10 @@ ScenarioObject scenarioObject;
 Dot dot;
 CrossProduct crossProduct;
 GenerateVetor genevetor;
-ifstream infile;
+ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/thefile.txt");
 
 LoadMaterial::LoadMaterial()
 {
-    infile.open("/home/rin/Documentos/trabalho CG/RayCasting/thefile.txt");
 
 }
 ScenarioObject LoadMaterial::loadObject(){

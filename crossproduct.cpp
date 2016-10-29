@@ -6,23 +6,23 @@ CrossProduct::CrossProduct()
 
 }
 
-
-float* CrossProduct::crossProduct(float V0[3], float V1[3])
+point3D CrossProduct::crossProduct(point3D v1, point3D v2)
 {
-     float result[3];
-     result[0] = V0[1] * V1[2] - V0[2] * V1[1];
-     result[1] = V0[2] * V1[0] - V0[0] * V1[2];
-     result[2] = V0[0] * V1[1] - V0[1] * V1[0];
-     return ( unitVector(result[3]) );
+    // x == 0; y == 1; z == 2; v1;v2
+     point3D result;
+     result.x = v1.y * v2.z - v1.z * v2.y;
+     result.y = v1.z * v2.x - v1.x * v2.z;
+     result.z = v1.x * v2.y - v1.y * v2.x;
+     return unitVector(result);
 }
 
-float* CrossProduct::unitVector(float V0[3])
+point3D CrossProduct::unitVector(point3D v1)
 {
-       float* result;
-       float aux = sqrt(pow(V0[0],2) + pow(V0[1],2) + pow(V0[2],2));
-       result[0] = V0[0]/aux;
-       result[1] = V0[1]/aux;
-       result[2] = V0[2]/aux;
+       point3D result;
+       float aux = sqrt(pow(v1.x, 2) + pow(v1.y, 2) + pow(v1.z, 2));
+       result[0] = v1.x/aux;
+       result[1] = v1.y/aux;
+       result[2] = v1.z/aux;
 
        return result;
 

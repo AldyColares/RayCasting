@@ -3,26 +3,22 @@
 
 #include <iostream>
 #include <string>
-#include "scenarioobject.h"
+#include <stdlib.h>
 #include <fstream>
+#include "scenarioobject.h"
 #include "crossproduct.h"
 #include "dot.h"
-
-struct point3D
-    {
-        float x, y, z;
-    };
-struct face3D
-    {
-        point3D v1,v2,v3,normal;
-    };
+#include "generatevetor.h"
+#include "face3d.h"
+#include "scenarioobject.h"
 
 
 class LoadMaterial
 {
 public:
      LoadMaterial();
-     ScenarioObject* loadObject();
+     ScenarioObject loadObject();
+     void testOnjectt(ScenarioObject scenarioObject);
 
 private:
      ScenarioObject insertVectorFaces(std::ifstream infile);

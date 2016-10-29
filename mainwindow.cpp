@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-   /*
+
     ui->setupUi(this);
     int sizeX = 500;
     int sizeY = 500;
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent):
     graphic->addPixmap( QPixmap::fromImage(image));
 
     ui->graphicsView->setScene(graphic);
-*/
+
 }
 
 MainWindow::~MainWindow()

@@ -1,6 +1,6 @@
 #ifndef CROSSPRODUCT_H
 #define CROSSPRODUCT_H
-#include <vector>
+#include "point3d.h"
 
 
 
@@ -8,12 +8,8 @@ class CrossProduct
 {
 public:
     CrossProduct();
-    float* crossProduct(float V0[3], float V1[3]);
-    float* unitVector(float V0[3]);
-    ~CrossProduct()
-    {
-
-    }
+    point3D crossProduct(point3D v1, point3D v2);
+    point3D unitVector(point3D v1);
 
 };
 

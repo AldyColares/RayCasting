@@ -2,7 +2,7 @@
 
 GenerateNormal::GenerateNormal()
 {
-
+    CrossProduct crosspro;
 }
 
 point3D GenerateNormal::generateVector(point3D V1, point3D V2)
@@ -12,3 +12,10 @@ point3D GenerateNormal::generateVector(point3D V1, point3D V2)
     resultVector.z = V2.z - V1.z;
     return resultVector;
 }
+
+point3D GenerateNormal::crossproduct(point3D vetor1, point3D vetor2)
+{
+    return crosspro.
+            (vetor1, vetor2);
+}
+
