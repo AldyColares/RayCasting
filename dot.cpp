@@ -1,6 +1,6 @@
-#include "scalarproduct.h"
+#include "dot.h"
 
-ScalarProduct::ScalarProduct()
+Dot::Dot()
 {
 
 }

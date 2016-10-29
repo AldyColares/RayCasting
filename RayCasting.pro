@@ -15,15 +15,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     loadmaterial.cpp \
     crossproduct.cpp \
-    scalarproduct.cpp \
     coordinatetransformation.cpp \
-    scenarioobject.cpp
+    scenarioobject.cpp \
+    dot.cpp \
+    generatenormal.cpp
 
 HEADERS  += mainwindow.h \
     loadmaterial.h \
     crossproduct.h \
     scalarproduct.h \
     coordinatetransformation.h \
-    scenarioobject.h
+    scenarioobject.h \
+    dot.h \
+    generatenormal.h
 
 FORMS    += mainwindow.ui
