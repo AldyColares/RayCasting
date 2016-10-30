@@ -5,8 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    LoadMaterial loca;
-    loca.loadObject();
+
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

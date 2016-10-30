@@ -7,18 +7,18 @@ ScenarioObject::ScenarioObject()
 
 void ScenarioObject::setFaceObjIn3D(face3D face, int position)
 {
-    this->facesObjIn3D[position].v1 = face.v1;
-    this->facesObjIn3D[position].v2 = face.v2;
-    this->facesObjIn3D[position].v3 = face.v3;
-    this->facesObjIn3D[position].normal = face.normal;
+    facesObjIn3D[position].v1 = face.v1;
+    facesObjIn3D[position].v2 = face.v2;
+    facesObjIn3D[position].v3 = face.v3;
+    facesObjIn3D[position].normal = face.normal;
 
 }
 
 void ScenarioObject::setVectorObjIn3D(float point[3], int position)
 {
-    this->listVectores[position][x] = point[x];
-    this->listVectores[position][y] = point[y];
-    this->listVectores[position][z] = point[z];
+    listVectores[position][x] = point[x];
+    listVectores[position][y] = point[y];
+    listVectores[position][z] = point[z];
 
 }
 
