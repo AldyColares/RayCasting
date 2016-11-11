@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "loadmaterial.h"
 #include "scalarproduct.h"
+#include "camera.h"
+#include "coordinatetransformation.h"
 
 namespace Ui {
 class MainWindow;

@@ -5,13 +5,10 @@ ScenarioObject::ScenarioObject()
 
 }
 
-void ScenarioObject::setFaceObjIn3D(face3D face, int position)
+void ScenarioObject::setFaceObjIn3D(face3D face)
 {
-    facesObjIn3D[position].v1 = face.v1;
-    facesObjIn3D[position].v2 = face.v2;
-    facesObjIn3D[position].v3 = face.v3;
-    facesObjIn3D[position].normal = face.normal;
-
+    facesObjIn3D.push_back(face);
+    setSizeFaces(facesObjIn3D.size());
 }
 
 void ScenarioObject::setVectorObjIn3D(float point[3], int position)
@@ -22,12 +19,20 @@ void ScenarioObject::setVectorObjIn3D(float point[3], int position)
 
 }
 
+
+void ScenarioObject::setSizeFaces(int sizeFaces)
+{
+    this->sizeFaces = sizeFaces;
+}
+
+void ScenarioObject::setSizeVector(int sizeVector)
+{
+    this->sizeVector = sizeVector;
+}
+
 face3D ScenarioObject::getFaceObjIn3D(int position)
 {
-    face3D face;
-    face = facesObjIn3D[position];
-
-    return face;
+    return facesObjIn3D[position];
 }
 
 point3D ScenarioObject::getVectorObjIn3D(int position)
@@ -38,7 +43,18 @@ point3D ScenarioObject::getVectorObjIn3D(int position)
     point.z = listVectores[position][z];
 
     return point;
-
 }
+
+
+int ScenarioObject::getSizeFaces()
+{
+    return sizeFaces;
+}
+
+int ScenarioObject::getSizeVector()
+{
+    return sizeVector;
+}
+
 
 

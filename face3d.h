@@ -4,9 +4,10 @@
 
 struct face3D
     {
-        point3D v1,v2,v3,normal;
+        point3D normal;
         //the values above are 0,..., 255.
         int red, blue, green;
+        int idV1, idV2, idV3;
     };
 
 #endif // FACE3D_H

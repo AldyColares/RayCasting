@@ -1,0 +1,7 @@
+eye 0.000 0.000 0.000 
+centerCamera 0.000 0.000 0.000
+upICamera 0.000 0.000 0.000
+upJCamera 0.000 0.000 0.000
+upKCamera 0.000 0.000 0.000
+heighScreean 50
+widthScreen 50

@@ -2,7 +2,7 @@
 
 GenerateVetor::GenerateVetor()
 {
-    CrossProduct crosspro;
+
 }
 
 point3D GenerateVetor::generateVector(point3D V1, point3D V2)

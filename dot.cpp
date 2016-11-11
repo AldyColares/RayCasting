@@ -5,9 +5,9 @@ Dot::Dot()
 
 }
 
-float Dot::scalarproduct(float V0[3], float V1[3])
+float Dot::scalarproduct(point3D pointV1, point3D pointV2)
 {
         float result;
-        result = V0[0] * V1[0] + V0[1] * V1[1] + V0[2] * V1[2];
+        result = pointV1.x * pointV2.x + pointV1.y * pointV2.y + pointV1.z * pointV2.z;
         return result;
 }

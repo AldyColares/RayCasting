@@ -1,12 +1,12 @@
 #ifndef DOT_H
 #define DOT_H
-
+#include "point3d.h"
 
 class Dot
 {
 public:
     Dot();
-    float scalarproduct(float V0[3], float V1[3]);
+    float scalarproduct(point3D pointV1, point3D pointV2);
 
 };
 
