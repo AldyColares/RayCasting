@@ -5,25 +5,25 @@
 #include "scenario.h"
 #include "scenarioObject.h"
 #include "point3d.h"
-
+#include "facefurthernear.h"
+#include "unitvector.h"
+#include "generatevetor.h"
+#include <string>
 
 class ColorPixels
 {
 public:
     ColorPixels();
-    Pixel *caluletioncolorPixels(int pixelRateHorizontal, int pixelRateVertical,
+    Pixel *caluletioncolorPixels(int pixelRateHorizontal,int pixelRateVertical,
                                  Scenario scenario);
-    void loadScenario(Scenario scenario);
-    face3D faceFurtherNear(point3D verticePixel, ScenarioObject scenarioObject);
-    bool CheakPointWithinTriangle(face3D face, point3D tint);
-    float calculeteVariavelD(point3D normal, point3D verticeOneFace);
-    point3D deleteInModuleTheLargestVertex(point3D normal);
-
-
+    FaceFurtherNear faceFurtherNear;
     float* calculeteVectorV();
     float* ambientColor();
     float* diffuseColor();
     float* specularColor();
+
+private:
+    int convertColorForFormatRGB32(float color);
 };
 
 #endif // COLORPIXELS_H

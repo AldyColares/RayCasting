@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent):
     camera.loadCamera();
 
     CoordinateTransformation coordinateTransformation;
+
     // the vectices of the material are oriented in camera coordinates.
     scenarioObject = coordinateTransformation.coordinateTransformationbyWorldForCamera
                                              (scenarioObject,camera);
@@ -29,7 +30,8 @@ MainWindow::MainWindow(QWidget *parent):
     {
         for (int c = 0; c < sizeY; c++)
         {
-            image.setPixel(l, c, qRgb(255,0,0));
+            image.setPixel(l, c, qRgb(0,0,0));
+
 
         }
     }
