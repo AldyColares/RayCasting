@@ -18,6 +18,21 @@ void Scenario::LoadScenario()
 
 Camera Scenario::getCamera()
 {
-  return camera;
+    return camera;
+}
+
+ScenarioObject Scenario::getMaterial()
+{
+    return scenarioObje;
+}
+
+void Scenario::setLight(light lig)
+{
+    luzpontual0 = lig;
+}
+
+light Scenario::getLigth()
+{
+    return luzpontual0;
 }
 

@@ -5,6 +5,16 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+/*
+    light light0;
+
+    light0.red = 0.5;
+    light0.green = 0.5;
+    light0.blue = 0.5;
+    light0.x = 0.0;
+    light0.y = 5.0;
+    light0.z = -2.0;
+*/
     // load Nth material for scenario.
     LoadMaterial loca;
     ScenarioObject scenarioObject = loca.loadObject();
@@ -13,11 +23,12 @@ MainWindow::MainWindow(QWidget *parent):
     Camera camera;
     camera.loadCamera();
 
-    CoordinateTransformation coordinateTransformation;
+    Scenario scenario(scenarioObject);
 
+    CoordinateTransformation coordinateTransformation;
     // the vectices of the material are oriented in camera coordinates.
     scenarioObject = coordinateTransformation.coordinateTransformationbyWorldForCamera
-                                             (scenarioObject,camera);
+                                             (scenarioObject, camera);
 
     ui->setupUi(this);
 
@@ -25,6 +36,9 @@ MainWindow::MainWindow(QWidget *parent):
     int sizeY = 500;
 
     QImage image = QImage(sizeX, sizeY, QImage::Format_RGB32);
+
+    ColorPixels colorCount;
+    colorCount.caluletionColorPixels(sizeX, sizeY, scenario);
 
     for (int l = 0; l < sizeX; l++)
     {

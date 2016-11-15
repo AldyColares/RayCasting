@@ -1,6 +1,7 @@
 #ifndef COLORPIXELS_H
 #define COLORPIXELS_H
 #include "pixel.h"
+#include "gridpixel.h"
 #include "camera.h"
 #include "scenario.h"
 #include "scenarioObject.h"
@@ -8,19 +9,21 @@
 #include "facefurthernear.h"
 #include "unitvector.h"
 #include "generatevetor.h"
+#include "facefurthernear.h"
+#include "propertymaterial.h"
 #include <string>
 
 class ColorPixels
 {
 public:
     ColorPixels();
-    Pixel *caluletioncolorPixels(int pixelRateHorizontal,int pixelRateVertical,
-                                 Scenario scenario);
+    GridPixel caluletionColorPixels(int pixelRateHorizontal,int pixelRateVertical,
+                                    Scenario scenario);
     FaceFurtherNear faceFurtherNear;
     float* calculeteVectorV();
-    float* ambientColor();
-    float* diffuseColor();
-    float* specularColor();
+    light ambientColor(light light0, propertyMaterial proMat);
+    light diffuseColor();
+    light specularColor();
 
 private:
     int convertColorForFormatRGB32(float color);

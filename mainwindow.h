@@ -6,6 +6,9 @@
 #include "scalarproduct.h"
 #include "camera.h"
 #include "coordinatetransformation.h"
+#include "light.h"
+#include "colorpixels.h"
+#include "scenario.h"
 
 namespace Ui {
 class MainWindow;

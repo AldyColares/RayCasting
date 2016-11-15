@@ -16,8 +16,6 @@ public:
     ScenarioObject coordinateTransformationbyCameraForWorld
     (ScenarioObject scenarioObject, Camera camera);
 
-    float *productScalar(Camera camera);
-
 };
 
 #endif // COORDINATETRANSFORMATION_H

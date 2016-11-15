@@ -32,7 +32,7 @@ ScenarioObject LoadMaterial::insertVectorFaces(ifstream& infile)
    face3D NthFace;
    string sub;
    ScenarioObject scenarioObjectTmp;
-
+   int idVectorN_OfFace;
    for( string line; getline( infile, line ); )
    {
        istringstream iss(line);
@@ -56,25 +56,50 @@ ScenarioObject LoadMaterial::insertVectorFaces(ifstream& infile)
        }else if (sub.compare("f") == 0){
 
                  iss >> sub;
-                 int idVector1_OfFace = ::stoi(sub.c_str());
-                 NthFace.idV1 = idVector1_OfFace;
+                 istringstream(sub) >> idVectorN_OfFace;
+                 NthFace.idV1 = idVectorN_OfFace;
 
                  iss >> sub;
-                 int idVector2_OfFace = ::stoi(sub.c_str());
-                 NthFace.idV2 = idVector2_OfFace;
+                 istringstream(sub) >> idVectorN_OfFace;
+                 NthFace.idV2 = idVectorN_OfFace;
 
                  iss >> sub;
-                 int idVector3_OfFace = ::stoi(sub.c_str());
-                 NthFace.idV3 = idVector3_OfFace;
+                 istringstream(sub) >> idVectorN_OfFace;
+                 NthFace.idV3 = idVectorN_OfFace;
 
                  NthFace.normal = calculatingNormal(NthFace, scenarioObjectTmp);
 
                  scenarioObjectTmp.setFaceObjIn3D(NthFace);
 
-             }
+      // I know it breaks the encapsulation!!
+      }else if (sub.compare("material_ambient")){
 
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialAmbientRed;
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialAmbientGreen;
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialAmbientBlue;
+
+       }else if(sub.compare("material_diffuse")){
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialDiffuseRed;
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialDiffuseGreen;
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialDiffuseBlue;
+       }else if (sub.compare("material_specular")){
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialSpecularRed;
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialSpecularGreen;
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialSpecularBlue;
+       }else if (sub.compare("material_shininess")){
+           iss >> sub;
+           istringstream(sub) >> scenarioObjectTmp.propMat.materialShininess;
+       }
    }
-
    return scenarioObjectTmp;
 }
 point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject sceOnj)

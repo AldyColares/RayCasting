@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     camera.cpp \
     colorpixels.cpp \
     facefurthernear.cpp \
-    unitvector.cpp
+    unitvector.cpp \
+    gridpixel.cpp
 
 HEADERS  += mainwindow.h \
     loadmaterial.h \
@@ -40,8 +41,9 @@ HEADERS  += mainwindow.h \
     camera.h \
     colorpixels.h \
     pixel.h \
-    materialcomposition.h \
     facefurthernear.h \
-    unitvector.h
+    unitvector.h \
+    propertymaterial.h \
+    gridpixel.h
 
 FORMS    += mainwindow.ui

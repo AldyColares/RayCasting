@@ -11,9 +11,9 @@ ScenarioObject CoordinateTransformation::coordinateTransformationbyWorldForCamer
 {
     int amountVector = scenarioObject.getSizeVector();
     ScenarioObject scenarioObjectAUX;
-    float *upcameraPointEye;
-    upcameraPointEye = productScalar(camera);
-    point3D i, j, k;
+    Dot dot;
+    point3D i, j, k, eye;
+    eye = camera.getEye();
     i = camera.getUpICamera();
     j = camera.getUpJCamera();
     k = camera.getUpKCamera();
@@ -24,13 +24,14 @@ ScenarioObject CoordinateTransformation::coordinateTransformationbyWorldForCamer
         float vertResult[3];
 
         vertResult[0] = i.x * NthVertice.x + i.y * NthVertice.y +
-                        i.z * NthVertice.z + 1 * upcameraPointEye[0];
+                        i.z * NthVertice.z + 1   * dot.scalarproduct(i, eye) * (-1);
+
 
         vertResult[1] = j.x * NthVertice.x + j.y * NthVertice.y +
-                        j.z * NthVertice.z + 1 * upcameraPointEye[1];
+                        j.z * NthVertice.z + 1   * dot.scalarproduct(j, eye) * (-1);
 
         vertResult[2] = k.x * NthVertice.x + k.y * NthVertice.y +
-                        k.z * NthVertice.z + 1 * upcameraPointEye[2];
+                        k.z * NthVertice.z + 1   * dot.scalarproduct(k, eye) * (-1);
 
         scenarioObject.setVectorObjIn3D(vertResult , NthVector);
 
@@ -50,17 +51,3 @@ ScenarioObject CoordinateTransformation::coordinateTransformationbyCameraForWorl
     eye = camera.getEye();
 }
 
-float* CoordinateTransformation::productScalar(Camera camera)
-{
-   Dot dot;
-   point3D i, j, k, eye;
-   float aux[3];
-   i = camera.getUpICamera();
-   j = camera.getUpJCamera();
-   k = camera.getUpKCamera();
-   eye = camera.getEye();
-   aux[0] = dot.scalarproduct(i, eye) * (-1);
-   aux[1] = dot.scalarproduct(j, eye) * (-1);
-   aux[2] = dot.scalarproduct(k, eye) * (-1);
-   return aux;
-}

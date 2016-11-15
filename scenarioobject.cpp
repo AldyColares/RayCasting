@@ -19,7 +19,6 @@ void ScenarioObject::setVectorObjIn3D(float point[3], int position)
 
 }
 
-
 void ScenarioObject::setSizeFaces(int sizeFaces)
 {
     this->sizeFaces = sizeFaces;

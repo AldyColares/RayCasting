@@ -9,11 +9,15 @@
 class Scenario
 {
 public:
+    light luzpontual0;
+
     Scenario(ScenarioObject scenarioObject);
     void LoadScenario();
-    light luzpontual0;
     Camera getCamera();
     ScenarioObject getMaterial();
+    void setLight(light lig);
+    light getLigth();
+
 
 };
 

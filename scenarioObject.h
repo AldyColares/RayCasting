@@ -3,6 +3,7 @@
 #include "face3d.h"
 #include "point3d.h"
 #include "vector"
+#include "propertymaterial.h"
 
 const int x = 0;
 const int y = 1;
@@ -19,17 +20,22 @@ public:
    void setSizeFaces(int sizeFaces);
    void setSizeVector(int sizeVector);
 
+
    face3D getFaceObjIn3D(int position);
    point3D getVectorObjIn3D(int position);
  //int getIdVectorface (int idvectorface);
    int getSizeFaces();
    int getSizeVector();
 
+   propertyMaterial propMat;
+
+
 private:
     std::vector<face3D> facesObjIn3D;
     float listVectores[100][3];
     int sizeFaces;
     int sizeVector;
+
 
 };
 #endif // SCENARIOOBJECT_H

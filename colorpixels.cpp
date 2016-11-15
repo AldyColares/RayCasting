@@ -1,20 +1,19 @@
 #include "colorpixels.h"
 
-
-UnitVector UnitVector;
-Dot dot;
-
 ColorPixels::ColorPixels()
 {
 
 }
 
-Pixel *ColorPixels::caluletioncolorPixels(int pixelRateHorizontal,
-                                          int pixelRateVertical, Scenario scenario)
+
+GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
+                                             int pixelRateVertical, Scenario scenario)
+
 {
+
     scenario.LoadScenario();
     Camera camera = scenario.getCamera();
-    point3D verticePixel;
+    point3D vertexPixel;
 
     int heighScreen, widthScreen;
     widthScreen = camera.getWidthScreen();
@@ -22,36 +21,52 @@ Pixel *ColorPixels::caluletioncolorPixels(int pixelRateHorizontal,
 
 
     ScenarioObject ScenarioObject = scenario.getMaterial();
-    Pixel pixel[pixelRateHorizontal][pixelRateVertical];
-
+    Pixel pixel;
     float deltaX, deltaY;
     //zc = camera.getCameraCoordenadaZ();
     deltaY = heighScreen / pixelRateVertical;
     deltaX = widthScreen / pixelRateHorizontal;
+    face3D face;
+    FaceFurtherNear faceFurtherNear;
+    GridPixel gridPixel;
     for (int i = 1; i <= pixelRateHorizontal; ++i) {
         for (int j = 1; j <= pixelRateVertical; ++j) {
 
-           verticePixel.x = -widthScreen / 2 + deltaX / 2 + (deltaY * j);
-           verticePixel.y =  widthScreen / 2 - deltaX / 2 - (deltaY * i);
-           verticePixel.z = -4;
+            vertexPixel.x = -widthScreen / 2 + deltaX / 2 + (deltaX * j);
+            vertexPixel.y =  widthScreen / 2 - deltaY / 2 - (deltaY * i);
+            vertexPixel.z = -4;
+            face = faceFurtherNear.lookUpSmallestDistanceFace(vertexPixel, scenario.getMaterial());
+            if (face.chosenFaceFlag == true){
+                face.chosenFaceFlag = false;
+
+                pixel.red   = convertColorForFormatRGB32(0.4);
+                pixel.green = convertColorForFormatRGB32(0.4);
+                pixel.blue  = convertColorForFormatRGB32(0.4);
+                gridPixel.setColorPixel(i, j, pixel);
+
+            }
 
         }
     }
-
+    return gridPixel;
 }
 
 
-float *ColorPixels::ambientColor()
+light ColorPixels::ambientColor(light light0, propertyMaterial proMat)
+{
+    light IAmb;
+    IAmb.red = light0.red * proMat.materialAmbientRed;
+    IAmb.green = light0.green * proMat.materialAmbientGreen;
+    IAmb.blue = light0.blue * proMat.materialAmbientBlue;
+    return IAmb;
+}
+
+light ColorPixels::diffuseColor()
 {
 
 }
 
-float *ColorPixels::diffuseColor()
-{
-
-}
-
-float *ColorPixels::specularColor()
+light ColorPixels::specularColor()
 {
 
 }
@@ -71,6 +86,5 @@ float *ColorPixels::calculeteVectorV()
 {
 
 }
-
 
 

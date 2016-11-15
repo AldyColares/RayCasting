@@ -107,4 +107,3 @@ material_specular  0.7 0.7 0.7 1
 
 material_shininess  3
 
-position_z_camera  -4

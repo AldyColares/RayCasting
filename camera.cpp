@@ -11,12 +11,11 @@ void Camera::loadCamera(){
 
 
   ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/camera.txt");
-  string line;
-  for(line; getline( infile, line ); )
+
+  for(string line; getline( infile, line ); )
   {
    string sub;
    istringstream iss(line);
-   point3D vetor[3];
    iss >> sub;
 
        if (sub.compare("eye") == 0){
@@ -96,6 +95,13 @@ void Camera::loadCamera(){
            iss >> sub;
            istringstream(sub) >> far.z;
 
+       }else if (sub.compare("lookAt") == 0){
+           iss >> sub;
+           istringstream(sub) >> lookAt.x;
+           iss >> sub;
+           istringstream(sub) >> lookAt.y;
+           iss >> sub;
+           istringstream(sub) >> lookAt.z;
        }
 	
    }
