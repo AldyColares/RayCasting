@@ -8,9 +8,10 @@ public:
     GridPixel();
     void setColorPixel(int x, int y, Pixel pixel);
     Pixel getColorPixel(int x, int y);
+    Pixel pixel[600][600];
+
 
 private:
-    Pixel pixel[600][600];
 
 };
 

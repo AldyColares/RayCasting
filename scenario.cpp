@@ -4,7 +4,7 @@
 
 Scenario::Scenario()
 {
-    scenarioObje = new Scenario();
+    scenarioObje = new ScenarioObject();
     camera = new Camera();
     gridPixel = new GridPixel();
     loadMaterial = new LoadMaterial;
@@ -14,17 +14,17 @@ Scenario::Scenario()
 
 void Scenario::LoadScenario()
 {
-    camera.loadCamera();
-    scenarioObje = loadMaterial.loadObject();
+    camera->loadCamera();
+    scenarioObje = loadMaterial->loadObject();
 
 }
 
-Camera Scenario::getCamera()
+Camera* Scenario::getCamera()
 {
     return camera;
 }
 
-ScenarioObject Scenario::getMaterial()
+ScenarioObject* Scenario::getMaterial()
 {
     return scenarioObje;
 }
@@ -34,7 +34,7 @@ void Scenario::setLight(light lig)
     luzpontual0 = lig;
 }
 
-ScenarioObject Scenario::getObject()
+ScenarioObject* Scenario::getObject()
 {
     return scenarioObje;
 }
@@ -44,12 +44,12 @@ light Scenario::getLigth()
     return luzpontual0;
 }
 
-GridPixel Scenario::getGridPixel()
+GridPixel* Scenario::getGridPixel()
 {
     return gridPixel;
 }
 
-void Scenario::setGridPixel(GridPixel gridPi)
+void Scenario::setGridPixel(GridPixel* gridPi)
 {
     gridPixel = gridPi;
 }

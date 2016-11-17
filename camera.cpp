@@ -10,7 +10,7 @@ Camera::Camera()
 void Camera::loadCamera(){
 
 
-    ifstream infile(":/arquivos_texto/camera.txt");
+    ifstream infile("/media/0338159/ALDY UFC/writing location/1/RayCasting/camera.txt");
 
     for(string line; getline( infile, line ); )
     {

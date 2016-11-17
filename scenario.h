@@ -18,12 +18,12 @@ public:
 
     void setLight(light lig);
 
-    ScenarioObject getObject();
-    Camera getCamera();
-    ScenarioObject getMaterial();
+    ScenarioObject *getObject();
+    Camera* getCamera();
+    ScenarioObject *getMaterial();
     light getLigth();
-    GridPixel getGridPixel();
-    void setGridPixel(GridPixel gridPixel);
+    GridPixel *getGridPixel();
+    void setGridPixel(GridPixel *gridPixel);
 
 private:
     ScenarioObject *scenarioObje;

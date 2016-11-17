@@ -10,11 +10,11 @@ class CoordinateTransformation
 {
 public:
     CoordinateTransformation();
-    ScenarioObject coordinateTransformationbyWorldForCamera
-    (ScenarioObject scenarioObject, Camera camera);
+    ScenarioObject* coordinateTransformationbyWorldForCamera
+    (ScenarioObject* scenarioObject, Camera* camera);
 
-    ScenarioObject coordinateTransformationbyCameraForWorld
-    (ScenarioObject scenarioObject, Camera camera);
+    ScenarioObject* coordinateTransformationbyCameraForWorld
+    (ScenarioObject* scenarioObject, Camera* camera);
 
 private:
     ScenarioObject scenarioObjectAUX;

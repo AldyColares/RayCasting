@@ -2,25 +2,21 @@
 
 ColorPixels::ColorPixels()
 {
-
+    gridPixel = new GridPixel();
 }
 
 
-GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
-                                             int pixelRateVertical, Scenario scenario)
+GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
+                                              int pixelRateVertical, Scenario *scenario)
 
 {
 
-  GridPixel gridPixel;
-/*
-    std::cout << "foi aqui?";
-
-    Camera camera = scenario.getCamera();
+    camera = scenario->getCamera();
     Point3D vertexPixel;
 
     int heighScreen, widthScreen;
-    widthScreen = camera.getWidthScreen();
-    heighScreen = camera.getHeighScreen();
+    widthScreen = camera->getWidthScreen();
+    heighScreen = camera->getHeighScreen();
 
 
     Pixel pixel;
@@ -29,7 +25,7 @@ GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
     deltaY = heighScreen / pixelRateVertical;
     deltaX = widthScreen / pixelRateHorizontal;
     face3D face;
-    FaceFurtherNear faceFurtherNear;
+    FaceFurtherNear* faceFurtherNear;
 
     for (int i = 1; i <= pixelRateHorizontal ; ++i) {
         for (int j = 1; j <= pixelRateVertical; ++j) {
@@ -37,7 +33,7 @@ GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
             vertexPixel.x = -widthScreen / 2 + deltaX / 2 + (deltaX * j);
             vertexPixel.y =  widthScreen / 2 - deltaY / 2 - (deltaY * i);
             vertexPixel.z = -4;
-            face = faceFurtherNear.lookUpSmallestDistanceFace(vertexPixel, scenario.getMaterial());
+            face = faceFurtherNear->lookUpSmallestDistanceFace(vertexPixel, scenario->getMaterial());
 
             if (face.chosenFaceFlag == true){
                 face.chosenFaceFlag = false;
@@ -45,17 +41,14 @@ GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
                 pixel.red   = convertColorForFormatRGB32(0.4);
                 pixel.green = convertColorForFormatRGB32(0.4);
                 pixel.blue  = convertColorForFormatRGB32(0.4);
-                gridPixel.setColorPixel(i, j, pixel);
+                gridPixel->setColorPixel(i, j, pixel);
 
             }
 
         }
     }
-*/
     return gridPixel;
-
 }
-
 
 light ColorPixels::ambientColor(light light0, propertyMaterial proMat)
 {
@@ -91,5 +84,3 @@ Point3D ColorPixels::calculeteVectorV()
 {
 
 }
-
-

@@ -5,13 +5,15 @@ using namespace std;
 
 LoadMaterial::LoadMaterial()
 {
+    scenarioObject = new ScenarioObject();
 
 }
-ScenarioObject LoadMaterial::loadObject(){
+ScenarioObject* LoadMaterial::loadObject(){
 
-    ifstream infile(":/arquivos_texto/thefile.txt");
 
+    ifstream infile("/media/0338159/ALDY UFC/writing location/1/RayCasting/thefile.txt");
     scenarioObject = insertVectorFaces(infile);
+
     testOnjectt(scenarioObject);
 
     return scenarioObject;
@@ -19,14 +21,13 @@ ScenarioObject LoadMaterial::loadObject(){
 
 
 
-ScenarioObject LoadMaterial::insertVectorFaces(ifstream& infile)
+ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
 {
     int counterVector;
     counterVector = 0;
-    counterFaces = 0;
     face3D NthFace;
     string sub;
-    ScenarioObject scenarioObjectTmp;
+    ScenarioObject* scenarioObjectTmp = new ScenarioObject();
     int idVectorN_OfFace;
     for( string line; getline( infile, line ); )
     {
@@ -44,7 +45,7 @@ ScenarioObject LoadMaterial::insertVectorFaces(ifstream& infile)
 
             iss >> sub;
             istringstream(sub) >> vetor[2];
-            scenarioObjectTmp.setVectorObjIn3D(vetor , counterVector);
+            scenarioObjectTmp->setVectorObjIn3D(vetor , counterVector);
 
             counterVector ++;
 
@@ -64,78 +65,78 @@ ScenarioObject LoadMaterial::insertVectorFaces(ifstream& infile)
 
             NthFace.normal = calculatingNormal(NthFace, scenarioObjectTmp);
 
-            scenarioObjectTmp.setFaceObjIn3D(NthFace);
+            scenarioObjectTmp->setFaceObjIn3D(NthFace);
 
             // I know it breaks the encapsulation!!
         }else if (sub.compare("material_ambient")){
 
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialAmbientRed;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialAmbientRed;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialAmbientGreen;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialAmbientGreen;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialAmbientBlue;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialAmbientBlue;
 
         }else if(sub.compare("material_diffuse")){
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialDiffuseRed;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialDiffuseRed;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialDiffuseGreen;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialDiffuseGreen;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialDiffuseBlue;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialDiffuseBlue;
         }else if (sub.compare("material_specular")){
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialSpecularRed;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialSpecularRed;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialSpecularGreen;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialSpecularGreen;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialSpecularBlue;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialSpecularBlue;
         }else if (sub.compare("material_shininess")){
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp.propMat.materialShininess;
+            istringstream(sub) >> scenarioObjectTmp->propMat.materialShininess;
         }
     }
     infile.close();
     return scenarioObjectTmp;
 }
-Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject sceOnj)
+Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceOnj)
 {
 
     Point3D vectorV1V2, vectorV2V3, point;
-    vectorV1V2 = genevetor.generateVector(sceOnj.getVectorObjIn3D(vectorsFace.idV1),
-                                          sceOnj.getVectorObjIn3D(vectorsFace.idV2));
+    vectorV1V2 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV1),
+                                          sceOnj->getVectorObjIn3D(vectorsFace.idV2));
 
-    vectorV2V3 = genevetor.generateVector(sceOnj.getVectorObjIn3D(vectorsFace.idV1),
-                                          sceOnj.getVectorObjIn3D(vectorsFace.idV3));
+    vectorV2V3 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV1),
+                                          sceOnj->getVectorObjIn3D(vectorsFace.idV3));
 
     point = crossProduct.crossProduct(vectorV1V2, vectorV2V3);
 
     return point;
 }
 
-void LoadMaterial::testOnjectt(ScenarioObject scenarioObject)
+void LoadMaterial::testOnjectt(ScenarioObject* scenarioObject)
 {
     Point3D test;
     for (int var = 0; var < 4  ; ++var) {
 
-        Point3D point = scenarioObject.getVectorObjIn3D(var);
+        Point3D point = scenarioObject->getVectorObjIn3D(var);
 
         cout << "índice do vetor: "<< var << "| x:" << point.x
              << "| y: " << point.y <<"| z: " << point.z;
 
 
         cout << "\nface índice: " << var;
-        face3D face = scenarioObject.getFaceObjIn3D(var);
+        face3D face = scenarioObject->getFaceObjIn3D(var);
 
-        test = scenarioObject.getVectorObjIn3D(face.idV1);
+        test = scenarioObject->getVectorObjIn3D(face.idV1);
         cout << "\n lista de vetores v1 x:"
              << test.x << "|  y:" << test.y << "|  z:" << test.z;
 
-        test = scenarioObject.getVectorObjIn3D(face.idV2);
+        test = scenarioObject->getVectorObjIn3D(face.idV2);
         cout << "\n lista de vetores v2: x:"
              << test.x << "|  y:" << test.y << "|  z:" << test.z;
 
-        test = scenarioObject.getVectorObjIn3D(face.idV3);
+        test = scenarioObject->getVectorObjIn3D(face.idV3);
         cout << "\n lista de vetores v3: x:"
              << test.x << "|  y:" << test.y << "|  z:" << test.z;
 

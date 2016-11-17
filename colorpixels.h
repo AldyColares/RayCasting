@@ -19,7 +19,7 @@ class ColorPixels
 {
 public:
     ColorPixels();
-    GridPixel caluletionColorPixels(int pixelRateHorizontal,int pixelRateVertical, Scenario scenario);
+    GridPixel* caluletionColorPixels(int pixelRateHorizontal,int pixelRateVertical, Scenario* scenario);
     Point3D calculeteVectorV();
     light ambientColor(light light0, propertyMaterial proMat);
     light diffuseColor();
@@ -27,6 +27,8 @@ public:
 
 private:
     int convertColorForFormatRGB32(float color);
+    Camera* camera;
+    GridPixel* gridPixel;
 };
 
 #endif // COLORPIXELS_H

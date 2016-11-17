@@ -21,7 +21,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::mainSlot()
 {
-    std::cerr << "TESTE1" << std::endl;
+    std::cerr << "" << std::endl;
 
     /*
     light light0;
@@ -35,15 +35,14 @@ void MainWindow::mainSlot()
 */
 
     Pixel pixel;
-    GridPixel gridPixel;
+    GridPixel* gridPixel = new GridPixel();
 
-    std::cerr << "TESTE2" << std::endl;
 
     ColorPixels colorCount;
 
     Scenario *scenario = new Scenario();
 
-    ScenarioObject scenarioObject;
+    ScenarioObject* scenarioObject;
     CoordinateTransformation *coordinateTransformation = new CoordinateTransformation();
 
 
@@ -56,7 +55,7 @@ void MainWindow::mainSlot()
 
     int sizeX = 500;
     int sizeY = 500;
-    gridPixel = colorCount.caluletionColorPixels(sizeX, sizeY, *scenario);
+    gridPixel = colorCount.caluletionColorPixels(sizeX, sizeY, scenario);
 
 
     QImage image = QImage(sizeX, sizeY, QImage::Format_RGB32);
@@ -68,7 +67,7 @@ void MainWindow::mainSlot()
     {
         for (int y = 0; y < sizeY; y++)
         {
-            pixel = gridPixel.getColorPixel(x,y);
+            pixel = gridPixel->getColorPixel(x,y);
             image.setPixel(x, y, qRgb(pixel.red, pixel.green ,pixel.blue));
         }
     }

@@ -98,10 +98,10 @@ Point3D FaceFurtherNear::deleteInModuleTheLargestVertex(Point3D normal)
 }
 
 face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
-                                                   ScenarioObject scenarioObject)
+                                                   ScenarioObject *scenarioObject)
 {
     Dot dot;
-    int leghtface = scenarioObject.getSizeFaces();
+    int leghtface = scenarioObject->getSizeFaces();
     face3D Nthface, faceLessDistancia;
     float Tint, D, lessDistanceBetweenScreenAndFace;
     Point3D v1Face;
@@ -111,8 +111,8 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
 
     for (int idFace = 0; idFace < leghtface; ++idFace) {
 
-        Nthface = scenarioObject.getFaceObjIn3D(idFace);
-        v1Face = scenarioObject.getVectorObjIn3D(Nthface.idV1);
+        Nthface = scenarioObject->getFaceObjIn3D(idFace);
+        v1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
         D = calculeteVariavelD(Nthface.normal, v1Face);
 
         // Tint: distance in between screen of the projection and Nth face.
@@ -125,9 +125,9 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
             pointCoordXYPixel.y *= Tint;
             pointCoordXYPixel.z *= Tint;
 
-            Nthface.Vertex1 = scenarioObject.getVectorObjIn3D(Nthface.idV1);
-            Nthface.Vertex2 = scenarioObject.getVectorObjIn3D(Nthface.idV2);
-            Nthface.Verter3 = scenarioObject.getVectorObjIn3D(Nthface.idV3);
+            Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+            Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
+            Nthface.Verter3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
             Nthface.normal = deleteInModuleTheLargestVertex(Nthface.normal);
 
             pointInsideFace = CheakPointWithinTriangle(Nthface, pointCoordXYPixel);
@@ -135,7 +135,7 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
             if(pointInsideFace == true && Tint < lessDistanceBetweenScreenAndFace){
                 faceLessDistancia.chosenFaceFlag = false;
                 lessDistanceBetweenScreenAndFace = Tint;
-                faceLessDistancia = scenarioObject.getFaceObjIn3D(idFace);;
+                faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);;
                 faceLessDistancia.chosenFaceFlag = true;
             }
 

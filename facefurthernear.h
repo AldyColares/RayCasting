@@ -13,7 +13,7 @@ class FaceFurtherNear
 {
 public:
     FaceFurtherNear();
-    face3D lookUpSmallestDistanceFace(Point3D pointCoordXYPixel, ScenarioObject scenarioObject);
+    face3D lookUpSmallestDistanceFace(Point3D pointCoordXYPixel, ScenarioObject* scenarioObject);
 
 private:
     GenerateVetor generateVetor;
