@@ -14,7 +14,7 @@ Scenario::Scenario()
 
 void Scenario::LoadScenario()
 {
-    camera.loadCamera();
+    camera->loadCamera();
     scenarioObje = loadMaterial.loadObject();
 
 }

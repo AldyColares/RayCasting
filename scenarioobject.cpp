@@ -34,9 +34,10 @@ face3D ScenarioObject::getFaceObjIn3D(int position)
     return facesObjIn3D[position];
 }
 
-point3D ScenarioObject::getVectorObjIn3D(int position)
+Point3D ScenarioObject::getVectorObjIn3D(int position)
 {
-    point3D point;
+    position -= 1;
+    Point3D point;
     point.x = listVectores[position][x];
     point.y = listVectores[position][y];
     point.z = listVectores[position][z];

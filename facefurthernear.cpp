@@ -1,15 +1,14 @@
 #include "facefurthernear.h"
 
-GenerateVetor generateVetor;
 FaceFurtherNear::FaceFurtherNear()
 {
 
 }
 
-bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, point3D Q)
+bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
 {
     Dot dot;
-    point3D E,G,F,Ne;
+    Point3D E,G,F,Ne;
     float result;
     for (int i = 0; i < 3; ++i) {
         if (i == 0) {
@@ -50,7 +49,7 @@ bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, point3D Q)
     return true;
 }
 
-float FaceFurtherNear::calculeteVariavelD(point3D normal, point3D v1Face)
+float FaceFurtherNear::calculeteVariavelD(Point3D normal, Point3D v1Face)
 {
     float D;
     Dot dot;
@@ -63,7 +62,7 @@ float FaceFurtherNear::calculeteVariavelD(point3D normal, point3D v1Face)
     return D;
 }
 
-point3D FaceFurtherNear::deleteInModuleTheLargestVertex(point3D normal)
+Point3D FaceFurtherNear::deleteInModuleTheLargestVertex(Point3D normal)
 {
     UnitVector unitVector;
     // case that at least one vector is zero.
@@ -98,14 +97,14 @@ point3D FaceFurtherNear::deleteInModuleTheLargestVertex(point3D normal)
     return normal;
 }
 
-face3D FaceFurtherNear::lookUpSmallestDistanceFace(point3D pointCoordXYPixel,
+face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
                                                    ScenarioObject scenarioObject)
 {
     Dot dot;
     int leghtface = scenarioObject.getSizeFaces();
     face3D Nthface, faceLessDistancia;
     float Tint, D, lessDistanceBetweenScreenAndFace;
-    point3D v1Face;
+    Point3D v1Face;
     bool pointInsideFace;
 
     lessDistanceBetweenScreenAndFace = std::numeric_limits<float>::max();

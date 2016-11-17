@@ -7,7 +7,7 @@ class GenerateVetor
 {
 public:
     GenerateVetor();
-    point3D generateVector(point3D v1, point3D v2);
+    Point3D generateVector(Point3D v1, Point3D v2);
 
 };
 

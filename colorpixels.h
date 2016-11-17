@@ -12,15 +12,15 @@
 #include "facefurthernear.h"
 #include "propertymaterial.h"
 #include <string>
+#include <stdlib.h>
+
 
 class ColorPixels
 {
 public:
     ColorPixels();
-    GridPixel caluletionColorPixels(int pixelRateHorizontal,int pixelRateVertical,
-                                    Scenario scenario);
-    FaceFurtherNear faceFurtherNear;
-    float* calculeteVectorV();
+    GridPixel caluletionColorPixels(int pixelRateHorizontal,int pixelRateVertical, Scenario scenario);
+    Point3D calculeteVectorV();
     light ambientColor(light light0, propertyMaterial proMat);
     light diffuseColor();
     light specularColor();

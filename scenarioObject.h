@@ -5,10 +5,6 @@
 #include "vector"
 #include "propertymaterial.h"
 
-const int x = 0;
-const int y = 1;
-const int z = 2;
-
 class ScenarioObject
 {
 public:
@@ -22,7 +18,7 @@ public:
 
 
    face3D getFaceObjIn3D(int position);
-   point3D getVectorObjIn3D(int position);
+   Point3D getVectorObjIn3D(int position);
  //int getIdVectorface (int idvectorface);
    int getSizeFaces();
    int getSizeVector();
@@ -35,6 +31,9 @@ private:
     float listVectores[100][3];
     int sizeFaces;
     int sizeVector;
+    int x = 0;
+    int y = 1;
+    int z = 2;
 
 
 };

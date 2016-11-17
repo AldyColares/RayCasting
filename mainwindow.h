@@ -3,12 +3,12 @@
 
 #include <QMainWindow>
 #include "loadmaterial.h"
-#include "scalarproduct.h"
 #include "camera.h"
 #include "coordinatetransformation.h"
 #include "light.h"
 #include "colorpixels.h"
 #include "scenario.h"
+#include "scenarioObject.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +22,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void mainSlot();
+
 private:
     Ui::MainWindow *ui;
+
+
+
 };
 
 #endif // MAINWINDOW_H

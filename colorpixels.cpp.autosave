@@ -11,8 +11,6 @@ GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
 {
 
-  GridPixel gridPixel;
-/*
     std::cout << "foi aqui?";
 
     Camera camera = scenario.getCamera();
@@ -51,7 +49,6 @@ GridPixel ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
         }
     }
-*/
     return gridPixel;
 
 }

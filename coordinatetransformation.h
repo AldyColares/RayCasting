@@ -16,6 +16,11 @@ public:
     ScenarioObject coordinateTransformationbyCameraForWorld
     (ScenarioObject scenarioObject, Camera camera);
 
+private:
+    ScenarioObject scenarioObjectAUX;
+    Dot dot;
+    Point3D i, j, k, eye;
+
 };
 
 #endif // COORDINATETRANSFORMATION_H

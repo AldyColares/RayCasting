@@ -22,8 +22,13 @@ public:
      void testOnjectt(ScenarioObject scenarioObject);
 
 private:
+     ScenarioObject scenarioObject;
+     Dot dot;
+     CrossProduct crossProduct;
+     GenerateVetor genevetor;
+
      ScenarioObject insertVectorFaces(std::ifstream& infile);
-     point3D calculatingNormal(face3D vectorsFace, ScenarioObject sceOnj);
+     Point3D calculatingNormal(face3D vectorsFace, ScenarioObject sceOnj);
      const int v1 = 0;
      const int v2 = 1;
      const int v3 = 2;

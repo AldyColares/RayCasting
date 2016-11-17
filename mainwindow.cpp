@@ -5,7 +5,25 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-/*
+    ui->setupUi(this);
+
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(mainSlot()));
+
+
+
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::mainSlot()
+{
+    std::cerr << "TESTE1" << std::endl;
+
+    /*
     light light0;
 
     light0.red = 0.5;
@@ -15,38 +33,43 @@ MainWindow::MainWindow(QWidget *parent):
     light0.y = 5.0;
     light0.z = -2.0;
 */
-    // load Nth material for scenario.
-    LoadMaterial loca;
-    ScenarioObject scenarioObject = loca.loadObject();
 
-    // Load coordinates of the Camera; We can have more than one.
-    Camera camera;
-    camera.loadCamera();
+    Pixel pixel;
+    GridPixel gridPixel;
 
-    Scenario scenario(scenarioObject);
+    std::cerr << "TESTE2" << std::endl;
 
-    CoordinateTransformation coordinateTransformation;
-    // the vectices of the material are oriented in camera coordinates.
-    scenarioObject = coordinateTransformation.coordinateTransformationbyWorldForCamera
-                                             (scenarioObject, camera);
+    ColorPixels colorCount;
 
-    ui->setupUi(this);
+    Scenario *scenario = new Scenario();
+
+    ScenarioObject scenarioObject;
+    CoordinateTransformation *coordinateTransformation = new CoordinateTransformation();
+
+
+    scenario->LoadScenario();
+
+//    //the vectices of the material are oriented in camera coordinates.
+    scenarioObject = coordinateTransformation->coordinateTransformationbyWorldForCamera
+            (scenario->getMaterial(), scenario->getCamera());
+
 
     int sizeX = 500;
     int sizeY = 500;
+    gridPixel = colorCount.caluletionColorPixels(sizeX, sizeY, *scenario);
+
 
     QImage image = QImage(sizeX, sizeY, QImage::Format_RGB32);
 
-    ColorPixels colorCount;
-    colorCount.caluletionColorPixels(sizeX, sizeY, scenario);
+    //std::cout << "              foi aqui?                     ";
 
-    for (int l = 0; l < sizeX; l++)
+
+    for (int x = 0; x < sizeX; x++)
     {
-        for (int c = 0; c < sizeY; c++)
+        for (int y = 0; y < sizeY; y++)
         {
-            image.setPixel(l, c, qRgb(0,0,0));
-
-
+            pixel = gridPixel.getColorPixel(x,y);
+            image.setPixel(x, y, qRgb(pixel.red, pixel.green ,pixel.blue));
         }
     }
 
@@ -55,9 +78,4 @@ MainWindow::MainWindow(QWidget *parent):
 
     ui->graphicsView->setScene(graphic);
 
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }

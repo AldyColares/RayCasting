@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/arquivos_texto">
+        <file>camera.txt</file>
+        <file>thefile.txt</file>
+    </qresource>
+</RCC>
