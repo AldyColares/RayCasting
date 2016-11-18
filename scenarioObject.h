@@ -18,6 +18,7 @@ public:
 
    face3D getFaceObjIn3D(int position);
    Point3D getVectorObjIn3D(int position);
+
    int getSizeFaces();
    int getSizeVector();
 

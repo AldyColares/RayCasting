@@ -22,6 +22,7 @@ private:
     Point3D deleteInModuleTheLargestVertex(Point3D normal);
     Dot dot;
 
+
 };
 
 #endif // FACEFURTHERNEAR_H

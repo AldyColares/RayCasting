@@ -22,6 +22,7 @@ private:
     Point3D i, j, k, eye;
     Point3D NthVertice;
 
+
 };
 
 #endif // COORDINATETRANSFORMATION_H

@@ -7,6 +7,7 @@ FaceFurtherNear::FaceFurtherNear()
 
 bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
 {
+
     Point3D E,G,F,Ne;
     float result;
     for (int i = 0; i < 3; ++i) {
@@ -98,11 +99,11 @@ Point3D FaceFurtherNear::deleteInModuleTheLargestVertex(Point3D normal)
 face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
                                                    ScenarioObject *scenarioObject)
 {
-
     int leghtface = scenarioObject->getSizeFaces();
     face3D Nthface, faceLessDistancia;
     float Tint, D, lessDistanceBetweenScreenAndFace;
     Point3D vectex1Face;
+
     bool pointInsideFace;
 
     lessDistanceBetweenScreenAndFace = std::numeric_limits<float>::max();
@@ -110,8 +111,10 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
     for (int idFace = 0; idFace < leghtface; ++idFace) {
 
         Nthface = scenarioObject->getFaceObjIn3D(idFace);
+
         vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
         //D = calculeteVariavelD(Nthface.normal, vectex1Face);
+
 
         // Tint: distance in between screen of the projection and Nth face.
         Tint =      dot.scalarproduct(vectex1Face, Nthface.normal)

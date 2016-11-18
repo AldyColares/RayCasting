@@ -22,6 +22,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::mainSlot()
 {
+
     /*
     light light0;
 
@@ -49,11 +50,13 @@ void MainWindow::mainSlot()
     scenarioObjectTransformCoordCamera = coordinateTransformation->coordinateTransformationbyWorldForCamera
             (scenario->getMaterial(), scenario->getCamera());
 
+
     int sizeX = 500;
     int sizeY = 500;
     gridPixel = colorCount.caluletionColorPixels(sizeX, sizeY, scenario);
 
     QImage image = QImage(sizeX, sizeY, QImage::Format_RGB32);
+
 
     for (int x = 0; x < sizeX; x++)
     {

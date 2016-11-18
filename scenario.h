@@ -9,6 +9,7 @@
 #include "loadmaterial.h"
 #include "vector"
 
+
 class Scenario
 {
 public:
@@ -19,11 +20,11 @@ public:
 
     void setGridPixel(GridPixel *gridPixel);
     void setLight(light lig);
-
     Camera* getCamera();
     ScenarioObject *getMaterial();
     light getLigth();
     GridPixel *getGridPixel();
+
 
 private:
     ScenarioObject *scenarioObje;

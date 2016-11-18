@@ -7,8 +7,10 @@ CoordinateTransformation::CoordinateTransformation()
 }
 
 ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCamera
+
 (ScenarioObject *scenarioObject,
  Camera *camera)
+
 {
     int amountVector = scenarioObject->getSizeVector();
 
@@ -21,6 +23,7 @@ ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCame
     for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
 
         NthVertice = scenarioObject->getVectorObjIn3D(NthVector);
+
         float vertResult[3];
 
         vertResult[0] = i.x * NthVertice.x + i.y * NthVertice.y +
@@ -42,6 +45,7 @@ ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCame
 
 ScenarioObject *CoordinateTransformation::coordinateTransformationbyCameraForWorld(
         ScenarioObject *scenarioObject, Camera *camera)
+
 // inacabado
 {
     Point3D i, j, k, eye;

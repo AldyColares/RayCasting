@@ -10,10 +10,14 @@ Camera::Camera()
 void Camera::loadCamera(){
 
 
+
     ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/camera.txt");
 
     for(string line; getline( infile, line ); )
     {
+
+
+        sub;
         istringstream iss(line);
         iss >> sub;
 
@@ -58,6 +62,7 @@ void Camera::loadCamera(){
             istringstream(sub) >> upJCamera.z;
 
         }else if (sub.compare("upKCamera") == 0){
+
             iss >> sub;
             istringstream(sub) >> upKcamera.x;
 
@@ -85,6 +90,13 @@ void Camera::loadCamera(){
             iss >> sub;
             istringstream(sub) >> near.z;
 
+        }else if (sub.compare("far") == 0){
+            iss >> sub;
+            istringstream(sub) >> far.x;
+            iss >> sub;
+            istringstream(sub) >> far.y;
+            iss >> sub;
+            istringstream(sub) >> far.z;
         }else if (sub.compare("far") == 0){
             iss >> sub;
             istringstream(sub) >> far.x;

@@ -15,6 +15,7 @@ ScenarioObject* LoadMaterial::loadObject(){
 
     //testOnjectt(scenarioObject);
 
+
     return scenarioObject;
 }
 
@@ -45,6 +46,7 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             iss >> sub;
             istringstream(sub) >> vetor[2];
             scenarioObjectTmp->setVectorObjIn3D(vetor);
+
 
             counterVector ++;
 
@@ -117,6 +119,7 @@ void LoadMaterial::testOnjectt(ScenarioObject* scenarioObject)
 {
     Point3D test;
     for (int var = 1; var < 4  ; ++var) {
+
 
         Point3D point = scenarioObject->getVectorObjIn3D(var);
 

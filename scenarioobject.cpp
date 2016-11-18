@@ -44,7 +44,7 @@ Point3D ScenarioObject::getVectorObjIn3D(int position)
     position -= 1;
     Point3D point;
     point = listVectores[position];
-    return point;
+
 }
 
 
