@@ -6,7 +6,7 @@ class Dot
 {
 public:
     Dot();
-    float scalarproduct(point3D pointV1, point3D pointV2);
+    float scalarproduct(Point3D pointV1, Point3D pointV2);
 
 };
 

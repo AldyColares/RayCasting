@@ -47,3 +47,8 @@ HEADERS  += mainwindow.h \
     gridpixel.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    arquivos.qrc

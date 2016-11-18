@@ -1,0 +1,11 @@
+verificações pedentes:
+verificar se está eliminado um das cordenas da face. A que transforma a face em 
+3d para 2d.
+
+testar o calculo da normal.
+
+testar se o raio atinge uma face.
+
+
+
+verificações concluídas: 

@@ -8,7 +8,7 @@ class CrossProduct
 {
 public:
     CrossProduct();
-    point3D crossProduct(point3D v1, point3D v2);
+    Point3D crossProduct(Point3D v1, Point3D v2);
 
 };
 

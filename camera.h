@@ -7,28 +7,31 @@
 #include <stdlib.h>
 #include <fstream>
 #include <sstream>
+using namespace std;
+
 
 class Camera
 {
 public:
     Camera();
     void loadCamera();
-    point3D getUpICamera();
-    point3D getUpJCamera();
-    point3D getUpKCamera();
-    point3D getEye();
-    point3D getLoakAt();
-    point3D getCenterCamera();
-    point3D getNear();
-    point3D getFar();
+    Point3D getUpICamera();
+    Point3D getUpJCamera();
+    Point3D getUpKCamera();
+    Point3D getEye();
+    Point3D getLoakAt();
+    Point3D getCenterCamera();
+    Point3D getNear();
+    Point3D getFar();
     int getHeighScreen();
     int getWidthScreen();
 
 private:
-    point3D eye, centerCamera, upICamera,  
+    Point3D eye, centerCamera, upICamera,
 	    upJCamera, upKcamera, lookAt, near, far;
 
     int heighScreen, widthScreen;
+    string sub;
 
 };
 

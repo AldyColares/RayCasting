@@ -13,12 +13,14 @@ class FaceFurtherNear
 {
 public:
     FaceFurtherNear();
-    face3D lookUpSmallestDistanceFace(point3D pointCoordXYPixel, ScenarioObject scenarioObject);
+    face3D lookUpSmallestDistanceFace(Point3D pointCoordXYPixel, ScenarioObject* scenarioObject);
 
 private:
-    bool CheakPointWithinTriangle(face3D face, point3D Q);
-    float calculeteVariavelD(point3D normal, point3D v1Face);
-    point3D deleteInModuleTheLargestVertex(point3D normal);
+    GenerateVetor generateVetor;
+    bool CheakPointWithinTriangle(face3D face, Point3D Q);
+    float calculeteVariavelD(Point3D normal, Point3D v1Face);
+    Point3D deleteInModuleTheLargestVertex(Point3D normal);
+    Dot dot;
 
 };
 

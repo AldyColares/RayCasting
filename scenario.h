@@ -5,18 +5,32 @@
 #include "scenarioObject.h"
 #include "point3d.h"
 #include "coordinatetransformation.h"
+#include "gridpixel.h"
+#include "loadmaterial.h"
+#include "vector"
 
 class Scenario
 {
 public:
     light luzpontual0;
+    Scenario();
 
-    Scenario(ScenarioObject scenarioObject);
     void LoadScenario();
-    Camera getCamera();
-    ScenarioObject getMaterial();
+
+    void setGridPixel(GridPixel *gridPixel);
     void setLight(light lig);
+
+    Camera* getCamera();
+    ScenarioObject *getMaterial();
     light getLigth();
+    GridPixel *getGridPixel();
+
+private:
+    ScenarioObject *scenarioObje;
+    Camera *camera;
+    GridPixel *gridPixel;
+    LoadMaterial *loadMaterial;
+    int sizeMaterial;
 
 
 };

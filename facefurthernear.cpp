@@ -1,15 +1,13 @@
 #include "facefurthernear.h"
 
-GenerateVetor generateVetor;
 FaceFurtherNear::FaceFurtherNear()
 {
 
 }
 
-bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, point3D Q)
+bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
 {
-    Dot dot;
-    point3D E,G,F,Ne;
+    Point3D E,G,F,Ne;
     float result;
     for (int i = 0; i < 3; ++i) {
         if (i == 0) {
@@ -50,10 +48,9 @@ bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, point3D Q)
     return true;
 }
 
-float FaceFurtherNear::calculeteVariavelD(point3D normal, point3D v1Face)
+float FaceFurtherNear::calculeteVariavelD(Point3D normal, Point3D v1Face)
 {
     float D;
-    Dot dot;
 
     normal.x = normal.x * -1;
     normal.y = normal.y * -1;
@@ -63,7 +60,7 @@ float FaceFurtherNear::calculeteVariavelD(point3D normal, point3D v1Face)
     return D;
 }
 
-point3D FaceFurtherNear::deleteInModuleTheLargestVertex(point3D normal)
+Point3D FaceFurtherNear::deleteInModuleTheLargestVertex(Point3D normal)
 {
     UnitVector unitVector;
     // case that at least one vector is zero.
@@ -98,37 +95,37 @@ point3D FaceFurtherNear::deleteInModuleTheLargestVertex(point3D normal)
     return normal;
 }
 
-face3D FaceFurtherNear::lookUpSmallestDistanceFace(point3D pointCoordXYPixel,
-                                                   ScenarioObject scenarioObject)
+face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
+                                                   ScenarioObject *scenarioObject)
 {
-    Dot dot;
-    int leghtface = scenarioObject.getSizeFaces();
+
+    int leghtface = scenarioObject->getSizeFaces();
     face3D Nthface, faceLessDistancia;
     float Tint, D, lessDistanceBetweenScreenAndFace;
-    point3D v1Face;
+    Point3D vectex1Face;
     bool pointInsideFace;
 
     lessDistanceBetweenScreenAndFace = std::numeric_limits<float>::max();
 
     for (int idFace = 0; idFace < leghtface; ++idFace) {
 
-        Nthface = scenarioObject.getFaceObjIn3D(idFace);
-        v1Face = scenarioObject.getVectorObjIn3D(Nthface.idV1);
-        D = calculeteVariavelD(Nthface.normal, v1Face);
+        Nthface = scenarioObject->getFaceObjIn3D(idFace);
+        vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+        //D = calculeteVariavelD(Nthface.normal, vectex1Face);
 
         // Tint: distance in between screen of the projection and Nth face.
-        Tint = -1 *(dot.scalarproduct(v1Face, Nthface.normal) + D)
-                /
-                dot.scalarproduct(pointCoordXYPixel, Nthface.normal);
+        Tint =      dot.scalarproduct(vectex1Face, Nthface.normal)
+                                          /
+                    dot.scalarproduct(pointCoordXYPixel, Nthface.normal);
 
         if (Tint > 0.0000){
             pointCoordXYPixel.x *= Tint;
             pointCoordXYPixel.y *= Tint;
             pointCoordXYPixel.z *= Tint;
 
-            Nthface.Vertex1 = scenarioObject.getVectorObjIn3D(Nthface.idV1);
-            Nthface.Vertex2 = scenarioObject.getVectorObjIn3D(Nthface.idV2);
-            Nthface.Verter3 = scenarioObject.getVectorObjIn3D(Nthface.idV3);
+            Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+            Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
+            Nthface.Verter3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
             Nthface.normal = deleteInModuleTheLargestVertex(Nthface.normal);
 
             pointInsideFace = CheakPointWithinTriangle(Nthface, pointCoordXYPixel);
@@ -136,12 +133,10 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(point3D pointCoordXYPixel,
             if(pointInsideFace == true && Tint < lessDistanceBetweenScreenAndFace){
                 faceLessDistancia.chosenFaceFlag = false;
                 lessDistanceBetweenScreenAndFace = Tint;
-                faceLessDistancia = scenarioObject.getFaceObjIn3D(idFace);;
+                faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);;
                 faceLessDistancia.chosenFaceFlag = true;
             }
 
-        }else{
-            break;
         }
     }
     return faceLessDistancia;

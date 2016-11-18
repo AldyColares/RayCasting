@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/infile">
+        <file>thefile.txt</file>
+        <file>camera.txt</file>
+    </qresource>
+</RCC>

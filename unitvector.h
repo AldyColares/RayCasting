@@ -7,7 +7,7 @@ class UnitVector
 {
 public:
     UnitVector();
-    point3D normalize(point3D v1);
+    Point3D normalize(Point3D v1);
 
 };
 
