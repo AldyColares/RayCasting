@@ -4,5 +4,5 @@ centerCamera 0.000 0.000 -4.000
 upICamera 1.000 0.000 0.000
 upJCamera 0.000 1.000 0.000
 upKCamera 0.000 0.000 1.000
-heighScreen 50
-widthScreen 50
+heighScreen 5
+widthScreen 5

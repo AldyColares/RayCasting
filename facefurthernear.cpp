@@ -13,31 +13,35 @@ bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
     for (int i = 0; i < 3; ++i) {
         if (i == 0) {
             E = generateVetor.generateVector(face.Vertex2, face.Vertex1);
-            F = generateVetor.generateVector(face.Verter3, face.Vertex1);
+            F = generateVetor.generateVector(face.Vertex3, face.Vertex1);
             G = generateVetor.generateVector(     Q      , face.Vertex1);
 
         }else if (i == 1){
-            E = generateVetor.generateVector(face.Verter3, face.Vertex2);
+            E = generateVetor.generateVector(face.Vertex3, face.Vertex2);
             F = generateVetor.generateVector(face.Vertex1, face.Vertex2);
             G = generateVetor.generateVector(     Q      , face.Vertex2);
 
         }else if(i == 2){
-            E = generateVetor.generateVector(face.Vertex1, face.Verter3);
-            F = generateVetor.generateVector(face.Vertex2, face.Verter3);
-            G = generateVetor.generateVector(     Q      , face.Verter3);
+            E = generateVetor.generateVector(face.Vertex1, face.Vertex3);
+            F = generateVetor.generateVector(face.Vertex2, face.Vertex3);
+            G = generateVetor.generateVector(     Q      , face.Vertex3);
         }
-        if(face.normal.z == 0.0000){
-            Ne.x = E.y * -1;
-            Ne.y = E.x;
-            Ne.z = 0.0000;
-        }else if(face.normal.y == 0.0000){
-            Ne.x = E.z * -1;
-            Ne.z = E.x;
-            Ne.y = 0.0000;
-        }else if(face.normal.x == 0.0000) {
+
+        if(face.normal.x == 0 && face.Vertex1.x == 0 &&
+           face.Vertex1.x == 0 && face.Vertex1.x == 0 && Q.x == 0 ){
             Ne.z = E.y * -1;
             Ne.y = E.z;
             Ne.x = 0.0000;
+        }else if(face.normal.y == 0 && face.Vertex1.y == 0 &&
+                 face.Vertex1.y == 0 && face.Vertex1.y == 0 && Q.y == 0){
+            Ne.x = E.z * -1;
+            Ne.z = E.x;
+            Ne.y = 0.0000;
+        }else if(face.normal.z == 0 && face.Vertex1.z == 0 &&
+                 face.Vertex1.z == 0 && face.Vertex1.z == 0 && Q.z == 0) {
+            Ne.x = E.y * -1;
+            Ne.y = E.x;
+            Ne.z = 0.0000;
         }else{
             // para testes. caso o método "deleteInModuleTheLargestVertex(point3D normal)" esteja bugado.
         }
@@ -61,55 +65,88 @@ float FaceFurtherNear::calculeteVariavelD(Point3D normal, Point3D v1Face)
     return D;
 }
 
-Point3D FaceFurtherNear::deleteInModuleTheLargestVertex(Point3D normal)
+face3D FaceFurtherNear::deleteInModuleTheLargestVertex(face3D face, Point3D &point)
 {
+  /*
     UnitVector unitVector;
     // case that at least one vector is zero.
-    if (normal.x == 0.0000){
-        return normal;
-    }else if(normal.y == 0.0000){
-        return normal;
-    }else if(normal.z == 0.0000){
-        return normal;
+    if (face.normal.x == 0.0000){
+        face.Vertex1.x = 0.0000;
+        face.Vertex2.x = 0.0000;
+        face.Vertex3.x = 0.0000;
+        point.x = 0.0000;
+
+        return face;
+    }else if(face.normal.y == 0.0000){
+        face.Vertex1.y = 0.0000;
+        face.Vertex2.y = 0.0000;
+        face.Vertex3.y = 0.0000;
+        point.y = 0.0000;
+
+        return face;
+    }else if(face.normal.z == 0.0000){
+        face.Vertex1.z = 0.0000;
+        face.Vertex2.z = 0.0000;
+        face.Vertex3.z = 0.0000;
+        point.z = 0.0000;
+
+        return face;
     }
-
+*/
     float moduleX, moduleY , moduleZ;
-    moduleX = normal.x * normal.x;
-    moduleY = normal.y * normal.y;
-    moduleZ = normal.z * normal.z;
-
+    moduleX = face.normal.x * face.normal.x;
+    moduleY = face.normal.y * face.normal.y;
+    moduleZ = face.normal.z * face.normal.z;
     // now, cleared the large vextex.
     if (moduleX >= moduleY){
         if(moduleX >= moduleZ){
-            normal.x = 0.0000;
+            face.normal.x = 0.0000;
+            face.Vertex1.x = 0.0000;
+            face.Vertex2.x = 0.0000;
+            face.Vertex3.x = 0.0000;
+            point.x = 0.0000;
+
         }else{
-            normal.z = 0.0000;
+            face.normal.z = 0.0000;
+            face.Vertex1.z = 0.0000;
+            face.Vertex2.z = 0.0000;
+            face.Vertex3.z = 0.0000;
+            point.z = 0.0000;
+
         }
 
     }else if(moduleY >= moduleZ){
-        normal.y = 0.0000;
-    }else{
-        normal.z = 0.0000;
-    }
+        face.normal.y = 0.0000;
+        face.Vertex1.y = 0.0000;
+        face.Vertex2.y = 0.0000;
+        face.Vertex3.y = 0.0000;
+        point.y = 0.0000;
 
-    normal = unitVector.normalize(normal);
-    return normal;
+    }else{
+        face.normal.z = 0.0000;
+        face.Vertex1.z = 0.0000;
+        face.Vertex2.z = 0.0000;
+        face.Vertex3.z = 0.0000;
+        point.z = 0.0000;
+
+    }
+    return face;
 }
 
-face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
+face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinatePixel,
                                                    ScenarioObject *scenarioObject)
 {
     int leghtface = scenarioObject->getSizeFaces();
     face3D Nthface, faceLessDistancia;
     float Tint, D, lessDistanceBetweenScreenAndFace;
-    Point3D vectex1Face;
+    Point3D vectex1Face, auxCoordinatePIxel;
 
     bool pointInsideFace;
 
     lessDistanceBetweenScreenAndFace = std::numeric_limits<float>::max();
 
     for (int idFace = 0; idFace < leghtface; ++idFace) {
-
+        auxCoordinatePIxel = vectorXAndYCoordinatePixel;
         Nthface = scenarioObject->getFaceObjIn3D(idFace);
 
         vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
@@ -119,19 +156,19 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D pointCoordXYPixel,
         // Tint: distance in between screen of the projection and Nth face.
         Tint =      dot.scalarproduct(vectex1Face, Nthface.normal)
                                           /
-                    dot.scalarproduct(pointCoordXYPixel, Nthface.normal);
+                    dot.scalarproduct(auxCoordinatePIxel, Nthface.normal);
 
         if (Tint > 0.0000){
-            pointCoordXYPixel.x *= Tint;
-            pointCoordXYPixel.y *= Tint;
-            pointCoordXYPixel.z *= Tint;
+            auxCoordinatePIxel.x *= Tint;
+            auxCoordinatePIxel.y *= Tint;
+            auxCoordinatePIxel.z *= Tint;
 
             Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
             Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
-            Nthface.Verter3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
-            Nthface.normal = deleteInModuleTheLargestVertex(Nthface.normal);
+            Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
+            Nthface = deleteInModuleTheLargestVertex(Nthface, auxCoordinatePIxel);
 
-            pointInsideFace = CheakPointWithinTriangle(Nthface, pointCoordXYPixel);
+            pointInsideFace = CheakPointWithinTriangle(Nthface, auxCoordinatePIxel);
 
             if(pointInsideFace == true && Tint < lessDistanceBetweenScreenAndFace){
                 faceLessDistancia.chosenFaceFlag = false;

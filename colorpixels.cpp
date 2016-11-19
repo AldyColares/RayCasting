@@ -14,10 +14,9 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
     camera = scenario->getCamera();
     Point3D vertexPixel;
 
-    int heighScreen, widthScreen;
+    float heighScreen, widthScreen;
     widthScreen = camera->getWidthScreen();
     heighScreen = camera->getHeighScreen();
-
 
     Pixel pixel;
     float deltaX, deltaY;
@@ -30,11 +29,11 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
     for (int i = 0; i <= pixelRateHorizontal ; ++i) {
         for (int j = 0; j <= pixelRateVertical; ++j) {
 
-
             vertexPixel.x = -widthScreen / 2 + deltaX / 2 + (deltaX * j);
             vertexPixel.y =  heighScreen / 2 - deltaY / 2 - (deltaY * i);
-            vertexPixel.z = -4;
+            vertexPixel.z = -10;
             face = faceFurtherNear->lookUpSmallestDistanceFace(vertexPixel, scenario->getMaterial());
+
 
             if (face.chosenFaceFlag == true){
                 face.chosenFaceFlag = false;

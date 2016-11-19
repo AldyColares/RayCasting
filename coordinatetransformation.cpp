@@ -7,12 +7,46 @@ CoordinateTransformation::CoordinateTransformation()
 }
 
 ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCamera
-
 (ScenarioObject *scenarioObject,
  Camera *camera)
 
 {
+
+    i = camera->getUpICamera();
+    j = camera->getUpJCamera();
+    k = camera->getUpKCamera();
+    eye = camera->getEye();
     int amountVector = scenarioObject->getSizeVector();
+    ScenarioObject* scenarioObjectTransformCoordCamera = new ScenarioObject();
+
+    for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
+        NthVertice = scenarioObject->getVectorObjIn3D(NthVector);
+
+        float vertResult[3];
+
+        vertResult[0] = i.x * NthVertice.x + j.x * NthVertice.y +
+                i.x * NthVertice.z + eye.x * 1;
+
+        vertResult[1] = i.y * NthVertice.x + j.y * NthVertice.y +
+                i.y * NthVertice.z + eye.y * 1;
+
+        vertResult[2] = i.z * NthVertice.x + j.z * NthVertice.y +
+                i.z * NthVertice.z + eye.z * 1;
+
+        scenarioObjectTransformCoordCamera->setVectorObjIn3D(vertResult);
+
+    }
+    return scenarioObjectTransformCoordCamera;
+
+
+
+}
+
+ScenarioObject *CoordinateTransformation::coordinateTransformationbyCameraForWorld(
+        ScenarioObject *scenarioObject, Camera *camera)
+
+{
+
 
     eye = camera->getEye();
     i = camera->getUpICamera();
@@ -20,6 +54,7 @@ ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCame
     k = camera->getUpKCamera();
 
     ScenarioObject* scenarioObjectTransformCoordCamera = new ScenarioObject();
+    int amountVector = scenarioObject->getSizeVector();
     for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
 
         NthVertice = scenarioObject->getVectorObjIn3D(NthVector);
@@ -41,17 +76,5 @@ ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCame
     }
     return scenarioObjectTransformCoordCamera;
 
-}
-
-ScenarioObject *CoordinateTransformation::coordinateTransformationbyCameraForWorld(
-        ScenarioObject *scenarioObject, Camera *camera)
-
-// inacabado
-{
-    Point3D i, j, k, eye;
-    i = camera->getUpICamera();
-    j = camera->getUpJCamera();
-    k = camera->getUpKCamera();
-    eye = camera->getEye();
 }
 

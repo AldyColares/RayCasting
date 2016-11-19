@@ -13,7 +13,7 @@ ScenarioObject* LoadMaterial::loadObject(){
     ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/thefile.txt");
     scenarioObject = insertVectorFaces(infile);
 
-    //testOnjectt(scenarioObject);
+    testOnjectt(scenarioObject);
 
 
     return scenarioObject;
@@ -103,6 +103,7 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
 Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceOnj)
 {
 
+
     Point3D vectorV1V2, vectorV2V3, point;
     vectorV1V2 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV1),
                                           sceOnj->getVectorObjIn3D(vectorsFace.idV2));
@@ -112,13 +113,14 @@ Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceO
 
     point = crossProduct.crossProduct(vectorV1V2, vectorV2V3);
 
+
     return point;
 }
 
 void LoadMaterial::testOnjectt(ScenarioObject* scenarioObject)
 {
     Point3D test;
-    for (int var = 1; var < 4  ; ++var) {
+    for (int var = 1; var < 7  ; ++var) {
 
 
         Point3D point = scenarioObject->getVectorObjIn3D(var);
