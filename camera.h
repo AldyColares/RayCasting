@@ -7,14 +7,20 @@
 #include <stdlib.h>
 #include <fstream>
 #include <sstream>
-using namespace std;
+#include "crossproduct.h"
+#include "generatevetor.h"
+#include "unitvector.h"
 
+
+using namespace std;
 
 class Camera
 {
 public:
     Camera();
     void loadCamera();
+    void calculeUp();
+
     Point3D getUpICamera();
     Point3D getUpJCamera();
     Point3D getUpKCamera();
@@ -28,10 +34,14 @@ public:
 
 private:
     Point3D eye, centerCamera, upICamera,
-	    upJCamera, upKcamera, lookAt, near, far;
+        upJCamera, upKcamera, lookAt, near,
+        far, viewUp, VUp;
 
     int heighScreen, widthScreen;
     string sub;
+    UnitVector unitVector;
+    GenerateVetor generateVetor;
+    CrossProduct crossProduct;
 
 };
 

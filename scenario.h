@@ -1,13 +1,13 @@
 #ifndef SCENARIO_H
 #define SCENARIO_H
+
 #include "light.h"
 #include "camera.h"
 #include "scenarioObject.h"
 #include "point3d.h"
-#include "coordinatetransformation.h"
 #include "gridpixel.h"
 #include "loadmaterial.h"
-#include "vector"
+#include  <vector>
 
 
 class Scenario
@@ -20,8 +20,11 @@ public:
 
     void setGridPixel(GridPixel *gridPixel);
     void setLight(light lig);
+    void setGroupScenarioObje(vector<ScenarioObject*> *groupScenarioObject);
+
     Camera* getCamera();
     ScenarioObject *getMaterial();
+    vector<ScenarioObject*>* getGroupScenarioObject();
     light getLigth();
     GridPixel *getGridPixel();
 
@@ -32,7 +35,7 @@ private:
     GridPixel *gridPixel;
     LoadMaterial *loadMaterial;
     int sizeMaterial;
-
+    vector<ScenarioObject*>* vectorScenarioObject;
 
 };
 

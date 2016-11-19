@@ -41,36 +41,15 @@ void Camera::loadCamera(){
             iss >> sub;
             istringstream(sub) >> centerCamera.z;
 
-        }else if (sub.compare("upICamera") == 0){
+        }else if (sub.compare("VUp") == 0){
             iss >> sub;
-            istringstream(sub) >> upICamera.x;
+            istringstream(sub) >> VUp.x;
 
             iss >> sub;
-            istringstream(sub) >> upICamera.y;
+            istringstream(sub) >> VUp.y;
 
             iss >> sub;
-            istringstream(sub) >> upICamera.z;
-
-        }else if (sub.compare("upJCamera") == 0){
-            iss >> sub;
-            istringstream(sub) >> upJCamera.x;
-
-            iss >> sub;
-            istringstream(sub) >> upJCamera.y;
-
-            iss >> sub;
-            istringstream(sub) >> upJCamera.z;
-
-        }else if (sub.compare("upKCamera") == 0){
-
-            iss >> sub;
-            istringstream(sub) >> upKcamera.x;
-
-            iss >> sub;
-            istringstream(sub) >> upKcamera.y;
-
-            iss >> sub;
-            istringstream(sub) >> upKcamera.z;
+            istringstream(sub) >> VUp.z;
 
         }else if (sub.compare("heighScreen") == 0){
             iss >> sub;
@@ -97,13 +76,6 @@ void Camera::loadCamera(){
             istringstream(sub) >> far.y;
             iss >> sub;
             istringstream(sub) >> far.z;
-        }else if (sub.compare("far") == 0){
-            iss >> sub;
-            istringstream(sub) >> far.x;
-            iss >> sub;
-            istringstream(sub) >> far.y;
-            iss >> sub;
-            istringstream(sub) >> far.z;
 
         }else if (sub.compare("lookAt") == 0){
             iss >> sub;
@@ -115,7 +87,21 @@ void Camera::loadCamera(){
         }
 
     }
+    calculeUp();
     infile.close();
+}
+
+void Camera::calculeUp()
+{
+    Point3D eyeLookAt;
+    eyeLookAt = generateVetor.generateVector(eye, lookAt);
+    upKcamera = unitVector.normalize(eyeLookAt);
+
+    viewUp = generateVetor.generateVector(VUp, eye);
+    upICamera =  crossProduct.crossProduct(viewUp, upKcamera);
+
+    upJCamera = crossProduct.crossProduct(upKcamera, upICamera);
+
 }
 
 

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include "scenarioObject.h"
 #include "crossproduct.h"
 #include "dot.h"
@@ -13,12 +14,13 @@
 #include "face3d.h"
 #include "scenarioObject.h"
 
+using namespace std;
 
 class LoadMaterial
 {
 public:
      LoadMaterial();
-     ScenarioObject *loadObject();
+     vector<ScenarioObject*> *loadObject();
      void testOnjectt(ScenarioObject *scenarioObject);
 
 private:
@@ -33,6 +35,8 @@ private:
      const int v2 = 1;
      const int v3 = 2;
      const int normal = 3;
+
+     vector<ScenarioObject*> *vectorScenarioObject;
 
 };
 

@@ -6,75 +6,75 @@ CoordinateTransformation::CoordinateTransformation()
 
 }
 
-ScenarioObject *CoordinateTransformation::coordinateTransformationbyWorldForCamera
-(ScenarioObject *scenarioObject,
- Camera *camera)
+void CoordinateTransformation::coordinateTransformationbyWorldForCamera(Scenario *scenario)
 
 {
+    vectorMaterial = scenario->getGroupScenarioObject();
 
+    camera = scenario->getCamera();
     i = camera->getUpICamera();
     j = camera->getUpJCamera();
     k = camera->getUpKCamera();
     eye = camera->getEye();
-    int amountVector = scenarioObject->getSizeVector();
-    ScenarioObject* scenarioObjectTransformCoordCamera = new ScenarioObject();
 
-    for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
-        NthVertice = scenarioObject->getVectorObjIn3D(NthVector);
+    int amountMaterial = vectorMaterial->size();
+    for (int NthMaterial = 0; NthMaterial < amountMaterial; ++NthMaterial) {
 
-        float vertResult[3];
+        scenarioObject = vectorMaterial->at(NthMaterial);
 
-        vertResult[0] = i.x * NthVertice.x + j.x * NthVertice.y +
-                i.x * NthVertice.z + eye.x * 1;
+        int amountVector = scenarioObject->getSizeVector();
 
-        vertResult[1] = i.y * NthVertice.x + j.y * NthVertice.y +
-                i.y * NthVertice.z + eye.y * 1;
+        for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
+            NthVec = scenarioObject->getVectorObjIn3D(NthVector);
 
-        vertResult[2] = i.z * NthVertice.x + j.z * NthVertice.y +
-                i.z * NthVertice.z + eye.z * 1;
+            float vertResult[3];
 
-        scenarioObjectTransformCoordCamera->setVectorObjIn3D(vertResult);
+            vertResult[0] = i.x * NthVec.x + j.x * NthVec.y + i.x * NthVec.z + eye.x * NthVec.w;
 
+            vertResult[1] = i.y * NthVec.x + j.y * NthVec.y + i.y * NthVec.z + eye.y * NthVec.w;
+
+            vertResult[2] = i.z * NthVec.x + j.z * NthVec.y + i.z * NthVec.z + eye.z * NthVec.w;
+
+            scenarioObject->setVectorObjIn3D(vertResult);
+
+        }
     }
-    return scenarioObjectTransformCoordCamera;
-
-
-
 }
 
-ScenarioObject *CoordinateTransformation::coordinateTransformationbyCameraForWorld(
-        ScenarioObject *scenarioObject, Camera *camera)
-
+void CoordinateTransformation::coordinateTransformationbyCameraForWorld (Scenario *scenario)
 {
+    vectorMaterial = scenario->getGroupScenarioObject();
 
-
+    camera = scenario->getCamera();
     eye = camera->getEye();
     i = camera->getUpICamera();
     j = camera->getUpJCamera();
     k = camera->getUpKCamera();
 
-    ScenarioObject* scenarioObjectTransformCoordCamera = new ScenarioObject();
-    int amountVector = scenarioObject->getSizeVector();
-    for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
+    int amountMaterial = vectorMaterial->size();
+    for (int NthMaterial = 0; NthMaterial < amountMaterial; ++NthMaterial) {
+        scenarioObject = vectorMaterial->at(NthMaterial);
 
-        NthVertice = scenarioObject->getVectorObjIn3D(NthVector);
+        int amountVector = scenarioObject->getSizeVector();
 
-        float vertResult[3];
+        for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
 
-        vertResult[0] = i.x * NthVertice.x + i.y * NthVertice.y +
-                i.z * NthVertice.z + 1   * dot.scalarproduct(i, eye) * (-1);
+            NthVec = scenarioObject->getVectorObjIn3D(NthVector);
 
+            float vertResult[3];
 
-        vertResult[1] = j.x * NthVertice.x + j.y * NthVertice.y +
-                j.z * NthVertice.z + 1   * dot.scalarproduct(j, eye) * (-1);
+            vertResult[0] = i.x * NthVec.x + i.y * NthVec.y + i.z * NthVec.z +
+                    NthVec.w * dot.scalarproduct(i, eye) * (-1);
 
-        vertResult[2] = k.x * NthVertice.x + k.y * NthVertice.y +
-                k.z * NthVertice.z + 1   * dot.scalarproduct(k, eye) * (-1);
+            vertResult[1] = j.x * NthVec.x + j.y * NthVec.y + j.z * NthVec.z +
+                    NthVec.w * dot.scalarproduct(j, eye) * (-1);
 
-        scenarioObjectTransformCoordCamera->setVectorObjIn3D(vertResult);
+            vertResult[2] = k.x * NthVec.x + k.y * NthVec.y + k.z * NthVec.z +
+                    NthVec.w * dot.scalarproduct(k, eye) * (-1);
 
+            scenarioObject->setVectorObjIn3D(vertResult);
+
+        }
     }
-    return scenarioObjectTransformCoordCamera;
-
 }
 

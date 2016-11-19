@@ -28,7 +28,7 @@ bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
         }
 
         if(face.normal.x == 0 && face.Vertex1.x == 0 &&
-           face.Vertex1.x == 0 && face.Vertex1.x == 0 && Q.x == 0 ){
+                face.Vertex1.x == 0 && face.Vertex1.x == 0 && Q.x == 0 ){
             Ne.z = E.y * -1;
             Ne.y = E.z;
             Ne.x = 0.0000;
@@ -67,7 +67,7 @@ float FaceFurtherNear::calculeteVariavelD(Point3D normal, Point3D v1Face)
 
 face3D FaceFurtherNear::deleteInModuleTheLargestVertex(face3D face, Point3D &point)
 {
-  /*
+    /*
     UnitVector unitVector;
     // case that at least one vector is zero.
     if (face.normal.x == 0.0000){
@@ -134,49 +134,52 @@ face3D FaceFurtherNear::deleteInModuleTheLargestVertex(face3D face, Point3D &poi
 }
 
 face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinatePixel,
-                                                   ScenarioObject *scenarioObject)
+                                                   vector<ScenarioObject*> *groupScenarioObject)
 {
-    int leghtface = scenarioObject->getSizeFaces();
+    ScenarioObject* scenarioObject;
+    int leghtMaterial = groupScenarioObject->size();
+
     face3D Nthface, faceLessDistancia;
-    float Tint, D, lessDistanceBetweenScreenAndFace;
+    float Tint, lessDistanceBetweenScreenAndFace;
     Point3D vectex1Face, auxCoordinatePIxel;
 
-    bool pointInsideFace;
-
     lessDistanceBetweenScreenAndFace = std::numeric_limits<float>::max();
+    for (int NthMaterial = 0; NthMaterial < leghtMaterial; ++NthMaterial) {
+        scenarioObject = groupScenarioObject->at(NthMaterial);
+        int leghtface = scenarioObject->getSizeFaces();
 
-    for (int idFace = 0; idFace < leghtface; ++idFace) {
-        auxCoordinatePIxel = vectorXAndYCoordinatePixel;
-        Nthface = scenarioObject->getFaceObjIn3D(idFace);
+        for (int idFace = 0; idFace < leghtface; ++idFace) {
+            Nthface = scenarioObject->getFaceObjIn3D(idFace);
 
-        vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
-        //D = calculeteVariavelD(Nthface.normal, vectex1Face);
+            vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
 
+            auxCoordinatePIxel = vectorXAndYCoordinatePixel;
 
-        // Tint: distance in between screen of the projection and Nth face.
-        Tint =      dot.scalarproduct(vectex1Face, Nthface.normal)
-                                          /
+            // Tint: distance in between screen of the projection and Nth face.
+            Tint =      dot.scalarproduct(vectex1Face, Nthface.normal)
+                    /
                     dot.scalarproduct(auxCoordinatePIxel, Nthface.normal);
 
-        if (Tint > 0.0000){
-            auxCoordinatePIxel.x *= Tint;
-            auxCoordinatePIxel.y *= Tint;
-            auxCoordinatePIxel.z *= Tint;
+            if (Tint > 0.0000){
+                auxCoordinatePIxel.x *= Tint;
+                auxCoordinatePIxel.y *= Tint;
+                auxCoordinatePIxel.z *= Tint;
 
-            Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
-            Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
-            Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
-            Nthface = deleteInModuleTheLargestVertex(Nthface, auxCoordinatePIxel);
+                Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+                Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
+                Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
+                Nthface = deleteInModuleTheLargestVertex(Nthface, auxCoordinatePIxel);
 
-            pointInsideFace = CheakPointWithinTriangle(Nthface, auxCoordinatePIxel);
+                pointInsideFace = CheakPointWithinTriangle(Nthface, auxCoordinatePIxel);
 
-            if(pointInsideFace == true && Tint < lessDistanceBetweenScreenAndFace){
-                faceLessDistancia.chosenFaceFlag = false;
-                lessDistanceBetweenScreenAndFace = Tint;
-                faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);;
-                faceLessDistancia.chosenFaceFlag = true;
+                if(pointInsideFace == true && Tint < lessDistanceBetweenScreenAndFace){
+                    faceLessDistancia.chosenFaceFlag = false;
+                    lessDistanceBetweenScreenAndFace = Tint;
+                    faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);;
+                    faceLessDistancia.chosenFaceFlag = true;
+                }
+
             }
-
         }
     }
     return faceLessDistancia;

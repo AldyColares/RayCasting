@@ -32,14 +32,15 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
             vertexPixel.x = -widthScreen / 2 + deltaX / 2 + (deltaX * j);
             vertexPixel.y =  heighScreen / 2 - deltaY / 2 - (deltaY * i);
             vertexPixel.z = -10;
-            face = faceFurtherNear->lookUpSmallestDistanceFace(vertexPixel, scenario->getMaterial());
+            face = faceFurtherNear->lookUpSmallestDistanceFace(vertexPixel,
+                                                               scenario->getGroupScenarioObject());
 
 
             if (face.chosenFaceFlag == true){
                 face.chosenFaceFlag = false;
 
-                pixel.red   = convertColorForFormatRGB32(0.4);
-                pixel.green = convertColorForFormatRGB32(0.4);
+                pixel.red   = convertColorForFormatRGB32(0.1);
+                pixel.green = convertColorForFormatRGB32(0.6);
                 pixel.blue  = convertColorForFormatRGB32(0.4);
                 gridPixel->setColorPixel(i, j, pixel);
 

@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <stdio.h>
+#include <sys/time.h>
 
 
 MainWindow::MainWindow(QWidget *parent):
@@ -9,9 +11,6 @@ MainWindow::MainWindow(QWidget *parent):
     ui->setupUi(this);
 
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(mainSlot()));
-
-
-
 
 }
 
@@ -33,27 +32,30 @@ void MainWindow::mainSlot()
     light0.y = 5.0;
     light0.z = -2.0;
 */
+    struct timeval inicio, final;
+    float tmili;
 
+    gettimeofday(&inicio, NULL);
     Pixel pixel;
     GridPixel* gridPixel = new GridPixel();
 
-
-    ColorPixels colorCount;
+    ColorPixels colorPixels;
 
     Scenario *scenario = new Scenario();
     scenario->LoadScenario();
 
-    ScenarioObject* scenarioObjectTransformCoordCamera;
-    CoordinateTransformation *coordinateTransformation = new CoordinateTransformation();
+    //ScenarioObject* scenarioObjectTransformCoordCamera;
+
+    //CoordinateTransformation *coordinateTransformation = new CoordinateTransformation();
 
     //the vectices of the material are oriented in camera coordinates.
-    scenarioObjectTransformCoordCamera = coordinateTransformation->coordinateTransformationbyWorldForCamera
-            (scenario->getMaterial(), scenario->getCamera());
+    //scenarioObjectTransformCoordCamera = coordinateTransformation->coordinateTransformationbyWorldForCamera
+    //        (scenario->getMaterial(), scenario->getCamera());
 
 
     int sizeX = 500;
     int sizeY = 500;
-    gridPixel = colorCount.caluletionColorPixels(sizeX, sizeY, scenario);
+    gridPixel = colorPixels.caluletionColorPixels(sizeX, sizeY, scenario);
 
     QImage image = QImage(sizeX, sizeY, QImage::Format_RGB32);
 
@@ -66,7 +68,10 @@ void MainWindow::mainSlot()
             image.setPixel(x, y, qRgb(pixel.red, pixel.green ,pixel.blue));
         }
     }
-    std::cout << "=========terminou========" << endl;
+    gettimeofday(&final, NULL);
+    tmili = (int) (1000 * (final.tv_sec - inicio.tv_sec) + (final.tv_usec - inicio.tv_usec) / 1000);
+
+    std::cout << "=========terminou========" << " \n tempo gasto em segundos: "<< tmili/1000 << endl;
     QGraphicsScene *graphic = new QGraphicsScene(this);
     graphic->addPixmap( QPixmap::fromImage(image));
 

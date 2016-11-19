@@ -6,17 +6,27 @@ using namespace std;
 LoadMaterial::LoadMaterial()
 {
     scenarioObject = new ScenarioObject();
+    vectorScenarioObject = new vector<ScenarioObject*>;
 
 }
-ScenarioObject* LoadMaterial::loadObject(){
+vector<ScenarioObject*> *LoadMaterial::loadObject(){
 
-    ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/thefile.txt");
-    scenarioObject = insertVectorFaces(infile);
+    vector<string> setMaterial;
+    setMaterial.push_back("thefile.txt");
 
-    testOnjectt(scenarioObject);
+    string pathFile = "/home/rin/Documentos/trabalho CG/RayCasting/";
 
+    int setMaterialSize = setMaterial.size();
+    for (int var = 0; var < setMaterialSize; ++var) {
 
-    return scenarioObject;
+        ifstream infile( pathFile + setMaterial[var]);
+        scenarioObject = insertVectorFaces(infile);
+        //testOnjectt(scenarioObject);
+
+        vectorScenarioObject->push_back(scenarioObject );
+    }
+
+    return vectorScenarioObject;
 }
 
 

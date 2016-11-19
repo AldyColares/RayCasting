@@ -19,6 +19,7 @@ void ScenarioObject::setVectorObjIn3D(float point[3])
     pointtmp.x = point[0];
     pointtmp.y = point[1];
     pointtmp.z = point[2];
+    pointtmp.w = 1;
 
     listVectores.push_back(pointtmp);
     setSizeVector(listVectores.size());

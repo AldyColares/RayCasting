@@ -1,8 +1,5 @@
 #include "scenario.h"
 
-
-
-
 Scenario::Scenario()
 {
     scenarioObje = new ScenarioObject();
@@ -14,7 +11,7 @@ Scenario::Scenario()
 void Scenario::LoadScenario()
 {
     camera->loadCamera();
-    scenarioObje = loadMaterial->loadObject();
+    vectorScenarioObject = loadMaterial->loadObject();
 }
 
 Camera* Scenario::getCamera()
@@ -27,11 +24,20 @@ ScenarioObject* Scenario::getMaterial()
     return scenarioObje;
 }
 
+void Scenario::setGroupScenarioObje(vector<ScenarioObject*> *groupScenarioObject)
+{
+    vectorScenarioObject = groupScenarioObject;
+}
+
+vector<ScenarioObject*> *Scenario::getGroupScenarioObject()
+{
+    return vectorScenarioObject;
+}
+
 void Scenario::setLight(light lig)
 {
     luzpontual0 = lig;
 }
-
 
 light Scenario::getLigth()
 {

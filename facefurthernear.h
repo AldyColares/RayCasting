@@ -8,12 +8,16 @@
 #include "dot.h"
 #include "unitvector.h"
 #include <limits>
+#include <vector>
+
+using namespace std;
 
 class FaceFurtherNear
 {
 public:
     FaceFurtherNear();
-    face3D lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinatePixel, ScenarioObject* scenarioObject);
+    face3D lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinatePixel,
+                                      vector<ScenarioObject*> *groupScenarioObject);
 
 private:
     GenerateVetor generateVetor;
@@ -21,6 +25,8 @@ private:
     float calculeteVariavelD(Point3D normal, Point3D v1Face);
     face3D deleteInModuleTheLargestVertex(face3D normal, Point3D& point);
     Dot dot;
+    bool pointInsideFace;
+
 
 
 };
