@@ -1,0 +1,20 @@
+maior x 1.733379
+menor x -1.174403
+
+média: 1,453891
+
+centro x: 0,279488
+
+maior y 2.692283
+menor y -0.158916
+
+média: 1,4255995
+
+centro y:1,2666835
+
+maior z 4.602566
+menor z -1.265869
+
+Média: 2,9342175
+
+centro z: -11,6683485

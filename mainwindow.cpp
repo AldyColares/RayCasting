@@ -46,12 +46,12 @@ void MainWindow::mainSlot()
 
     //ScenarioObject* scenarioObjectTransformCoordCamera;
 
-    //CoordinateTransformation *coordinateTransformation = new CoordinateTransformation();
+    CoordinateTransformation *coordinateTransformation = new CoordinateTransformation();
 
     //the vectices of the material are oriented in camera coordinates.
-    //scenarioObjectTransformCoordCamera = coordinateTransformation->coordinateTransformationbyWorldForCamera
-    //        (scenario->getMaterial(), scenario->getCamera());
 
+    coordinateTransformation->coordinateTransformationbyWorldForCamera(scenario);
+    //coordinateTransformation->coordinateTransformationbyCameraForWorld(scenario);
 
     int sizeX = 500;
     int sizeY = 500;

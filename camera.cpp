@@ -10,7 +10,8 @@ Camera::Camera()
 void Camera::loadCamera(){
 
 
-
+    //home/0338159/Documentos/RayCasting
+    //home/rin/Documentos/trabalho CG/RayCasting
     ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/camera.txt");
 
     for(string line; getline( infile, line ); )
@@ -85,6 +86,20 @@ void Camera::loadCamera(){
             iss >> sub;
             istringstream(sub) >> lookAt.z;
         }
+        else if (sub.compare("light") == 0){
+            iss >> sub;
+            istringstream(sub) >> light0.x;
+            iss >> sub;
+            istringstream(sub) >> light0.y;
+            iss >> sub;
+            istringstream(sub) >> light0.z;
+            iss >> sub;
+            istringstream(sub) >> light0.red;
+            iss >> sub;
+            istringstream(sub) >> light0.green;
+            iss >> sub;
+            istringstream(sub) >> light0.blue;
+        }
 
     }
     calculeUp();
@@ -94,16 +109,19 @@ void Camera::loadCamera(){
 void Camera::calculeUp()
 {
     Point3D eyeLookAt;
-    eyeLookAt = generateVetor.generateVector(eye, lookAt);
-    upKcamera = unitVector.normalize(eyeLookAt);
+    eyeLookAt = generateVetor.generateVector(lookAt, eye);
+    upKCamera = unitVector.normalize(eyeLookAt);
 
-    viewUp = generateVetor.generateVector(VUp, eye);
-    upICamera =  crossProduct.crossProduct(viewUp, upKcamera);
+    viewUp = generateVetor.generateVector(eye, VUp);
+    upICamera =  crossProduct.crossProduct(viewUp,upKCamera);
 
-    upJCamera = crossProduct.crossProduct(upKcamera, upICamera);
-
+    upJCamera = crossProduct.crossProduct(upKCamera, upICamera);
 }
 
+light Camera::getLigth()
+{
+    return light0;
+}
 
 Point3D Camera::getCenterCamera(){
     return centerCamera;
@@ -128,7 +146,7 @@ Point3D Camera::getUpJCamera()
 
 Point3D Camera::getUpKCamera()
 {
-    return upKcamera;
+    return upKCamera;
 }
 
 Point3D Camera::getFar()

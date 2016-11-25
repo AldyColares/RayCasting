@@ -10,6 +10,7 @@
 #include "crossproduct.h"
 #include "generatevetor.h"
 #include "unitvector.h"
+#include "light.h"
 
 
 using namespace std;
@@ -21,6 +22,7 @@ public:
     void loadCamera();
     void calculeUp();
 
+    light getLigth();
     Point3D getUpICamera();
     Point3D getUpJCamera();
     Point3D getUpKCamera();
@@ -34,10 +36,11 @@ public:
 
 private:
     Point3D eye, centerCamera, upICamera,
-        upJCamera, upKcamera, lookAt, near,
+        upJCamera, upKCamera, lookAt, near,
         far, viewUp, VUp;
 
     int heighScreen, widthScreen;
+    light light0;
     string sub;
     UnitVector unitVector;
     GenerateVetor generateVetor;

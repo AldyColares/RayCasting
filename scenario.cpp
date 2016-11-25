@@ -11,6 +11,7 @@ Scenario::Scenario()
 void Scenario::LoadScenario()
 {
     camera->loadCamera();
+    light0 = camera->getLigth();
     vectorScenarioObject = loadMaterial->loadObject();
 }
 
@@ -36,12 +37,12 @@ vector<ScenarioObject*> *Scenario::getGroupScenarioObject()
 
 void Scenario::setLight(light lig)
 {
-    luzpontual0 = lig;
+    light0 = lig;
 }
 
 light Scenario::getLigth()
 {
-    return luzpontual0;
+    return light0;
 }
 
 GridPixel* Scenario::getGridPixel()

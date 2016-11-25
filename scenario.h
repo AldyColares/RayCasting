@@ -8,12 +8,12 @@
 #include "gridpixel.h"
 #include "loadmaterial.h"
 #include  <vector>
+#include "light.h"
 
 
 class Scenario
 {
 public:
-    light luzpontual0;
     Scenario();
 
     void LoadScenario();
@@ -30,6 +30,7 @@ public:
 
 
 private:
+    light light0;
     ScenarioObject *scenarioObje;
     Camera *camera;
     GridPixel *gridPixel;

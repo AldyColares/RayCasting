@@ -1,5 +1,4 @@
 #include "loadmaterial.h"
-#include <scenarioObject.h>
 
 using namespace std;
 
@@ -10,10 +9,15 @@ LoadMaterial::LoadMaterial()
 
 }
 vector<ScenarioObject*> *LoadMaterial::loadObject(){
-
+    //thefile.txt
+    //mesa.txt
     vector<string> setMaterial;
-    setMaterial.push_back("thefile.txt");
+    setMaterial.push_back("triforce.txt");
+    setMaterial.push_back("mesa.txt");
 
+
+    //home/0338159/Documentos/RayCasting
+    //home/rin/Documentos/trabalho CG/RayCasting
     string pathFile = "/home/rin/Documentos/trabalho CG/RayCasting/";
 
     int setMaterialSize = setMaterial.size();
@@ -61,7 +65,7 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             counterVector ++;
 
         }else if (sub.compare("f") == 0){
-
+            float aux;
             iss >> sub;
             istringstream(sub) >> idVectorN_OfFace;
             NthFace.idV1 = idVectorN_OfFace;
@@ -74,40 +78,65 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             istringstream(sub) >> idVectorN_OfFace;
             NthFace.idV3 = idVectorN_OfFace;
 
+            iss >> sub;
+            istringstream(sub) >> aux;
+            NthFace.red = aux;
+
+            iss >> sub;
+            istringstream(sub) >> aux;
+            NthFace.green = aux;
+
+            iss >> sub;
+            istringstream(sub) >> aux;
+            NthFace.blue = aux;
+
             NthFace.normal = calculatingNormal(NthFace, scenarioObjectTmp);
 
             scenarioObjectTmp->setFaceObjIn3D(NthFace);
 
             // I know it breaks the encapsulation!!
-        }else if (sub.compare("material_ambient")){
+        }else if (sub.compare("materialAmbient")){
 
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialAmbientRed;
+            istringstream(sub) >> aux;
+            propMat.materialAmbientRed = aux;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialAmbientGreen;
+            istringstream(sub) >> aux;
+            propMat.materialAmbientGreen = aux;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialAmbientBlue;
+            istringstream(sub) >> aux;
+            propMat.materialAmbientBlue = aux;
 
-        }else if(sub.compare("material_diffuse")){
+        }else if(sub.compare("materialDiffuse")){
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialDiffuseRed;
+            istringstream(sub) >> aux;
+            propMat.materialDiffuseRed = aux;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialDiffuseGreen;
+            istringstream(sub) >> aux;
+            propMat.materialDiffuseGreen = aux;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialDiffuseBlue;
-        }else if (sub.compare("material_specular")){
+            istringstream(sub) >> aux;
+            propMat.materialDiffuseBlue = aux;
+
+        }else if (sub.compare("materialSpecular")){
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialSpecularRed;
+            istringstream(sub) >> aux;
+            propMat.materialSpecularRed = aux;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialSpecularGreen;
+            istringstream(sub) >> aux;
+            propMat.materialSpecularGreen = aux;
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialSpecularBlue;
-        }else if (sub.compare("material_shininess")){
+            istringstream(sub) >> aux;
+            propMat.materialSpecularBlue = aux;
+
+        }else if (sub.compare("materialShininess")){
             iss >> sub;
-            istringstream(sub) >> scenarioObjectTmp->propMat.materialShininess;
+            istringstream(sub) >> aux;
+             propMat.materialSpecularBlue = aux;
         }
     }
     infile.close();
+    scenarioObjectTmp->setPropertyMaterial(propMat);
     return scenarioObjectTmp;
 }
 Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceOnj)

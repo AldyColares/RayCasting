@@ -28,17 +28,17 @@ bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
         }
 
         if(face.normal.x == 0 && face.Vertex1.x == 0 &&
-                face.Vertex1.x == 0 && face.Vertex1.x == 0 && Q.x == 0 ){
+                face.Vertex2.x == 0 && face.Vertex3.x == 0 && Q.x == 0 ){
             Ne.z = E.y * -1;
             Ne.y = E.z;
             Ne.x = 0.0000;
         }else if(face.normal.y == 0 && face.Vertex1.y == 0 &&
-                 face.Vertex1.y == 0 && face.Vertex1.y == 0 && Q.y == 0){
+                 face.Vertex2.y == 0 && face.Vertex3.y == 0 && Q.y == 0){
             Ne.x = E.z * -1;
             Ne.z = E.x;
             Ne.y = 0.0000;
         }else if(face.normal.z == 0 && face.Vertex1.z == 0 &&
-                 face.Vertex1.z == 0 && face.Vertex1.z == 0 && Q.z == 0) {
+                 face.Vertex2.z == 0 && face.Vertex3.z == 0 && Q.z == 0) {
             Ne.x = E.y * -1;
             Ne.y = E.x;
             Ne.z = 0.0000;
@@ -175,12 +175,16 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinate
                 if(pointInsideFace == true && Tint < lessDistanceBetweenScreenAndFace){
                     faceLessDistancia.chosenFaceFlag = false;
                     lessDistanceBetweenScreenAndFace = Tint;
-                    faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);;
+                    faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);
                     faceLessDistancia.chosenFaceFlag = true;
+
+                    faceLessDistancia.propMaterial = scenarioObject->getPropertyMaterial();
+
                 }
 
             }
         }
     }
+
     return faceLessDistancia;
 }

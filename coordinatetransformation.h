@@ -22,9 +22,16 @@ private:
     Point3D i, j, k, eye;
     Point3D NthVec;
     Camera* camera;
+    GenerateVetor geneVetor;
+    CrossProduct crossProduct;
     ScenarioObject* scenarioObject;
     vector<ScenarioObject*> *vectorMaterial;
-
+    vector<Point3D> listVertex;
+    Point3D vertexResult;
+    void calculeNormal(ScenarioObject *sceOnj);
+    vector<face3D> listFaces;
+    face3D NthFace;
+    Point3D vectorV1V2, vectorV2V3;
 
 };
 

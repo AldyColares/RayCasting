@@ -6,7 +6,7 @@ CoordinateTransformation::CoordinateTransformation()
 
 }
 
-void CoordinateTransformation::coordinateTransformationbyWorldForCamera(Scenario *scenario)
+void CoordinateTransformation::coordinateTransformationbyCameraForWorld(Scenario *scenario)
 
 {
     vectorMaterial = scenario->getGroupScenarioObject();
@@ -24,24 +24,45 @@ void CoordinateTransformation::coordinateTransformationbyWorldForCamera(Scenario
 
         int amountVector = scenarioObject->getSizeVector();
 
-        for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
+        for (int NthVector = 1; NthVector <= amountVector; ++NthVector) {
             NthVec = scenarioObject->getVectorObjIn3D(NthVector);
 
-            float vertResult[3];
+            vertexResult.x = i.x * NthVec.x + j.x * NthVec.y + k.x * NthVec.z + eye.x * NthVec.w;
 
-            vertResult[0] = i.x * NthVec.x + j.x * NthVec.y + i.x * NthVec.z + eye.x * NthVec.w;
+            vertexResult.y = i.y * NthVec.x + j.y * NthVec.y + k.y * NthVec.z + eye.y * NthVec.w;
 
-            vertResult[1] = i.y * NthVec.x + j.y * NthVec.y + i.y * NthVec.z + eye.y * NthVec.w;
+            vertexResult.z = i.z * NthVec.x + j.z * NthVec.y + k.z * NthVec.z + eye.z * NthVec.w;
 
-            vertResult[2] = i.z * NthVec.x + j.z * NthVec.y + i.z * NthVec.z + eye.z * NthVec.w;
-
-            scenarioObject->setVectorObjIn3D(vertResult);
-
+            listVertex.push_back(vertexResult);
         }
+        scenarioObject->setListVertex(listVertex);
+
+        calculeNormal(scenarioObject);
     }
 }
 
-void CoordinateTransformation::coordinateTransformationbyCameraForWorld (Scenario *scenario)
+void CoordinateTransformation::calculeNormal(ScenarioObject *scenarioObject)
+{
+    int amountFaces = scenarioObject->getSizeFaces();
+
+    listFaces.clear();
+    for (int indexFaces = 0; indexFaces < amountFaces; ++indexFaces) {
+
+        NthFace = scenarioObject->getFaceObjIn3D(indexFaces);
+
+        vectorV1V2 = geneVetor.generateVector(scenarioObject->getVectorObjIn3D(NthFace.idV1),
+                                              scenarioObject->getVectorObjIn3D(NthFace.idV2));
+
+        vectorV2V3 = geneVetor.generateVector(scenarioObject->getVectorObjIn3D(NthFace.idV1),
+                                              scenarioObject->getVectorObjIn3D(NthFace.idV3));
+
+        NthFace.normal = crossProduct.crossProduct(vectorV1V2, vectorV2V3);
+        listFaces.push_back(NthFace);
+    }
+    scenarioObject->setListFaces(listFaces);
+}
+
+void CoordinateTransformation::coordinateTransformationbyWorldForCamera (Scenario *scenario)
 {
     vectorMaterial = scenario->getGroupScenarioObject();
 
@@ -56,25 +77,25 @@ void CoordinateTransformation::coordinateTransformationbyCameraForWorld (Scenari
         scenarioObject = vectorMaterial->at(NthMaterial);
 
         int amountVector = scenarioObject->getSizeVector();
-
-        for (int NthVector = 1; NthVector < amountVector; ++NthVector) {
+        listVertex.clear();
+        for (int NthVector = 1; NthVector <= amountVector; ++NthVector) {
 
             NthVec = scenarioObject->getVectorObjIn3D(NthVector);
 
-            float vertResult[3];
-
-            vertResult[0] = i.x * NthVec.x + i.y * NthVec.y + i.z * NthVec.z +
+            vertexResult.x = i.x * NthVec.x + i.y * NthVec.y + i.z * NthVec.z +
                     NthVec.w * dot.scalarproduct(i, eye) * (-1);
 
-            vertResult[1] = j.x * NthVec.x + j.y * NthVec.y + j.z * NthVec.z +
+            vertexResult.y = j.x * NthVec.x + j.y * NthVec.y + j.z * NthVec.z +
                     NthVec.w * dot.scalarproduct(j, eye) * (-1);
 
-            vertResult[2] = k.x * NthVec.x + k.y * NthVec.y + k.z * NthVec.z +
+            vertexResult.z = k.x * NthVec.x + k.y * NthVec.y + k.z * NthVec.z +
                     NthVec.w * dot.scalarproduct(k, eye) * (-1);
 
-            scenarioObject->setVectorObjIn3D(vertResult);
+            listVertex.push_back(vertexResult);
 
         }
+        scenarioObject->setListVertex(listVertex);
+
+        calculeNormal(scenarioObject);
     }
 }
-
