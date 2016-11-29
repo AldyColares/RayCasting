@@ -46,9 +46,9 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
                 somaIDif = diffuseColor(face);
                 somaISpe = specularColor(face);
 
-                pixel.red = somaIAmb.red +somaIAmb.red + somaIAmb.red ;
-                pixel.green = somaIAmb.green +somaIAmb.green + somaIAmb.green ;
-                pixel.blue = somaIAmb.blue +somaIAmb.blue + somaIAmb.blue ;
+                pixel.red = somaIAmb.red +somaIDif.red + somaISpe.red ;
+                pixel.green = somaIAmb.green +somaIDif.green + somaISpe.green ;
+                pixel.blue = somaIAmb.blue +somaIDif.blue + somaISpe.blue ;
 
                 gridPixel->setColorPixel(i, j, pixel);
 
