@@ -177,7 +177,7 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinate
                     lessDistanceBetweenScreenAndFace = Tint;
                     faceLessDistancia = scenarioObject->getFaceObjIn3D(idFace);
                     faceLessDistancia.chosenFaceFlag = true;
-
+                    faceLessDistancia.pointInsertFace = auxCoordinatePIxel;
                     faceLessDistancia.propMaterial = scenarioObject->getPropertyMaterial();
 
                 }

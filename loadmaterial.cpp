@@ -12,7 +12,7 @@ vector<ScenarioObject*> *LoadMaterial::loadObject(){
     //thefile.txt
     //mesa.txt
     vector<string> setMaterial;
-    setMaterial.push_back("triforce.txt");
+    //setMaterial.push_back("triforce.txt");
     setMaterial.push_back("mesa.txt");
 
 
@@ -95,44 +95,37 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             scenarioObjectTmp->setFaceObjIn3D(NthFace);
 
             // I know it breaks the encapsulation!!
-        }else if (sub.compare("materialAmbient")){
+        }else if (sub.compare("#") == 0){
+            continue;
+        }
+        else if (sub.compare("materialAmbient") == 0){
 
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialAmbientRed = aux;
+            istringstream(sub) >> propMat.materialAmbientRed;
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialAmbientGreen = aux;
+            istringstream(sub) >> propMat.materialAmbientGreen;
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialAmbientBlue = aux;
+            istringstream(sub) >> propMat.materialAmbientBlue;
 
-        }else if(sub.compare("materialDiffuse")){
+        }else if(sub.compare("materialDiffuse") == 0){
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialDiffuseRed = aux;
+            istringstream(sub) >> propMat.materialDiffuseRed;
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialDiffuseGreen = aux;
+            istringstream(sub) >> propMat.materialDiffuseGreen;
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialDiffuseBlue = aux;
+            istringstream(sub) >> propMat.materialDiffuseBlue;
 
-        }else if (sub.compare("materialSpecular")){
+        }else if (sub.compare("materialSpecular") == 0){
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialSpecularRed = aux;
+            istringstream(sub) >> propMat.materialSpecularRed;
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialSpecularGreen = aux;
+            istringstream(sub) >> propMat.materialSpecularGreen;
             iss >> sub;
-            istringstream(sub) >> aux;
-            propMat.materialSpecularBlue = aux;
+            istringstream(sub) >> propMat.materialSpecularBlue;
 
-        }else if (sub.compare("materialShininess")){
+        }else if (sub.compare("materialShininess") == 0){
             iss >> sub;
-            istringstream(sub) >> aux;
-             propMat.materialSpecularBlue = aux;
+            istringstream(sub) >> propMat.materialShininess;
         }
     }
     infile.close();

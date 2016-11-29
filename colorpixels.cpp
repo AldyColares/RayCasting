@@ -36,12 +36,12 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
             face = faceFurtherNear->lookUpSmallestDistanceFace(vertexPixel,
                                                                scenario->getGroupScenarioObject());
-
-
             if (face.chosenFaceFlag == true){
                 face.chosenFaceFlag = false;
+
+
                 face.light0 = scenario->getLigth();
-    /*
+
                 somaIAmb = ambientColor(face);
                 somaIDif = diffuseColor(face);
                 somaISpe = specularColor(face);
@@ -52,12 +52,12 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
                 gridPixel->setColorPixel(i, j, pixel);
 
-      */
+                /*
                 pixel.red   = convertColorForFormatRGB32(face.red);
                 pixel.green = convertColorForFormatRGB32(face.green);
                 pixel.blue  = convertColorForFormatRGB32(face.blue);
                 gridPixel->setColorPixel(i, j, pixel);
-
+    */
             }
 
         }
@@ -125,10 +125,12 @@ light ColorPixels::diffuseColor(face3D face)
     l.y = (light0.y - pint.y)/dist;
     l.z = (light0.z - pint.z)/dist;
     produto = dot.scalarproduct(face.normal, l);
-    IDif.red = light0.red * proMat.materialAmbientRed * produto;
-    IDif.green = light0.green * proMat.materialAmbientGreen * produto;
-    IDif.blue = light0.blue * proMat.materialAmbientBlue * produto;
+    if(produto >= 0.000){
+    IDif.red = light0.red * proMat.materialDiffuseRed * produto;
+    IDif.green = light0.green * proMat.materialDiffuseGreen * produto;
+    IDif.blue = light0.blue * proMat.materialDiffuseBlue * produto;
     return IDif;
+    }
 
 }
 
@@ -153,16 +155,16 @@ light ColorPixels::specularColor(face3D face)
 
 
 
-    if (r.x > 0 & r.y > 0 && r.z > 0 ) {
+    if (r.x > 0 && r.y > 0 && r.z > 0 ) {
         // the coordinate the of eye are zero.
         dist = sqrt(pow(pint.x, 2) + pow(pint.y, 2) + pow(pint.z, 2));
         v.x = (-pint.x)/dist;
         v.y = (-pint.y)/dist;
         v.z = (-pint.z)/dist;
         produto = dot.scalarproduct(r,v);
-        ISpe.red = light0.red * proMat.materialAmbientRed * pow(produto, proMat.materialShininess);
-        ISpe.green = light0.green * proMat.materialAmbientGreen * pow(produto, proMat.materialShininess);
-        ISpe.blue = light0.blue * proMat.materialAmbientBlue * pow(produto, proMat.materialShininess);
+        ISpe.red = light0.red * proMat.materialSpecularRed * pow(produto, proMat.materialShininess);
+        ISpe.green = light0.green * proMat.materialSpecularGreen * pow(produto, proMat.materialShininess);
+        ISpe.blue = light0.blue * proMat.materialSpecularBlue * pow(produto, proMat.materialShininess);
         return ISpe;
     }else{
         return ISpe;

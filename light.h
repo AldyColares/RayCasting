@@ -2,7 +2,7 @@
 #define LIGHT_H
 
 typedef struct{
-   int red, green ,blue;
+   float red, green ,blue;
    float x, y, z;
 } light;
 
