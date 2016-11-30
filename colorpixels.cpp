@@ -50,6 +50,10 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
                 pixel.green = somaIAmb.green +  somaIDif.green + somaISpe.green ;
                 pixel.blue =  somaIAmb.blue  +  somaIDif.blue  + somaISpe.blue ;
 
+                pixel.red *= face.red;
+                pixel.green *= face.green;
+                pixel.blue  *= face.blue;
+
                 pixel.red   = convertColorForFormatRGB32(pixel.red);
                 pixel.green = convertColorForFormatRGB32(pixel.green);
                 pixel.blue  = convertColorForFormatRGB32(pixel.blue);
@@ -61,12 +65,12 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
                 pixel.green = convertColorForFormatRGB32(face.green);
                 pixel.blue  = convertColorForFormatRGB32(face.blue);
                 gridPixel->setColorPixel(i, j, pixel);
-                */
+          */
             }
 
         }
     }
-    //normalizePixel( pixelRateHorizontal , pixelRateVertical);
+    normalizePixel( pixelRateHorizontal , pixelRateVertical, color8bits);
     return gridPixel;
 }
 
@@ -81,7 +85,7 @@ light ColorPixels::ambientColor(face3D face)
     return IAmb;
 }
 
-void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical )
+void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical , int limitNormalize)
 {   int highestValue = 0;
     Pixel pixel;
     float auxPixel;
@@ -106,23 +110,26 @@ void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical
             }
         }
     }
-    for (int i = 0; i < pixelRateHorizontal; ++i) {
-        for (int j = 0;j < pixelRateVertical; ++j) {
-            pixel = gridPixel->getColorPixel(i, j);
+    if (highestValue > limitNormalize) {
+        for (int i = 0; i < pixelRateHorizontal; ++i) {
+            for (int j = 0;j < pixelRateVertical; ++j) {
+                pixel = gridPixel->getColorPixel(i, j);
 
-            auxPixel = pixel.red/highestValue;
-            pixel.red = auxPixel;
+                auxPixel = pixel.red/highestValue;
+                pixel.red = auxPixel;
+                pixel.red = convertColorForFormatRGB32(pixel.red);
 
-            auxPixel = pixel.green/highestValue;
-            pixel.green = auxPixel;
+                auxPixel = pixel.green/highestValue;
+                pixel.green = auxPixel;
+                pixel.green = convertColorForFormatRGB32(pixel.green);
 
-            auxPixel = pixel.blue/highestValue;
-            pixel.blue = auxPixel;
-
-            gridPixel->setColorPixel(i,j, pixel);
+                auxPixel = pixel.blue/highestValue;
+                pixel.blue = auxPixel;
+                pixel.blue = convertColorForFormatRGB32(pixel.blue);
+                gridPixel->setColorPixel(i,j, pixel);
+            }
         }
     }
-
 }
 
 light ColorPixels::diffuseColor(face3D face)
@@ -139,7 +146,12 @@ light ColorPixels::diffuseColor(face3D face)
     l.x = (light0.x - pint.x)/dist;
     l.y = (light0.y - pint.y)/dist;
     l.z = (light0.z - pint.z)/dist;
+
+
     produto = dot.scalarproduct(face.normal, l);
+    if (produto > 1){
+        std::cout << "produto acima de 1 no diffuso.";
+    }
     if(produto >= 0.000){
         IDif.red = light0.red * proMat.materialDiffuseRed * produto;
         IDif.green = light0.green * proMat.materialDiffuseGreen * produto;
@@ -167,12 +179,16 @@ light ColorPixels::specularColor(face3D face)
     l.x = (light0.x - pint.x)/dist;
     l.y = (light0.y - pint.y)/dist;
     l.z = (light0.z - pint.z)/dist;
-    produto = dot.scalarproduct(l,face.normal);
+    produto = dot.scalarproduct(l, face.normal);
 
     r.x = (2*produto)*(face.normal.x - l.x);
     r.y = (2*produto)*(face.normal.y - l.y);
     r.z = (2*produto)*(face.normal.z - l.z);
 
+    dist = sqrt(pow(r.x, 2) + pow(r.y, 2) + pow(r.z, 2));
+    r.x = (r.x)/dist;
+    r.y = (r.y)/dist;
+    r.z = (r.z)/dist;
 
     // the coordinates the of eye are zero.
     dist = sqrt(pow(pint.x, 2) + pow(pint.y, 2) + pow(pint.z, 2));
@@ -181,6 +197,9 @@ light ColorPixels::specularColor(face3D face)
     v.z = (-pint.z)/dist;
 
     produto = dot.scalarproduct(r,v);
+    if (produto > 1){
+        std::cout << "produto acima de 1 no specular.";
+    }
     if (produto >= 0.000 ) {
         ISpe.red = light0.red * proMat.materialSpecularRed * pow(produto, proMat.materialShininess);
         ISpe.green = light0.green * proMat.materialSpecularGreen * pow(produto, proMat.materialShininess);
@@ -199,7 +218,7 @@ light ColorPixels::specularColor(face3D face)
 int ColorPixels::convertColorForFormatRGB32(float color)
 {
     if (color >= 0){
-        int color8bits = 255;
+
         return color * color8bits;
     }else{
         std::cout << "Class colorPixels: Deu problema color" << color;

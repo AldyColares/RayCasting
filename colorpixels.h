@@ -26,14 +26,16 @@ public:
     light ambientColor(face3D face);
     light diffuseColor(face3D face);
     light specularColor(face3D face);
-    void normalizePixel(int pixelRateHorizontal , int pixelRateVertical);
+    void normalizePixel(int pixelRateHorizontal , int pixelRateVertical, int limitNormalize);
 private:
+    int color8bits = 255;
     int convertColorForFormatRGB32(float color);
     Camera* camera;
     GridPixel* gridPixel;
     propertyMaterial proMat;
     light light0;
     Dot dot;
+    UnitVector unitVector;
 };
 
 #endif // COLORPIXELS_H
