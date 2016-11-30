@@ -42,4 +42,4 @@ materialDiffuse 0.5 0.5 0.5
 
 materialSpecular 0.7 0.7 0.7 
 
-materialShininess 3
+materialShininess 1

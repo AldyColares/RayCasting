@@ -12,7 +12,7 @@ vector<ScenarioObject*> *LoadMaterial::loadObject(){
     //thefile.txt
     //mesa.txt
     vector<string> setMaterial;
-    //setMaterial.push_back("triforce.txt");
+    setMaterial.push_back("triforce.txt");
     setMaterial.push_back("mesa.txt");
 
 
