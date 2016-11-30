@@ -173,7 +173,11 @@ light ColorPixels::specularColor(face3D face)
     r.y = (2*produto)*(face.normal.y - l.y);
     r.z = (2*produto)*(face.normal.z - l.z);
 
-
+    dist = sqrt(pow(r.x, 2) + pow(r.y, 2) + pow(r.z, 2));
+    r.x = r.x/dist;
+    r.y = r.y/dist;
+    r.z = r.z/dist;
+    
     // the coordinates the of eye are zero.
     dist = sqrt(pow(pint.x, 2) + pow(pint.y, 2) + pow(pint.z, 2));
     v.x = (-pint.x)/dist;
