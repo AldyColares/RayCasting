@@ -24,7 +24,10 @@ SOURCES += main.cpp\
     colorpixels.cpp \
     facefurthernear.cpp \
     unitvector.cpp \
-    gridpixel.cpp
+    gridpixel.cpp \
+    translationobject.cpp \
+    scalerobject.cpp \
+    quaternions.cpp
 
 HEADERS  += mainwindow.h \
     loadmaterial.h \
@@ -44,7 +47,10 @@ HEADERS  += mainwindow.h \
     facefurthernear.h \
     unitvector.h \
     propertymaterial.h \
-    gridpixel.h
+    gridpixel.h \
+    translationobject.h \
+    scalerobject.h \
+    quaternions.h
 
 FORMS    += mainwindow.ui
 

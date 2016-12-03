@@ -22,16 +22,7 @@ MainWindow::~MainWindow()
 void MainWindow::mainSlot()
 {
 
-    /*
-    light light0;
 
-    light0.red = 0.5;
-    light0.green = 0.5;
-    light0.blue = 0.5;
-    light0.x = 0.0;
-    light0.y = 5.0;
-    light0.z = -2.0;
-*/
     struct timeval inicio, final;
     float tmili;
 

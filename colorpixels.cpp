@@ -60,7 +60,7 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
                 gridPixel->setColorPixel(i, j, pixel);
 
-                /*
+            /*
                 pixel.red   = convertColorForFormatRGB32(face.red);
                 pixel.green = convertColorForFormatRGB32(face.green);
                 pixel.blue  = convertColorForFormatRGB32(face.blue);
@@ -89,24 +89,18 @@ void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical
 {   int highestValue = 0;
     Pixel pixel;
     float auxPixel;
-    int n,m;
+
     for (int i = 0; i < pixelRateHorizontal; ++i) {
         for (int j = 0; j < pixelRateVertical; ++j) {
             pixel = gridPixel->getColorPixel(i, j);
             if (pixel.red > highestValue) {
                 highestValue = pixel.red;
-                n = i;
-                m = j;
             }
             if(pixel.green > highestValue ){
                 highestValue = pixel.green;
-                n = i;
-                m = j;
             }
             if(pixel.blue > highestValue){
                 highestValue = pixel.blue;
-                n = i;
-                m = j;
             }
         }
     }
@@ -211,8 +205,6 @@ light ColorPixels::specularColor(face3D face)
         ISpe.blue = 0.00;
         return ISpe;
     }
-
-
 }
 
 int ColorPixels::convertColorForFormatRGB32(float color)
@@ -222,10 +214,6 @@ int ColorPixels::convertColorForFormatRGB32(float color)
         return color * color8bits;
     }else{
         std::cout << "Class colorPixels: Deu problema color" << color;
+        return 0;
     }
-}
-
-Point3D ColorPixels::calculeteVectorV()
-{
-
 }

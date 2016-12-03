@@ -6,19 +6,24 @@ LoadMaterial::LoadMaterial()
 {
     scenarioObject = new ScenarioObject();
     vectorScenarioObject = new vector<ScenarioObject*>;
+    auxPoint3d.w = 1;
 
 }
 vector<ScenarioObject*> *LoadMaterial::loadObject(){
     //thefile.txt
     //mesa.txt
     vector<string> setMaterial;
-    setMaterial.push_back("triforce.txt");
-    setMaterial.push_back("mesa.txt");
+    //setMaterial.push_back("triforce.txt");
+    //setMaterial.push_back("mesa.txt");
+
+    setMaterial.push_back("cubeDepurer.txt");
+    setMaterial.push_back("floor.txt");
+
 
 
     //home/0338159/Documentos/RayCasting
     //home/rin/Documentos/trabalho CG/RayCasting
-    string pathFile = "/home/rin/Documentos/trabalho CG/RayCasting/";
+    string pathFile ="/home/rin/Documentos/trabalho CG/RayCasting/";
 
     int setMaterialSize = setMaterial.size();
     for (int var = 0; var < setMaterialSize; ++var) {
@@ -37,8 +42,6 @@ vector<ScenarioObject*> *LoadMaterial::loadObject(){
 
 ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
 {
-    int counterVector;
-    counterVector = 0;
     face3D NthFace;
     string sub;
     ScenarioObject* scenarioObjectTmp = new ScenarioObject();
@@ -60,9 +63,6 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             iss >> sub;
             istringstream(sub) >> vetor[2];
             scenarioObjectTmp->setVectorObjIn3D(vetor);
-
-
-            counterVector ++;
 
         }else if (sub.compare("f") == 0){
             float aux;
@@ -94,9 +94,82 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
 
             scenarioObjectTmp->setFaceObjIn3D(NthFace);
 
-            // I know it breaks the encapsulation!!
         }else if (sub.compare("#") == 0){
             continue;
+        }else if(sub.compare("back") == 0){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setBack(auxPoint3d);
+        }else if(sub.compare("centroid") == 0){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setCentroid(auxPoint3d);
+        }else if(sub.compare("front") == 0 ){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setFront(auxPoint3d);
+
+        }else if(sub.compare("left") == 0){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setSideLeft(auxPoint3d);
+
+        }else if(sub.compare("right") == 0){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setSideRight(auxPoint3d);
+
+        }else if(sub.compare("top") == 0){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setTop(auxPoint3d);
+
+        }else if(sub.compare("down") == 0){
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.x;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.y;
+
+            iss >> sub;
+            istringstream(sub) >> auxPoint3d.z;
+            scenarioObjectTmp->setDown(auxPoint3d);
         }
         else if (sub.compare("materialAmbient") == 0){
 
@@ -134,8 +207,6 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
 }
 Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceOnj)
 {
-
-
     Point3D vectorV1V2, vectorV2V3, point;
     vectorV1V2 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV1),
                                           sceOnj->getVectorObjIn3D(vectorsFace.idV2));
@@ -144,7 +215,6 @@ Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceO
                                           sceOnj->getVectorObjIn3D(vectorsFace.idV3));
 
     point = crossProduct.crossProduct(vectorV1V2, vectorV2V3);
-
 
     return point;
 }

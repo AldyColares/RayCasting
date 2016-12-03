@@ -1,6 +1,9 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/files">
         <file>camera.txt</file>
         <file>thefile.txt</file>
+        <file>triforce.txt</file>
+        <file>mesa.txt</file>
+        <file>floor.txt</file>
     </qresource>
 </RCC>

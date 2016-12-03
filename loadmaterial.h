@@ -14,6 +14,7 @@
 #include "face3d.h"
 #include "scenarioObject.h"
 #include "propertymaterial.h"
+#include "point3d.h"
 
 using namespace std;
 
@@ -37,6 +38,8 @@ private:
      const int v3 = 2;
      const int normal = 3;
      float aux;
+     Point3D auxPoint3d;
+
 
      vector<ScenarioObject*> *vectorScenarioObject;
 

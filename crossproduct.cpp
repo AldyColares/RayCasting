@@ -15,9 +15,7 @@ Point3D CrossProduct::crossProduct(Point3D v1, Point3D v2)
     result.y =       v1.z * v2.x - v1.x * v2.z;
     result.z =       v1.x * v2.y - v1.y * v2.x;
 
-
     return unitVector.normalize(result);
-
 }
 
 

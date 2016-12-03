@@ -22,7 +22,6 @@ class ColorPixels
 public:
     ColorPixels();
     GridPixel* caluletionColorPixels(int pixelRateHorizontal,int pixelRateVertical, Scenario* scenario);
-    Point3D calculeteVectorV();
     light ambientColor(face3D face);
     light diffuseColor(face3D face);
     light specularColor(face3D face);

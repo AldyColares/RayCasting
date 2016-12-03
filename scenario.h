@@ -9,6 +9,9 @@
 #include "loadmaterial.h"
 #include  <vector>
 #include "light.h"
+#include "translationobject.h"
+#include "scalerobject.h"
+#include "quaternions.h"
 
 
 class Scenario
@@ -37,6 +40,9 @@ private:
     LoadMaterial *loadMaterial;
     int sizeMaterial;
     vector<ScenarioObject*>* vectorScenarioObject;
+    ScalerObject scalerObject;
+    TranslationObject translationObject;
+    Quaternions quaternions;
 
 };
 

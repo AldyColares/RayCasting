@@ -13,6 +13,20 @@ void Scenario::LoadScenario()
     camera->loadCamera();
     light0 = camera->getLigth();
     vectorScenarioObject = loadMaterial->loadObject();
+
+    Point3D point;
+    point.x = 0;
+    point.y = 5;
+    point.z = 0;
+    //translationObject.moveObject(vectorScenarioObject->at(0),point);
+    Point3D escalar;
+    escalar.x = 1.0;
+    escalar.y = 1.0;
+    escalar.z = 1.0;
+  //  scalerObject.scaler(escalar, vectorScenarioObject->at(0));
+    // sideLeftEndsideRight FrontEndBack TopEndDown
+    quaternions.rotation(60,vectorScenarioObject->at(0), "TopEndDown");
+
 }
 
 Camera* Scenario::getCamera()

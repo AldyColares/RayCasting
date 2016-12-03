@@ -74,7 +74,7 @@ Point3D ScenarioObject::getVectorObjIn3D(int position)
 
 propertyMaterial ScenarioObject::getPropertyMaterial()
 {
- return propMat;
+    return propMat;
 }
 
 int ScenarioObject::getSizeFaces()
@@ -88,4 +88,73 @@ int ScenarioObject::getSizeVector()
 }
 
 
+Point3D ScenarioObject::getFront()
+{
+    return front;
+}
+
+Point3D ScenarioObject::getBack()
+{
+    return back;
+}
+
+void ScenarioObject::setBack(Point3D value)
+{
+    back = value;
+}
+
+Point3D ScenarioObject::getSideLeft()
+{
+    return sideLeftm;
+}
+
+void ScenarioObject::setSideLeft( Point3D value)
+{
+    sideLeftm = value;
+}
+
+Point3D ScenarioObject::getSideRight()
+{
+    return sideRight;
+}
+
+void ScenarioObject::setSideRight( Point3D value)
+{
+    sideRight = value;
+}
+
+Point3D ScenarioObject::getTop()
+{
+    return Top;
+}
+
+void ScenarioObject::setTop( Point3D value)
+{
+    Top = value;
+}
+
+Point3D ScenarioObject::getDown()
+{
+    return Down;
+}
+
+void ScenarioObject::setDown( Point3D value)
+{
+    Down = value;
+}
+
+void ScenarioObject::setFront(Point3D value)
+{
+    front = value;
+}
+
+Point3D ScenarioObject::getCentroid()
+{
+    return centroid;
+}
+
+void ScenarioObject::setCentroid(Point3D value)
+{
+    centroid = value;
+}
 

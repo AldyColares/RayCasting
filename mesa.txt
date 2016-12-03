@@ -108,11 +108,10 @@ f   8 13 22  0.54 0.27 0.07
 f  22 31 8  0.54 0.27 0.07
 
 
+materialAmbient   0.5125 0.4275 0.454 
 
-materialAmbient   0.1 0.1 0.1 1
+materialDiffuse   0.714 0.4284 0.18144 
 
-materialDiffuse   0.5 0.5 0.5 1
+materialSpecular  0.393548 0.271906 0.166721 
 
-materialSpecular  0.7 0.7 0.7 1
-
-materialShininess  1
+materialShininess  25.6
