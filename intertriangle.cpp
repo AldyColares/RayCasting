@@ -23,7 +23,7 @@ boolean Intertriangle::intersecao(const Point3D V1, const Point3D V2, const Poin
 	
 	
     P = crossProduct.crossProduct(D, a2);
-	det = dot.scalarproduct(al, P);
+	det = dot.scalarproduct(a1, P);
 	
 	if(det > -EPSILON && det < EPSILON) 
 		return false;
@@ -43,7 +43,7 @@ boolean Intertriangle::intersecao(const Point3D V1, const Point3D V2, const Poin
 	
 	if(v<0||v+u>1)
 		return false;
-	t = = dot.scalarproduct(a2, Q)*inv_det;
+	t = dot.scalarproduct(a2, Q)*inv_det;
 	
 	if(t>EPSILON)
 		return true;
