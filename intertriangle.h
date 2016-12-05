@@ -12,8 +12,8 @@ using namespace std;
 class Intertriangle
 {
 public:
-	 Intertriangle();
-     boolean intersecao(const Point3D V1, const Point3D V2, const Point3D V3, const Point3D O, const Point3D D);
+	Intertriangle();
+	bool intersecao(const Point3D V1, const Point3D V2, const Point3D V3, const Point3D O, const Point3D D);
 
 private:
      Dot dot;
