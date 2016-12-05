@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     gridpixel.cpp \
     translationobject.cpp \
     scalerobject.cpp \
-    quaternions.cpp
+    quaternions.cpp \
+    intertriangle.cpp
 
 HEADERS  += mainwindow.h \
     loadmaterial.h \
@@ -50,7 +51,8 @@ HEADERS  += mainwindow.h \
     gridpixel.h \
     translationobject.h \
     scalerobject.h \
-    quaternions.h
+    quaternions.h \
+    intertriangle.h
 
 FORMS    += mainwindow.ui
 
