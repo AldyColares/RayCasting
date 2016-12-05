@@ -8,7 +8,7 @@ Intertriangle::Intertriangle()
 //Point3D O é a origem do raio
 //Point3D D é o vetor da direção do raio
 //V1, V2 e V3 são os vertices do triagulo
-boolean Intertriangle::intersecao(const Point3D V1, const Point3D V2, const Point3D V3, const Point3D O, const Point3D D){
+bool Intertriangle::intersecao(const Point3D V1, const Point3D V2, const Point3D V3, const Point3D O, const Point3D D){
   Point3D a1, a2;
 	Point3D P, T, Q;
 	float det, inv_det, u, v, t;
