@@ -3,6 +3,7 @@
 #include "scenarioObject.h"
 #include "point3d.h"
 #include "generatevetor.h"
+#include <string>
 
 class TranslationObject
 {
@@ -10,8 +11,9 @@ public:
     TranslationObject();
     void sweepVectexObject(ScenarioObject* scenarioObject, Point3D newLocationPoint);
     void moveObject(ScenarioObject* scenarioObject, Point3D newLocationPoint);
-    void moveObjectQuartenio(ScenarioObject* scenarioObject, Point3D newLocationPoint);
+    void moveObjectQuartenio(ScenarioObject* scenarioObject, Point3D newLocationPoint, std::string chosenDirection);
     void moveObjectScaler(ScenarioObject* scenarioObject, Point3D newLocationPoint);
+    void moveVerticesAuxiliaresQuartenio(ScenarioObject* scenarioObject, Point3D newLocationPoint, std::string chosenDirection);
     void moveVerticesAuxiliares(ScenarioObject* scenarioObject, Point3D newLocationPoint);
     Point3D matrixTranslation(Point3D NthVertex, Point3D newLocationPoint);
 

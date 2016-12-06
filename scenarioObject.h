@@ -53,7 +53,7 @@ public:
     void setCentroid(Point3D value);
 
 private:
-    Point3D centroid, front, back, sideLeftm, sideRight,Top, Down;
+    Point3D centroid, front, back, sideLeftm, sideRight,Top, Down, pointset;
     std::vector<face3D> facesObjIn3D;
     std::vector<Point3D> listVectores;
     int sizeFaces;

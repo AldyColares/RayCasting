@@ -12,7 +12,7 @@ void Camera::loadCamera(){
 
     //home/0338159/Documentos/RayCasting
     //home/rin/Documentos/trabalho CG/RayCasting
-    ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/camera.txt");
+    ifstream infile("/home/rin/Documentos/trabalho CG/RayCasting/resources/camera.txt");
 
     for(string line; getline( infile, line ); )
     {

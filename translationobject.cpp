@@ -12,8 +12,10 @@ void TranslationObject::moveObject(ScenarioObject *scenarioObject, Point3D newLo
     sweepVectexObject(scenarioObject , newLocationPoint);
 }
 
-void TranslationObject::moveObjectQuartenio(ScenarioObject *scenarioObject, Point3D newLocationPoint)
+void TranslationObject::moveObjectQuartenio(ScenarioObject *scenarioObject,
+                                            Point3D newLocationPoint, std::string chosenDirection)
 {
+    moveVerticesAuxiliaresQuartenio(scenarioObject, newLocationPoint,chosenDirection);
     sweepVectexObject(scenarioObject, newLocationPoint);
 }
 
@@ -22,8 +24,6 @@ void TranslationObject::moveObjectScaler(ScenarioObject *scenarioObject, Point3D
     moveVerticesAuxiliares(scenarioObject, newLocationPoint);
     sweepVectexObject(scenarioObject, newLocationPoint);
 }
-
-
 
 void TranslationObject::sweepVectexObject(ScenarioObject *scenarioObject, Point3D newLocationPoint)
 {
@@ -53,18 +53,19 @@ void TranslationObject::moveVerticesAuxiliares(ScenarioObject *scenarioObject, P
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
         scenarioObject->setFront(auxPoint);
 
-        auxPoint = scenarioObject->getBack();
+        auxPoint = scenarioObject->getSideRight();
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
-        scenarioObject->setBack(auxPoint);
+        scenarioObject->setSideRight(auxPoint);
 
-        auxPoint = scenarioObject->getSideLeft();
+        auxPoint = scenarioObject->getTop();
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
-        scenarioObject->setFront(auxPoint);
+        scenarioObject->setTop(auxPoint);
+}
 
-        auxPoint = scenarioObject->getSideLeft();
-        auxPoint = matrixTranslation(auxPoint, newLocationPoint);
-        scenarioObject->setFront(auxPoint);
-
+void TranslationObject::moveVerticesAuxiliaresQuartenio(ScenarioObject *scenarioObject,
+                                                        Point3D newLocationPoint, std::string chosenDirection)
+{
+    if (chosenDirection.compare("Front") == 0) {
         auxPoint = scenarioObject->getSideRight();
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
         scenarioObject->setSideRight(auxPoint);
@@ -73,8 +74,22 @@ void TranslationObject::moveVerticesAuxiliares(ScenarioObject *scenarioObject, P
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
         scenarioObject->setTop(auxPoint);
 
-        auxPoint = scenarioObject->getDown();
+    }else if (chosenDirection.compare("Top") == 0){
+        auxPoint = scenarioObject->getFront();
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
-        scenarioObject->setDown(auxPoint);
+        scenarioObject->setFront(auxPoint);
 
+        auxPoint = scenarioObject->getSideRight();
+        auxPoint = matrixTranslation(auxPoint, newLocationPoint);
+        scenarioObject->setSideRight(auxPoint);
+
+    }else if(chosenDirection.compare("sideRight") == 0){
+        auxPoint = scenarioObject->getFront();
+        auxPoint = matrixTranslation(auxPoint, newLocationPoint);
+        scenarioObject->setFront(auxPoint);
+
+        auxPoint = scenarioObject->getTop();
+        auxPoint = matrixTranslation(auxPoint, newLocationPoint);
+        scenarioObject->setTop(auxPoint);
+    }
 }

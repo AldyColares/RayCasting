@@ -9,6 +9,10 @@ public:
     GenerateVetor();
     Point3D generateVector(Point3D v1, Point3D v2);
 
+private:
+    Point3D resultVector;
+
+
 };
 
 #endif // GENERATENORMAL_H

@@ -1,0 +1,15 @@
+verificações pedentes:
+ - verificar camera.getCameraCoordenadaZ no método caluletionColorPixels da classe
+colorpixels.
+
+
+
+verificações concluídas:
+
+ -fazer os calculos dos eixos da câmera; I; J e K. 
+ 
+ -verificar se está eliminado um das coordenas da face. A que transforma a face em 
+	3d para 2d.
+ -testar o calculo da normal.
+
+ -testar se o raio atinge uma face.

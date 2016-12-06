@@ -23,7 +23,7 @@ vector<ScenarioObject*> *LoadMaterial::loadObject(){
 
     //home/0338159/Documentos/RayCasting
     //home/rin/Documentos/trabalho CG/RayCasting
-    string pathFile ="/home/rin/Documentos/trabalho CG/RayCasting/";
+    string pathFile ="/home/rin/Documentos/trabalho CG/RayCasting/resources/";
 
     int setMaterialSize = setMaterial.size();
     for (int var = 0; var < setMaterialSize; ++var) {
@@ -96,16 +96,7 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
 
         }else if (sub.compare("#") == 0){
             continue;
-        }else if(sub.compare("back") == 0){
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.x;
 
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.y;
-
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.z;
-            scenarioObjectTmp->setBack(auxPoint3d);
         }else if(sub.compare("centroid") == 0){
             iss >> sub;
             istringstream(sub) >> auxPoint3d.x;
@@ -126,18 +117,6 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             iss >> sub;
             istringstream(sub) >> auxPoint3d.z;
             scenarioObjectTmp->setFront(auxPoint3d);
-
-        }else if(sub.compare("left") == 0){
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.x;
-
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.y;
-
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.z;
-            scenarioObjectTmp->setSideLeft(auxPoint3d);
-
         }else if(sub.compare("right") == 0){
             iss >> sub;
             istringstream(sub) >> auxPoint3d.x;
@@ -148,7 +127,6 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             iss >> sub;
             istringstream(sub) >> auxPoint3d.z;
             scenarioObjectTmp->setSideRight(auxPoint3d);
-
         }else if(sub.compare("top") == 0){
             iss >> sub;
             istringstream(sub) >> auxPoint3d.x;
@@ -160,18 +138,7 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             istringstream(sub) >> auxPoint3d.z;
             scenarioObjectTmp->setTop(auxPoint3d);
 
-        }else if(sub.compare("down") == 0){
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.x;
-
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.y;
-
-            iss >> sub;
-            istringstream(sub) >> auxPoint3d.z;
-            scenarioObjectTmp->setDown(auxPoint3d);
-        }
-        else if (sub.compare("materialAmbient") == 0){
+        }else if (sub.compare("materialAmbient") == 0){
 
             iss >> sub;
             istringstream(sub) >> propMat.materialAmbientRed;
