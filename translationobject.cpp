@@ -10,6 +10,12 @@ void TranslationObject::moveObject(ScenarioObject *scenarioObject, Point3D newLo
     Point3D Centroid = scenarioObject->getCentroid();
     newLocationPoint = generateVetor.generateVector(Centroid, newLocationPoint);
     sweepVectexObject(scenarioObject , newLocationPoint);
+    // the new position for centoid of the Object.
+    Centroid = matrixTranslation(Centroid, newLocationPoint);
+    scenarioObject->setCentroid(Centroid);
+    // the new positions for auxiliary verteces of the Object.
+    moveVerticesAuxiliares(scenarioObject, newLocationPoint);
+
 }
 
 void TranslationObject::moveObjectQuartenio(ScenarioObject *scenarioObject,
@@ -47,7 +53,8 @@ Point3D TranslationObject::matrixTranslation(Point3D newVertex, Point3D newLocat
     return newVertex;
 }
 
-void TranslationObject::moveVerticesAuxiliares(ScenarioObject *scenarioObject, Point3D newLocationPoint)
+void TranslationObject::moveVerticesAuxiliares(ScenarioObject *scenarioObject,
+                                               Point3D newLocationPoint)
 {
         auxPoint = scenarioObject->getFront();
         auxPoint = matrixTranslation(auxPoint, newLocationPoint);
@@ -63,7 +70,8 @@ void TranslationObject::moveVerticesAuxiliares(ScenarioObject *scenarioObject, P
 }
 
 void TranslationObject::moveVerticesAuxiliaresQuartenio(ScenarioObject *scenarioObject,
-                                                        Point3D newLocationPoint, std::string chosenDirection)
+                                                        Point3D newLocationPoint,
+                                                        std::string chosenDirection)
 {
     if (chosenDirection.compare("Front") == 0) {
         auxPoint = scenarioObject->getSideRight();
