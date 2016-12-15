@@ -31,6 +31,7 @@ SOURCES += main.cpp\
     intertriangle.cpp \
     mapshadow.cpp
 
+
 HEADERS  += mainwindow.h \
     loadmaterial.h \
     crossproduct.h \
