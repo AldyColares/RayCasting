@@ -13,6 +13,7 @@
 #include "propertymaterial.h"
 #include "light.h"
 #include "dot.h"
+#include "mapshadow.h"
 #include <string>
 #include <stdlib.h>
 
@@ -26,13 +27,17 @@ public:
     light diffuseColor(face3D face);
     light specularColor(face3D face);
     void normalizePixel(int pixelRateHorizontal , int pixelRateVertical, int limitNormalize);
+    bool ifThereIsShadows();
 private:
     int color8bits = 255;
     int convertColorForFormatRGB32(float color);
+    void clearVariableDiffuseAndSpecular();
+    GenerateVetor generateVector;
+    Point3D coordLight0,vertexPixel, VerticesBetweenPointAndLight, pointInsertface;
     Camera* camera;
     GridPixel* gridPixel;
     propertyMaterial proMat;
-    light light0;
+    light light0, somaIAmb, somaIDif, somaISpe;
     Dot dot;
     UnitVector unitVector;
 };

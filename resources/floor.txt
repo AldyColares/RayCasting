@@ -14,6 +14,6 @@ materialAmbient   0.6 0.6 0.6
 
 materialDiffuse   0.588235 0.670588 0.729412 
 
-materialSpecular  0.9  0.9  0.9 
+materialSpecular  0.84523  0.867856  0.5634563 
 
-materialShininess  2.0
+materialShininess  38.3

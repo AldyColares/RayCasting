@@ -25,7 +25,7 @@ void Scenario::LoadScenario()
     escalar.z = 1.0;
   //  scalerObject.scaler(escalar, vectorScenarioObject->at(0));
     // sideRight Front Top
-    quaternions.rotation(90,vectorScenarioObject->at(0), "sideRight");
+    //quaternions.rotation(90,vectorScenarioObject->at(0), "sideRight");
 
 }
 

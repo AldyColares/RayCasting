@@ -18,6 +18,8 @@ public:
     FaceFurtherNear();
     face3D lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinatePixel,
                                       vector<ScenarioObject*> *groupScenarioObject);
+    bool checkIfThereFaceBetweenPointAndLight(Point3D verticesBetweenPointAndLight,
+                                       vector<ScenarioObject*> *groupScenarioObject );
 
 private:
     GenerateVetor generateVetor;

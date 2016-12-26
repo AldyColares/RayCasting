@@ -16,10 +16,8 @@ vector<ScenarioObject*> *LoadMaterial::loadObject(){
     //setMaterial.push_back("triforce.txt");
     //setMaterial.push_back("mesa.txt");
 
-    setMaterial.push_back("cubeDepurer.txt");
+    //setMaterial.push_back("cubeDepurer.txt");
     setMaterial.push_back("floor.txt");
-
-
 
     //home/0338159/Documentos/RayCasting
     //home/rin/Documentos/trabalho CG/RayCasting

@@ -15,7 +15,6 @@ void TranslationObject::moveObject(ScenarioObject *scenarioObject, Point3D newLo
     scenarioObject->setCentroid(Centroid);
     // the new positions for auxiliary verteces of the Object.
     moveVerticesAuxiliares(scenarioObject, newLocationPoint);
-
 }
 
 void TranslationObject::moveObjectQuartenio(ScenarioObject *scenarioObject,

@@ -67,32 +67,7 @@ float FaceFurtherNear::calculeteVariavelD(Point3D normal, Point3D v1Face)
 
 face3D FaceFurtherNear::deleteInModuleTheLargestVertex(face3D face, Point3D &point)
 {
-    /*
-    UnitVector unitVector;
-    // case that at least one vector is zero.
-    if (face.normal.x == 0.0000){
-        face.Vertex1.x = 0.0000;
-        face.Vertex2.x = 0.0000;
-        face.Vertex3.x = 0.0000;
-        point.x = 0.0000;
 
-        return face;
-    }else if(face.normal.y == 0.0000){
-        face.Vertex1.y = 0.0000;
-        face.Vertex2.y = 0.0000;
-        face.Vertex3.y = 0.0000;
-        point.y = 0.0000;
-
-        return face;
-    }else if(face.normal.z == 0.0000){
-        face.Vertex1.z = 0.0000;
-        face.Vertex2.z = 0.0000;
-        face.Vertex3.z = 0.0000;
-        point.z = 0.0000;
-
-        return face;
-    }
-*/
     float moduleX, moduleY , moduleZ;
     moduleX = face.normal.x * face.normal.x;
     moduleY = face.normal.y * face.normal.y;
@@ -114,7 +89,6 @@ face3D FaceFurtherNear::deleteInModuleTheLargestVertex(face3D face, Point3D &poi
             point.z = 0.0000;
 
         }
-
     }else if(moduleY >= moduleZ){
         face.normal.y = 0.0000;
         face.Vertex1.y = 0.0000;
@@ -188,3 +162,49 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinate
 
     return faceLessDistancia;
 }
+
+bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(Point3D verticesBetweenPointAndLight,
+                                                           vector<ScenarioObject *> *groupScenarioObject)
+{
+    ScenarioObject* scenarioObject;
+    int amountMaterial = groupScenarioObject->size();
+
+    face3D Nthface;
+    float Tint;
+    Point3D vectex1Face, auxCoordinatePIxel;
+
+    for (int NthMaterial = 0; NthMaterial < amountMaterial; ++NthMaterial) {
+        scenarioObject = groupScenarioObject->at(NthMaterial);
+        int amountface = scenarioObject->getSizeFaces();
+
+        for (int idFace = 0; idFace < amountface; ++idFace) {
+            Nthface = scenarioObject->getFaceObjIn3D(idFace);
+            vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+            auxCoordinatePIxel = verticesBetweenPointAndLight;
+
+            // Tint: distance in between screen of the projection and Nth face.
+            Tint =  dot.scalarproduct(vectex1Face, Nthface.normal)
+                                          /
+                    dot.scalarproduct(auxCoordinatePIxel, Nthface.normal);
+
+            if (Tint > 0.0000){
+                auxCoordinatePIxel.x *= Tint;
+                auxCoordinatePIxel.y *= Tint;
+                auxCoordinatePIxel.z *= Tint;
+
+                Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+                Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
+                Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
+                Nthface = deleteInModuleTheLargestVertex(Nthface, auxCoordinatePIxel);
+
+                pointInsideFace = CheakPointWithinTriangle(Nthface, auxCoordinatePIxel);
+
+                if(pointInsideFace == true){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+

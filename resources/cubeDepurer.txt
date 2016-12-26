@@ -33,6 +33,6 @@ materialDiffuse   0.588235 0.670588 0.729412
 
 materialSpecular  0.9  0.9  0.9 
 
-materialShininess  2.0
+materialShininess  3.0
 
 

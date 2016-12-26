@@ -6,14 +6,14 @@ ColorPixels::ColorPixels()
 }
 
 
-GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
-                                              int pixelRateVertical, Scenario *scenario)
+GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal, int pixelRateVertical,
+                                              Scenario *scenario)
 
 {
 
     camera = scenario->getCamera();
-    Point3D vertexPixel;
 
+    bool thereIsShadow;
     float heighScreen, widthScreen;
     widthScreen = camera->getWidthScreen();
     heighScreen = camera->getHeighScreen();
@@ -21,13 +21,12 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
     Pixel pixel;
     float deltaX, deltaY;
-    //zc = camera.getCameraCoordenadaZ();
     deltaY = heighScreen / pixelRateVertical;
     deltaX = widthScreen / pixelRateHorizontal;
     face3D face;
     FaceFurtherNear* faceFurtherNear = new FaceFurtherNear();
+    MapShadow* mapShadow = new MapShadow(scenario->getGroupScenarioObject());
 
-    light somaIAmb, somaIDif, somaISpe;
     for (int i = 0; i <= pixelRateHorizontal ; ++i) {
         for (int j = 0; j <= pixelRateVertical; ++j) {
 
@@ -39,13 +38,26 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
             if (face.chosenFaceFlag == true){
                 face.chosenFaceFlag = false;
 
-
                 face.light0 = scenario->getLigth();
 
-                somaIAmb = ambientColor(face);
-                somaIDif = diffuseColor(face);
-                somaISpe = specularColor(face);
+                coordLight0.x = face.light0.x;
+                coordLight0.y = face.light0.y;
+                coordLight0.z = face.light0.z;
+                pointInsertface.x = face.pointInsertFace.x;
+                pointInsertface.y = face.pointInsertFace.y;
+                pointInsertface.z = face.pointInsertFace.z;
 
+                VerticesBetweenPointAndLight = generateVector.generateVector(pointInsertface, coordLight0);
+
+                thereIsShadow = mapShadow->findShadow(VerticesBetweenPointAndLight);
+
+                //somaIAmb = ambientColor(face);
+                clearVariableDiffuseAndSpecular();
+                //thereIsShadow = false;
+                if(thereIsShadow == false){
+                    somaIDif = diffuseColor(face);
+                    somaISpe = specularColor(face);
+                }
                 pixel.red =   somaIAmb.red   +  somaIDif.red   + somaISpe.red ;
                 pixel.green = somaIAmb.green +  somaIDif.green + somaISpe.green ;
                 pixel.blue =  somaIAmb.blue  +  somaIDif.blue  + somaISpe.blue ;
@@ -60,12 +72,6 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal,
 
                 gridPixel->setColorPixel(i, j, pixel);
 
-            /*
-                pixel.red   = convertColorForFormatRGB32(face.red);
-                pixel.green = convertColorForFormatRGB32(face.green);
-                pixel.blue  = convertColorForFormatRGB32(face.blue);
-                gridPixel->setColorPixel(i, j, pixel);
-          */
             }
 
         }
@@ -216,4 +222,14 @@ int ColorPixels::convertColorForFormatRGB32(float color)
         std::cout << "Class colorPixels: Deu problema color" << color;
         return 0;
     }
+}
+
+void ColorPixels::clearVariableDiffuseAndSpecular()
+{
+    somaIDif.red = 0;
+    somaIDif.green = 0;
+    somaIDif.blue = 0;
+    somaISpe.red = 0;
+    somaISpe.green = 0;
+    somaISpe.blue = 0;
 }
