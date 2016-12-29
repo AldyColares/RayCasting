@@ -16,14 +16,14 @@ void Scenario::LoadScenario()
 
     Point3D point;
     point.x = 0;
-    point.y = 5;
+    point.y = 20;
     point.z = 0;
-    //translationObject.moveObject(vectorScenarioObject->at(0),point);
+   // translationObject.moveObject(vectorScenarioObject->at(0), point);
     Point3D escalar;
-    escalar.x = 1.0;
-    escalar.y = 1.0;
-    escalar.z = 1.0;
-  //  scalerObject.scaler(escalar, vectorScenarioObject->at(0));
+    escalar.x = 2.0;
+    escalar.y = 2.0;
+    escalar.z = 2.0;
+    //scalerObject.scaler(escalar, vectorScenarioObject->at(0));
     // sideRight Front Top
     //quaternions.rotation(90,vectorScenarioObject->at(0), "sideRight");
 
@@ -54,7 +54,7 @@ void Scenario::setLight(light lig)
     light0 = lig;
 }
 
-light Scenario::getLigth()
+light Scenario::getLight()
 {
     return light0;
 }

@@ -18,10 +18,11 @@ public:
     FaceFurtherNear();
     face3D lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinatePixel,
                                       vector<ScenarioObject*> *groupScenarioObject);
-    bool checkIfThereFaceBetweenPointAndLight(Point3D verticesBetweenPointAndLight,
-                                       vector<ScenarioObject*> *groupScenarioObject );
+    bool checkIfThereFaceBetweenPointAndLight(face3D faceBelongPoint,
+                                       vector<ScenarioObject*> *groupScenarioObject);
 
 private:
+    UnitVector unitVector;
     GenerateVetor generateVetor;
     bool CheakPointWithinTriangle(face3D face, Point3D Q);
     float calculeteVariavelD(Point3D normal, Point3D v1Face);

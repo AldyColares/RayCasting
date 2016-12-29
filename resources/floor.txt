@@ -1,19 +1,25 @@
-v  50 -6  50
-v -50 -6  50
-v -50 -6 -50
-v  50 -6 -50
+v  50 0  50
+v -50 0  50
+v -50 0 -50
+v  50 0 -50
 v  50 50  50
 v -50 50  50
+v -50 50 -50
+v  50 50 -50
 
 f 1 4 3 1.00 1.00 1.00 
 f 3 2 1 1.00 1.00 1.00
+
 f 5 1 2 1.00 1.00 1.00 
 f 2 6 5 1.00 1.00 1.00
 
+f 8 7 6 1.00 1.00 1.00
+f 6 5 8 1.00 1.00 1.00
+
 materialAmbient   0.6 0.6 0.6
 
-materialDiffuse   0.588235 0.670588 0.729412 
+materialDiffuse   0.5 0.64 0.74
 
-materialSpecular  0.84523  0.867856  0.5634563 
+materialSpecular  0.44 0.46 0.43 
 
-materialShininess  38.3
+materialShininess  123.323

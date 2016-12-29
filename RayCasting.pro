@@ -61,5 +61,4 @@ FORMS    += mainwindow.ui
 
 DISTFILES +=
 
-RESOURCES += \
-    arquivos.qrc
+RESOURCES +=

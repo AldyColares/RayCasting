@@ -36,33 +36,24 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal, int pixel
             face = faceFurtherNear->lookUpSmallestDistanceFace(vertexPixel,
                                                                scenario->getGroupScenarioObject());
             if (face.chosenFaceFlag == true){
+
                 face.chosenFaceFlag = false;
 
-                face.light0 = scenario->getLigth();
+                face.light0 = scenario->getLight();
+                thereIsShadow = false;
+                thereIsShadow = mapShadow->findShadow(face);
 
-                coordLight0.x = face.light0.x;
-                coordLight0.y = face.light0.y;
-                coordLight0.z = face.light0.z;
-                pointInsertface.x = face.pointInsertFace.x;
-                pointInsertface.y = face.pointInsertFace.y;
-                pointInsertface.z = face.pointInsertFace.z;
-
-                VerticesBetweenPointAndLight = generateVector.generateVector(pointInsertface, coordLight0);
-
-                thereIsShadow = mapShadow->findShadow(VerticesBetweenPointAndLight);
-
-                //somaIAmb = ambientColor(face);
-                clearVariableDiffuseAndSpecular();
-                //thereIsShadow = false;
+                somaIAmb = ambientColor(face);
+                cleanVariableDiffuseAndSpecular();
                 if(thereIsShadow == false){
                     somaIDif = diffuseColor(face);
                     somaISpe = specularColor(face);
                 }
-                pixel.red =   somaIAmb.red   +  somaIDif.red   + somaISpe.red ;
-                pixel.green = somaIAmb.green +  somaIDif.green + somaISpe.green ;
-                pixel.blue =  somaIAmb.blue  +  somaIDif.blue  + somaISpe.blue ;
+                pixel.red   =  somaIAmb.red   +  somaIDif.red   + somaISpe.red;
+                pixel.green =  somaIAmb.green +  somaIDif.green + somaISpe.green;
+                pixel.blue  =  somaIAmb.blue  +  somaIDif.blue  + somaISpe.blue;
 
-                pixel.red *= face.red;
+                pixel.red   *= face.red;
                 pixel.green *= face.green;
                 pixel.blue  *= face.blue;
 
@@ -92,7 +83,7 @@ light ColorPixels::ambientColor(face3D face)
 }
 
 void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical , int limitNormalize)
-{   int highestValue = 0;
+{   float highestValue = 0;
     Pixel pixel;
     float auxPixel;
 
@@ -116,16 +107,14 @@ void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical
                 pixel = gridPixel->getColorPixel(i, j);
 
                 auxPixel = pixel.red/highestValue;
-                pixel.red = auxPixel;
-                pixel.red = convertColorForFormatRGB32(pixel.red);
+                pixel.red = convertColorForFormatRGB32(auxPixel);
 
                 auxPixel = pixel.green/highestValue;
-                pixel.green = auxPixel;
-                pixel.green = convertColorForFormatRGB32(pixel.green);
+                pixel.green = convertColorForFormatRGB32(auxPixel);
 
                 auxPixel = pixel.blue/highestValue;
-                pixel.blue = auxPixel;
-                pixel.blue = convertColorForFormatRGB32(pixel.blue);
+                pixel.blue = convertColorForFormatRGB32(auxPixel);
+
                 gridPixel->setColorPixel(i,j, pixel);
             }
         }
@@ -135,29 +124,31 @@ void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical
 light ColorPixels::diffuseColor(face3D face)
 {
     light IDif;
+    float dist, produto;
     proMat = face.propMaterial;
     light0 = face.light0;
-    Point3D pint = face.pointInsertFace;
+    Point3D pint, vertorPointAndLight,l;
+    pint = face.pointInsertFace;
+    l.x = light0.x;
+    l.y = light0.y;
+    l.z = light0.z;
 
-    Point3D l;
-    float dist, produto;
+    vertorPointAndLight = generateVector.generateVector(pint, l);
 
-    dist = sqrt(pow((light0.x - pint.x), 2) + pow((light0.y - pint.y), 2) + pow((light0.z - pint.z), 2));
-    l.x = (light0.x - pint.x)/dist;
-    l.y = (light0.y - pint.y)/dist;
-    l.z = (light0.z - pint.z)/dist;
-
+    l = unitVector.normalize(vertorPointAndLight);
 
     produto = dot.scalarproduct(face.normal, l);
-    if (produto > 1){
-        std::cout << "produto acima de 1 no diffuso.";
-    }
     if(produto >= 0.000){
-        IDif.red = light0.red * proMat.materialDiffuseRed * produto;
-        IDif.green = light0.green * proMat.materialDiffuseGreen * produto;
-        IDif.blue = light0.blue * proMat.materialDiffuseBlue * produto;
+        if (produto > 1) {
+            cout << produto << " ";
+        }
+        //produto = 1 - produto;
+        IDif.red = (light0.red * proMat.materialDiffuseRed) * produto;
+        IDif.green =( light0.green * proMat.materialDiffuseGreen) * produto;
+        IDif.blue =(light0.blue * proMat.materialDiffuseBlue) * produto;
         return IDif;
     }else{
+        cout << produto << " ";
         IDif.red = 0.00;
         IDif.green = 0.00;
         IDif.blue = 0.00;
@@ -181,9 +172,9 @@ light ColorPixels::specularColor(face3D face)
     l.z = (light0.z - pint.z)/dist;
     produto = dot.scalarproduct(l, face.normal);
 
-    r.x = (2*produto)*(face.normal.x - l.x);
-    r.y = (2*produto)*(face.normal.y - l.y);
-    r.z = (2*produto)*(face.normal.z - l.z);
+    r.x = ((2*produto) * face.normal.x) - l.x;
+    r.y = ((2*produto) * face.normal.y) - l.y;
+    r.z = ((2*produto) * face.normal.z) - l.z;
 
     dist = sqrt(pow(r.x, 2) + pow(r.y, 2) + pow(r.z, 2));
     r.x = (r.x)/dist;
@@ -192,18 +183,17 @@ light ColorPixels::specularColor(face3D face)
 
     // the coordinates the of eye are zero.
     dist = sqrt(pow(pint.x, 2) + pow(pint.y, 2) + pow(pint.z, 2));
-    v.x = (-pint.x)/dist;
-    v.y = (-pint.y)/dist;
-    v.z = (-pint.z)/dist;
+    v.x = (pint.x)/dist;
+    v.y = (pint.y)/dist;
+    v.z = (pint.z)/dist;
 
     produto = dot.scalarproduct(r,v);
-    if (produto > 1){
-        std::cout << "produto acima de 1 no specular.";
-    }
+
     if (produto >= 0.000 ) {
-        ISpe.red = light0.red * proMat.materialSpecularRed * pow(produto, proMat.materialShininess);
-        ISpe.green = light0.green * proMat.materialSpecularGreen * pow(produto, proMat.materialShininess);
-        ISpe.blue = light0.blue * proMat.materialSpecularBlue * pow(produto, proMat.materialShininess);
+        produto = pow(produto, proMat.materialShininess);
+        ISpe.red = light0.red * proMat.materialSpecularRed * produto;
+        ISpe.green = light0.green * proMat.materialSpecularGreen * produto;
+        ISpe.blue = light0.blue * proMat.materialSpecularBlue * produto;
         return ISpe;
     }else{
         ISpe.red = 0.00;
@@ -224,7 +214,7 @@ int ColorPixels::convertColorForFormatRGB32(float color)
     }
 }
 
-void ColorPixels::clearVariableDiffuseAndSpecular()
+void ColorPixels::cleanVariableDiffuseAndSpecular()
 {
     somaIDif.red = 0;
     somaIDif.green = 0;

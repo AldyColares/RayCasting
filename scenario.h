@@ -28,7 +28,7 @@ public:
     Camera* getCamera();
     ScenarioObject *getMaterial();
     vector<ScenarioObject*>* getGroupScenarioObject();
-    light getLigth();
+    light getLight();
     GridPixel *getGridPixel();
 
 

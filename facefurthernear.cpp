@@ -163,16 +163,15 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinate
     return faceLessDistancia;
 }
 
-bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(Point3D verticesBetweenPointAndLight,
+bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(face3D faceBelongPoint,
                                                            vector<ScenarioObject *> *groupScenarioObject)
 {
     ScenarioObject* scenarioObject;
     int amountMaterial = groupScenarioObject->size();
-
     face3D Nthface;
-    float Tint;
-    Point3D vectex1Face, auxCoordinatePIxel;
-
+    float Tint, pointBelongToPlane;
+    Point3D vectex1Face, vectorBetweenPointAndCoordinateLight, coordLight0, pointInsertFace;
+    pointInsertFace = faceBelongPoint.pointInsertFace;
     for (int NthMaterial = 0; NthMaterial < amountMaterial; ++NthMaterial) {
         scenarioObject = groupScenarioObject->at(NthMaterial);
         int amountface = scenarioObject->getSizeFaces();
@@ -180,27 +179,39 @@ bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(Point3D verticesBetwe
         for (int idFace = 0; idFace < amountface; ++idFace) {
             Nthface = scenarioObject->getFaceObjIn3D(idFace);
             vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
-            auxCoordinatePIxel = verticesBetweenPointAndLight;
 
-            // Tint: distance in between screen of the projection and Nth face.
-            Tint =  dot.scalarproduct(vectex1Face, Nthface.normal)
-                                          /
-                    dot.scalarproduct(auxCoordinatePIxel, Nthface.normal);
+            // Check if the NthFace is the Face that the Belongs to point.
+            Point3D test = generateVetor.generateVector(pointInsertFace, vectex1Face);
+            test = unitVector.normalize(test);
+            pointBelongToPlane = dot.scalarproduct(test, Nthface.normal);
+            if(pointBelongToPlane != 0.0000){
+                coordLight0.x = faceBelongPoint.light0.x;
+                coordLight0.y = faceBelongPoint.light0.y;
+                coordLight0.z = faceBelongPoint.light0.z;
 
-            if (Tint > 0.0000){
-                auxCoordinatePIxel.x *= Tint;
-                auxCoordinatePIxel.y *= Tint;
-                auxCoordinatePIxel.z *= Tint;
+                vectorBetweenPointAndCoordinateLight = generateVetor.generateVector(pointInsertFace, coordLight0);
+                // Tint: distance in between screen of the projection and Nth face.
+                Tint =  dot.scalarproduct(vectex1Face, Nthface.normal)
+                                            /
+                        dot.scalarproduct(vectorBetweenPointAndCoordinateLight, Nthface.normal);
 
-                Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
-                Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
-                Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
-                Nthface = deleteInModuleTheLargestVertex(Nthface, auxCoordinatePIxel);
+                if (Tint > 0.0000){
+                    vectorBetweenPointAndCoordinateLight.x *= Tint;
+                    vectorBetweenPointAndCoordinateLight.y *= Tint;
+                    vectorBetweenPointAndCoordinateLight.z *= Tint;
 
-                pointInsideFace = CheakPointWithinTriangle(Nthface, auxCoordinatePIxel);
+                    Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+                    Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
+                    Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
+                    Nthface = deleteInModuleTheLargestVertex(Nthface, vectorBetweenPointAndCoordinateLight);
 
-                if(pointInsideFace == true){
-                    return true;
+                    pointInsideFace = CheakPointWithinTriangle(Nthface, vectorBetweenPointAndCoordinateLight);
+
+                    if(pointInsideFace == true){
+
+                        return true;
+
+                    }
                 }
             }
         }

@@ -6,7 +6,7 @@ class MapShadow
 {
 public:
     MapShadow(vector<ScenarioObject*> *groupScenarioObject);
-    bool findShadow(Point3D verticesBetweenPointAndLight);
+    bool findShadow(face3D faceBelongPoint);
 
 
 private:

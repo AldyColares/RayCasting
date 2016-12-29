@@ -11,8 +11,8 @@ top       0 11  0
 down      0 7  0
 back      0 9 -2
 front 	  0 9  2
-left      2 9  0
-right     -2 9 0
+left      -2 9  0
+right     2 9 0
 
 f 2 1 5 1 0 0
 f 5 6 2 1 0 0
@@ -29,10 +29,10 @@ f 4 3 1 0.5 0.8 0.4
 
 materialAmbient   0.6 0.6 0.6
 
-materialDiffuse   0.588235 0.670588 0.729412 
+materialDiffuse   0.5 0.6 0.7 
 
 materialSpecular  0.9  0.9  0.9 
 
-materialShininess  3.0
+materialShininess  231
 
 

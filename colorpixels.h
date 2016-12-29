@@ -31,9 +31,9 @@ public:
 private:
     int color8bits = 255;
     int convertColorForFormatRGB32(float color);
-    void clearVariableDiffuseAndSpecular();
+    void cleanVariableDiffuseAndSpecular();
     GenerateVetor generateVector;
-    Point3D coordLight0,vertexPixel, VerticesBetweenPointAndLight, pointInsertface;
+    Point3D coordLight0,vertexPixel, VerticeBetweenPointAndLight, pointInsertface;
     Camera* camera;
     GridPixel* gridPixel;
     propertyMaterial proMat;
