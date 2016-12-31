@@ -43,7 +43,7 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
     face3D NthFace;
     string sub;
     ScenarioObject* scenarioObjectTmp = new ScenarioObject();
-    int idVectorN_OfFace;
+    int idVectorN_OfFace, contIdFace = 0;
     for( string line; getline( infile, line ); )
     {
         istringstream iss(line);
@@ -87,7 +87,8 @@ ScenarioObject* LoadMaterial::insertVectorFaces(ifstream& infile)
             iss >> sub;
             istringstream(sub) >> aux;
             NthFace.blue = aux;
-
+            NthFace.idFace =  contIdFace;
+            contIdFace ++;
             NthFace.normal = calculatingNormal(NthFace, scenarioObjectTmp);
 
             scenarioObjectTmp->setFaceObjIn3D(NthFace);

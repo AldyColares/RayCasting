@@ -41,10 +41,12 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal, int pixel
 
                 face.light0 = scenario->getLight();
                 thereIsShadow = false;
-                thereIsShadow = mapShadow->findShadow(face);
+
+                //thereIsShadow = mapShadow->findShadow(face);
 
                 somaIAmb = ambientColor(face);
                 cleanVariableDiffuseAndSpecular();
+
                 if(thereIsShadow == false){
                     somaIDif = diffuseColor(face);
                     somaISpe = specularColor(face);
@@ -124,7 +126,7 @@ void ColorPixels::normalizePixel(int pixelRateHorizontal , int pixelRateVertical
 light ColorPixels::diffuseColor(face3D face)
 {
     light IDif;
-    float dist, produto;
+    float produto;
     proMat = face.propMaterial;
     light0 = face.light0;
     Point3D pint, vertorPointAndLight,l;
@@ -135,20 +137,18 @@ light ColorPixels::diffuseColor(face3D face)
 
     vertorPointAndLight = generateVector.generateVector(pint, l);
 
-    l = unitVector.normalize(vertorPointAndLight);
+    vertorPointAndLight = unitVector.normalize(vertorPointAndLight);
 
-    produto = dot.scalarproduct(face.normal, l);
-    if(produto >= 0.000){
-        if (produto > 1) {
-            cout << produto << " ";
-        }
-        //produto = 1 - produto;
+    produto = dot.scalarproduct(face.normal, vertorPointAndLight);
+    if (produto < 0.00);
+    produto = sqrt(produto * produto);
+    if(produto != 0.000){
         IDif.red = (light0.red * proMat.materialDiffuseRed) * produto;
         IDif.green =( light0.green * proMat.materialDiffuseGreen) * produto;
         IDif.blue =(light0.blue * proMat.materialDiffuseBlue) * produto;
         return IDif;
     }else{
-        cout << produto << " ";
+        //cout << produto << " ";
         IDif.red = 0.00;
         IDif.green = 0.00;
         IDif.blue = 0.00;

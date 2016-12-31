@@ -28,6 +28,7 @@ private:
     vector<ScenarioObject*> *vectorMaterial;
     vector<Point3D> listVertex;
     Point3D vertexResult;
+    light light0;
     void calculeNormal(ScenarioObject *sceOnj);
     vector<face3D> listFaces;
     face3D NthFace;

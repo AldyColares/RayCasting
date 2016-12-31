@@ -19,3 +19,8 @@ Point3D UnitVector::normalize(Point3D v1)
     }
     return result;
 }
+
+float UnitVector::distanceBetweenTwoPoint(Point3D P1, Point3D P2)
+{
+    return sqrt( pow(P2.x - P1.x, 2) + pow(P2.y - P1.y, 2) + pow(P2.z - P1.z, 2));
+}

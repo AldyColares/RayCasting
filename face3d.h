@@ -6,7 +6,7 @@
 
 typedef struct {
     Point3D normal, Vertex1, Vertex2, Vertex3, pointInsertFace;
-    int idV1, idV2, idV3;
+    int idV1, idV2, idV3, idFace;
     float red , green, blue;
     bool chosenFaceFlag = false;
     propertyMaterial propMaterial;

@@ -67,6 +67,7 @@ void CoordinateTransformation::coordinateTransformationbyWorldForCamera (Scenari
     vectorMaterial = scenario->getGroupScenarioObject();
 
     camera = scenario->getCamera();
+    light0 = scenario->getLight();
     eye = camera->getEye();
     i = camera->getUpICamera();
     j = camera->getUpJCamera();
@@ -98,4 +99,18 @@ void CoordinateTransformation::coordinateTransformationbyWorldForCamera (Scenari
 
         calculeNormal(scenarioObject);
     }
+    vertexResult.x = i.x * light0.x + i.y * light0.y + i.z * light0.z +
+            dot.scalarproduct(i, eye) * (-1);
+
+    vertexResult.y = j.x * light0.x + j.y * light0.y + j.z * light0.z +
+            dot.scalarproduct(j, eye) * (-1);
+
+    vertexResult.z = k.x * light0.x + k.y * light0.y + k.z * light0.z +
+            dot.scalarproduct(k, eye) * (-1);
+
+    light0.x = vertexResult.x;
+    light0.y = vertexResult.y;
+    light0.z = vertexResult.z;
+    scenario->setLight(light0);
+
 }

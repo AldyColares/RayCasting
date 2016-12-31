@@ -130,8 +130,8 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinate
             auxCoordinatePIxel = vectorXAndYCoordinatePixel;
 
             // Tint: distance in between screen of the projection and Nth face.
-            Tint =      dot.scalarproduct(vectex1Face, Nthface.normal)
-                    /
+            Tint =  dot.scalarproduct(vectex1Face, Nthface.normal)
+                                            /
                     dot.scalarproduct(auxCoordinatePIxel, Nthface.normal);
 
             if (Tint > 0.0000){
@@ -169,7 +169,8 @@ bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(face3D faceBelongPoin
     ScenarioObject* scenarioObject;
     int amountMaterial = groupScenarioObject->size();
     face3D Nthface;
-    float Tint, pointBelongToPlane;
+    float ifNormalNTHFaceIsParallelVectorBetweenPointAndLight, distanceBetweenPointAndLight,
+          distanceBetweenPointAndNthFace;
     Point3D vectex1Face, vectorBetweenPointAndCoordinateLight, coordLight0, pointInsertFace;
     pointInsertFace = faceBelongPoint.pointInsertFace;
     for (int NthMaterial = 0; NthMaterial < amountMaterial; ++NthMaterial) {
@@ -180,25 +181,30 @@ bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(face3D faceBelongPoin
             Nthface = scenarioObject->getFaceObjIn3D(idFace);
             vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
 
-            // Check if the NthFace is the Face that the Belongs to point.
-            Point3D test = generateVetor.generateVector(pointInsertFace, vectex1Face);
-            test = unitVector.normalize(test);
-            pointBelongToPlane = dot.scalarproduct(test, Nthface.normal);
-            if(pointBelongToPlane != 0.0000){
+            if(Nthface.idFace != faceBelongPoint.idFace ){
                 coordLight0.x = faceBelongPoint.light0.x;
                 coordLight0.y = faceBelongPoint.light0.y;
                 coordLight0.z = faceBelongPoint.light0.z;
 
                 vectorBetweenPointAndCoordinateLight = generateVetor.generateVector(pointInsertFace, coordLight0);
-                // Tint: distance in between screen of the projection and Nth face.
-                Tint =  dot.scalarproduct(vectex1Face, Nthface.normal)
-                                            /
+
+                // The distance between the point of a face that wants to know
+                // if it has a shadow and the position of the light.
+                distanceBetweenPointAndLight = unitVector.distanceBetweenTwoPoint(pointInsertFace, coordLight0);
+
+               // vectex1Face = unitVector.normalize(vectex1Face);
+               // vectorBetweenPointAndCoordinateLight = unitVector.normalize(vectorBetweenPointAndCoordinateLight);
+
+                // Tint: distance in between point insert face and Nth face.
+                ifNormalNTHFaceIsParallelVectorBetweenPointAndLight =
+                        dot.scalarproduct(vectex1Face, Nthface.normal)
+                                                    /
                         dot.scalarproduct(vectorBetweenPointAndCoordinateLight, Nthface.normal);
 
-                if (Tint > 0.0000){
-                    vectorBetweenPointAndCoordinateLight.x *= Tint;
-                    vectorBetweenPointAndCoordinateLight.y *= Tint;
-                    vectorBetweenPointAndCoordinateLight.z *= Tint;
+                if (ifNormalNTHFaceIsParallelVectorBetweenPointAndLight > 0.0000 ){
+                    vectorBetweenPointAndCoordinateLight.x *= ifNormalNTHFaceIsParallelVectorBetweenPointAndLight;
+                    vectorBetweenPointAndCoordinateLight.y *= ifNormalNTHFaceIsParallelVectorBetweenPointAndLight;
+                    vectorBetweenPointAndCoordinateLight.z *= ifNormalNTHFaceIsParallelVectorBetweenPointAndLight;
 
                     Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
                     Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
@@ -208,9 +214,10 @@ bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(face3D faceBelongPoin
                     pointInsideFace = CheakPointWithinTriangle(Nthface, vectorBetweenPointAndCoordinateLight);
 
                     if(pointInsideFace == true){
-
-                        return true;
-
+                        distanceBetweenPointAndNthFace = unitVector.distanceBetweenTwoPoint(vectorBetweenPointAndCoordinateLight,
+                                                                                                  coordLight0);
+                        if (distanceBetweenPointAndNthFace < distanceBetweenPointAndLight)
+                            return true;
                     }
                 }
             }
