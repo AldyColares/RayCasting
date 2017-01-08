@@ -53,7 +53,7 @@ void CoordinateTransformation::calculeNormal(ScenarioObject *scenarioObject)
         vectorV1V2 = geneVetor.generateVector(scenarioObject->getVectorObjIn3D(NthFace.idV1),
                                               scenarioObject->getVectorObjIn3D(NthFace.idV2));
 
-        vectorV2V3 = geneVetor.generateVector(scenarioObject->getVectorObjIn3D(NthFace.idV1),
+        vectorV2V3 = geneVetor.generateVector(scenarioObject->getVectorObjIn3D(NthFace.idV2),
                                               scenarioObject->getVectorObjIn3D(NthFace.idV3));
 
         NthFace.normal = crossProduct.crossProduct(vectorV1V2, vectorV2V3);

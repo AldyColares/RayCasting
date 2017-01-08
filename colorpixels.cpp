@@ -46,7 +46,6 @@ GridPixel* ColorPixels::caluletionColorPixels(int pixelRateHorizontal, int pixel
 
                 somaIAmb = ambientColor(face);
                 cleanVariableDiffuseAndSpecular();
-
                 if(thereIsShadow == false){
                     somaIDif = diffuseColor(face);
                     somaISpe = specularColor(face);
@@ -127,9 +126,10 @@ light ColorPixels::diffuseColor(face3D face)
 {
     light IDif;
     float produto;
+    bool i;
     proMat = face.propMaterial;
     light0 = face.light0;
-    Point3D pint, vertorPointAndLight,l;
+    Point3D pint, vertorPointAndLight, l, vertorPointAndLightNormalize;
     pint = face.pointInsertFace;
     l.x = light0.x;
     l.y = light0.y;
@@ -137,21 +137,21 @@ light ColorPixels::diffuseColor(face3D face)
 
     vertorPointAndLight = generateVector.generateVector(pint, l);
 
-    vertorPointAndLight = unitVector.normalize(vertorPointAndLight);
+    vertorPointAndLightNormalize = unitVector.normalize(vertorPointAndLight);
 
-    produto = dot.scalarproduct(face.normal, vertorPointAndLight);
-    if (produto < 0.00);
-    produto = sqrt(produto * produto);
-    if(produto != 0.000){
-        IDif.red = (light0.red * proMat.materialDiffuseRed) * produto;
-        IDif.green =( light0.green * proMat.materialDiffuseGreen) * produto;
-        IDif.blue =(light0.blue * proMat.materialDiffuseBlue) * produto;
+    produto = dot.scalarproduct(face.normal, vertorPointAndLightNormalize);
+
+    if(produto > 0.000){
+        //produto = sqrt(produto * produto);
+       // produto = produto -1;
+        IDif.red   =  (light0.red * proMat.materialDiffuseRed) * produto;
+        IDif.green =  ( light0.green * proMat.materialDiffuseGreen) * produto;
+        IDif.blue  =  (light0.blue * proMat.materialDiffuseBlue) * produto;
         return IDif;
     }else{
-        //cout << produto << " ";
-        IDif.red = 0.00;
-        IDif.green = 0.00;
-        IDif.blue = 0.00;
+        IDif.red =  0;
+        IDif.green = 0;
+        IDif.blue = 0;
         return IDif;
     }
 
@@ -222,4 +222,15 @@ void ColorPixels::cleanVariableDiffuseAndSpecular()
     somaISpe.red = 0;
     somaISpe.green = 0;
     somaISpe.blue = 0;
+}
+
+bool ColorPixels::checkVectoresAngleBetweenzeroAnd90(Point3D v1, Point3D v2)
+{
+    if (v1.x < 0 && v2.x < 0){
+
+    }else if(v1.y < 0 && v2.y < 0){
+
+    }else if(v1.z < 0 && v2.z < 0){
+
+    }
 }

@@ -32,6 +32,7 @@ private:
     int color8bits = 255;
     int convertColorForFormatRGB32(float color);
     void cleanVariableDiffuseAndSpecular();
+    bool checkVectoresAngleBetweenzeroAnd90(Point3D v1, Point3D v2);
     GenerateVetor generateVector;
     Point3D coordLight0,vertexPixel, VerticeBetweenPointAndLight, pointInsertface;
     Camera* camera;

@@ -15,17 +15,20 @@ void Scenario::LoadScenario()
     vectorScenarioObject = loadMaterial->loadObject();
 
     Point3D point;
-    point.x = 0;
-    point.y = 20;
-    point.z = 0;
-   // translationObject.moveObject(vectorScenarioObject->at(0), point);
+    point.x = 12.5;
+    point.y = 2;
+    point.z = 5;
+    //translationObject.moveObject(vectorScenarioObject->at(0), point);
     Point3D escalar;
-    escalar.x = 2.0;
-    escalar.y = 2.0;
-    escalar.z = 2.0;
-    //scalerObject.scaler(escalar, vectorScenarioObject->at(0));
+    escalar.x = 3.75;
+    escalar.y = 3.75;
+    escalar.z = 3.75;
+    scalerObject.scaler(escalar, vectorScenarioObject->at(0));
     // sideRight Front Top
     //quaternions.rotation(90,vectorScenarioObject->at(0), "sideRight");
+    //quaternions.rotation(90,vectorScenarioObject->at(0), "Top");
+    //quaternions.rotation(90,vectorScenarioObject->at(0), "Frot");
+
 
 }
 

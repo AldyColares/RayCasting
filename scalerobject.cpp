@@ -21,12 +21,12 @@ void ScalerObject::scaler(Point3D valueScaler, ScenarioObject *scenarioObject)
         listVectores.push_back(auxVertex);
     }
     scenarioObject->setListVertex(listVectores);
+    listVectores.clear();
     centroid.x *= -1;
     centroid.y *= -1;
     centroid.z *= -1;
     translationObject.moveObjectScaler(scenarioObject, centroid);
 
-    listVectores.clear();
 }
 
 Point3D ScalerObject::matrixScaler(Point3D NthVertex, Point3D valueScaler)

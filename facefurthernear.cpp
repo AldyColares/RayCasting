@@ -1,3 +1,4 @@
+
 #include "facefurthernear.h"
 
 FaceFurtherNear::FaceFurtherNear()
@@ -43,13 +44,13 @@ bool FaceFurtherNear::CheakPointWithinTriangle(face3D face, Point3D Q)
             Ne.y = E.x;
             Ne.z = 0.0000;
         }else{
-            // para testes. caso o método "deleteInModuleTheLargestVertex(point3D normal)" esteja bugado.
         }
         result = dot.scalarproduct(Ne, F) * dot.scalarproduct(Ne, G);
         if (result < 0.00000){
             return false;
         }
     }
+    //cout << "achou!!";
     return true;
 }
 
@@ -131,7 +132,7 @@ face3D FaceFurtherNear::lookUpSmallestDistanceFace(Point3D vectorXAndYCoordinate
 
             // Tint: distance in between screen of the projection and Nth face.
             Tint =  dot.scalarproduct(vectex1Face, Nthface.normal)
-                                            /
+                    /
                     dot.scalarproduct(auxCoordinatePIxel, Nthface.normal);
 
             if (Tint > 0.0000){
@@ -167,60 +168,68 @@ bool FaceFurtherNear::checkIfThereFaceBetweenPointAndLight(face3D faceBelongPoin
                                                            vector<ScenarioObject *> *groupScenarioObject)
 {
     ScenarioObject* scenarioObject;
+    float rateRemoteness = 0.0125;
     int amountMaterial = groupScenarioObject->size();
     face3D Nthface;
-    float ifNormalNTHFaceIsParallelVectorBetweenPointAndLight, distanceBetweenPointAndLight,
-          distanceBetweenPointAndNthFace;
-    Point3D vectex1Face, vectorBetweenPointAndCoordinateLight, coordLight0, pointInsertFace;
+    float Tint, distanceBetweenPointAndLight,
+            distanceBetweenPointAndNthFace, testIfdoNotZero;
+    Point3D vectex1Face, vectorBetweenPointAndCoordinateLight
+            ,vectorBetweenVertex1AndPoint, coordLight0, pointInsertFace, shadowRay;
+
     pointInsertFace = faceBelongPoint.pointInsertFace;
+    //pointInsertFace.x += (rateRemoteness * faceBelongPoint.normal.x);
+    //pointInsertFace.y += (rateRemoteness * faceBelongPoint.normal.y);
+    //pointInsertFace.z += (rateRemoteness * faceBelongPoint.normal.z);
+    coordLight0.x = faceBelongPoint.light0.x;
+    coordLight0.y = faceBelongPoint.light0.y;
+    coordLight0.z = faceBelongPoint.light0.z;
+    distanceBetweenPointAndLight = unitVector.distanceBetweenTwoPoints(pointInsertFace, coordLight0);
+
     for (int NthMaterial = 0; NthMaterial < amountMaterial; ++NthMaterial) {
         scenarioObject = groupScenarioObject->at(NthMaterial);
         int amountface = scenarioObject->getSizeFaces();
 
         for (int idFace = 0; idFace < amountface; ++idFace) {
             Nthface = scenarioObject->getFaceObjIn3D(idFace);
+
+            shadowRay = generateVetor.generateVector(pointInsertFace, coordLight0);
+            //shadowRay.x += pointInsertFace.x;
+            //shadowRay.y += pointInsertFace.y;
+            //shadowRay.z += pointInsertFace.z;
+            //shadowRay = unitVector.normalize(shadowRay);
+            shadowRay.w = 0;
+
             vectex1Face = scenarioObject->getVectorObjIn3D(Nthface.idV1);
+            vectorBetweenVertex1AndPoint = generateVetor.generateVector(pointInsertFace, vectex1Face);
+            //vectorBetweenVertex1AndPoint = unitVector.normalize(vectorBetweenVertex1AndPoint);
+            // Tint: distance in between point insert face and Nth face.
+            testIfdoNotZero = dot.scalarproduct(shadowRay, Nthface.normal);
 
-            if(Nthface.idFace != faceBelongPoint.idFace ){
-                coordLight0.x = faceBelongPoint.light0.x;
-                coordLight0.y = faceBelongPoint.light0.y;
-                coordLight0.z = faceBelongPoint.light0.z;
-
-                vectorBetweenPointAndCoordinateLight = generateVetor.generateVector(pointInsertFace, coordLight0);
-
-                // The distance between the point of a face that wants to know
-                // if it has a shadow and the position of the light.
-                distanceBetweenPointAndLight = unitVector.distanceBetweenTwoPoint(pointInsertFace, coordLight0);
-
-               // vectex1Face = unitVector.normalize(vectex1Face);
-               // vectorBetweenPointAndCoordinateLight = unitVector.normalize(vectorBetweenPointAndCoordinateLight);
-
-                // Tint: distance in between point insert face and Nth face.
-                ifNormalNTHFaceIsParallelVectorBetweenPointAndLight =
-                        dot.scalarproduct(vectex1Face, Nthface.normal)
+            if(testIfdoNotZero != 0.000){
+                Tint =  dot.scalarproduct(vectorBetweenVertex1AndPoint, Nthface.normal)
                                                     /
-                        dot.scalarproduct(vectorBetweenPointAndCoordinateLight, Nthface.normal);
+                                               testIfdoNotZero;
 
-                if (ifNormalNTHFaceIsParallelVectorBetweenPointAndLight > 0.0000 ){
-                    vectorBetweenPointAndCoordinateLight.x *= ifNormalNTHFaceIsParallelVectorBetweenPointAndLight;
-                    vectorBetweenPointAndCoordinateLight.y *= ifNormalNTHFaceIsParallelVectorBetweenPointAndLight;
-                    vectorBetweenPointAndCoordinateLight.z *= ifNormalNTHFaceIsParallelVectorBetweenPointAndLight;
+                if (Tint > 0.0000 && Tint < 1.0){
+                    shadowRay.x *= Tint;
+                    shadowRay.y *= Tint;
+                    shadowRay.z *= Tint;
 
                     Nthface.Vertex1 = scenarioObject->getVectorObjIn3D(Nthface.idV1);
                     Nthface.Vertex2 = scenarioObject->getVectorObjIn3D(Nthface.idV2);
                     Nthface.Vertex3 = scenarioObject->getVectorObjIn3D(Nthface.idV3);
-                    Nthface = deleteInModuleTheLargestVertex(Nthface, vectorBetweenPointAndCoordinateLight);
+                    Nthface = deleteInModuleTheLargestVertex(Nthface, shadowRay);
 
-                    pointInsideFace = CheakPointWithinTriangle(Nthface, vectorBetweenPointAndCoordinateLight);
+                    pointInsideFace = CheakPointWithinTriangle(Nthface, shadowRay);
 
                     if(pointInsideFace == true){
-                        distanceBetweenPointAndNthFace = unitVector.distanceBetweenTwoPoint(vectorBetweenPointAndCoordinateLight,
-                                                                                                  coordLight0);
-                        if (distanceBetweenPointAndNthFace < distanceBetweenPointAndLight)
-                            return true;
+                        //cout << " é true ";
+
+                        return true;
                     }
                 }
             }
+
         }
     }
     return false;

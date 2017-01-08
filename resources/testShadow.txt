@@ -1,0 +1,19 @@
+v -10   0 -10
+v  10   0 -10
+v  0   0  23
+v -1   8 -1.0
+v  1   8 -1.0
+v  0   8  2.0
+
+f 3 2 1 1.0 1.0 1.0
+f 6 5 4 0.2 0.4 0.6
+
+
+materialAmbient   0.4 0.4 0.4
+
+materialDiffuse   0.4 0.4 0.4 
+
+materialSpecular  0.6  0.6  0.6 
+
+materialShininess  231 
+

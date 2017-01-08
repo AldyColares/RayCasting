@@ -8,7 +8,7 @@ class UnitVector
 public:
     UnitVector();
     Point3D normalize(Point3D v1);
-    float distanceBetweenTwoPoint(Point3D P1, Point3D P2);
+    float distanceBetweenTwoPoints(Point3D P1, Point3D P2);
 private:
     Point3D result;
 };

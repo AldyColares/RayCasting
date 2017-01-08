@@ -16,8 +16,11 @@ vector<ScenarioObject*> *LoadMaterial::loadObject(){
     //setMaterial.push_back("triforce.txt");
     //setMaterial.push_back("mesa.txt");
 
-    setMaterial.push_back("cubeDepurer.txt");
-    setMaterial.push_back("floor.txt");
+    //setMaterial.push_back("tree.txt");
+    //setMaterial.push_back("floor.txt");
+   // setMaterial.push_back("cubeDepurer.txt");
+    setMaterial.push_back("testShadow.txt");
+
 
     //home/0338159/Documentos/RayCasting
     //home/rin/Documentos/trabalho CG/RayCasting
@@ -177,7 +180,7 @@ Point3D LoadMaterial::calculatingNormal(face3D vectorsFace, ScenarioObject* sceO
     vectorV1V2 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV1),
                                           sceOnj->getVectorObjIn3D(vectorsFace.idV2));
 
-    vectorV2V3 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV1),
+    vectorV2V3 = genevetor.generateVector(sceOnj->getVectorObjIn3D(vectorsFace.idV2),
                                           sceOnj->getVectorObjIn3D(vectorsFace.idV3));
 
     point = crossProduct.crossProduct(vectorV1V2, vectorV2V3);
